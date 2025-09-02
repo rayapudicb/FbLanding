@@ -1,0 +1,40 @@
+Build me a professional, responsive landing page for Flickbytes — a short video threading application.
+
+Inspiration: Take structural inspiration from tribegroup.co, truthsocial.com, and tiktok.com, but do not copy text or content. Generate fully original copy that avoids plagiarism.
+
+Brand: Dark modern theme with accent gradients (teal, blue, gold).
+Tone: Futuristic, clean, engaging, community-focused.
+
+Sections to include:
+1. **Navigation bar** with logo + buttons (How it works, Features, Admin, Get Early Access).
+2. **Hero section** with headline:
+   - "Talk in 10-second videos. Build living threads."
+   - Short subtext about creating threads via video replies.
+   - Buttons for CTA (Try the Demo, See Capabilities).
+   - Right side: Vertical video frame (replace with placeholder video or screenshot).
+3. **What the platform does / What we do for you**
+   - Two-column layout:
+     - Left: Explains how users post short clips and reply in threads.
+     - Right: Cards showing benefits (fast uploads, captions, org campaigns).
+4. **Features Grid**
+   - Cards with icons/titles: Short Video Threads, Subtitles, Polls, Communities, Safety, Sponsored content.
+5. **Admin Section (FireCMS powered)**
+   - Text on how admins can manage users, posts, reports, toggles, org campaigns.
+   - Include a placeholder admin dashboard screenshot/video.
+6. **Call to Action**
+   - Centered card: "Ready to try Flickbytes?" with buttons for Early Access and Demo video.
+7. **Footer**
+   - Logo, copyright, and muted links.
+
+Design details:
+- Use modern web fonts (Inter or similar).
+- Include interactive hover effects on buttons and cards.
+- Use responsive layout with CSS grid/flexbox.
+- Include placeholder `<video>` or `<img>` tags where product demos will go.
+
+Deliverable:
+- Provide a single self-contained `index.html` file with inline CSS (and minimal JS for interactivity).
+- Ensure mobile responsiveness.
+- Include semantic HTML, aria-labels for accessibility.
+
+Do not copy text from other sites. Generate original text for Flickbytes in a professional but approachable style.
