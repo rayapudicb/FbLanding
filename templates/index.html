@@ -285,10 +285,10 @@
         /* Video Captions */
         .video-captions {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
             margin-top: 30px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -310,12 +310,12 @@
 
         .mobile-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
             margin-top: 60px;
             justify-items: center;
             position: relative;
-            max-width: 1200px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -499,6 +499,10 @@
 
         .thread-indicator.followup {
             background: rgba(79, 172, 254, 0.8);
+        }
+        
+        .thread-indicator.recomment {
+            background: rgba(255, 87, 34, 0.8);
         }
 
         .reply-indicator {
@@ -1207,14 +1211,20 @@
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
-            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
-            .mobile-mockup { width: 300px; height: 600px; }
-            .thread-connection { width: 40px; }
-            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .mobile-mockup { width: 280px; height: 560px; }
+            .thread-connection { width: 30px; }
+            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 25px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
-            .mobile-mockup { width: 280px; height: 560px; }
+            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+            .mobile-mockup { width: 260px; height: 520px; }
+            .video-captions { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        }
+        
+        @media (min-width: 1201px) and (max-width: 1400px) {
+            .mobile-mockup { width: 300px; height: 600px; }
         }
     </style>
 </head>
@@ -1334,6 +1344,33 @@
                             </div>
                         </div>
                         <div class="thread-connection left"></div>
+                        <div class="thread-connection right"></div>
+                    </div>
+
+                    <!-- Video 4: Re-comment -->
+                    <div class="mobile-mockup thread-recomment">
+                        <div class="phone-notch"></div>
+                        <div class="mobile-screen">
+                            <div class="video-player-mockup">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/jTyq3XdGCQU?autoplay=1&mute=1&loop=1&controls=1&rel=0&modestbranding=1&playsinline=1&playlist=jTyq3XdGCQU"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen
+                                    style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                </iframe>
+                                <div class="video-overlay">
+                                    <div class="thread-indicator recomment">
+                                        <span>Thread 4/4</span>
+                                    </div>
+                                    <div class="reply-indicator">
+                                        <i data-feather="corner-down-right"></i>
+                                        <span>Re-commenting on thread...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="thread-connection left"></div>
                     </div>
                 </div>
                 
@@ -1342,6 +1379,7 @@
                     <div class="caption">Create • Comment • Reconnect</div>
                     <div class="caption">All with selfie - Be original, be you</div>
                     <div class="caption">Improvise your story, one clip at a time</div>
+                    <div class="caption">Re-comment • Keep the conversation alive</div>
                 </div>
             </div>
             
