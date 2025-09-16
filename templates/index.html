@@ -289,7 +289,7 @@
         .video-captions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: clamp(24px, 4vw, 60px);
+            gap: clamp(16px, 2.5vw, 32px);
             margin-top: clamp(16px, 3vw, 24px);
             max-width: 1200px;
             margin-left: auto;
@@ -319,7 +319,7 @@
         .mobile-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: clamp(24px, 4vw, 60px);
+            gap: clamp(16px, 2.5vw, 32px);
             margin-top: clamp(20px, 4vw, 40px);
             place-items: center;
             position: relative;
@@ -1216,22 +1216,22 @@
         
         /* Mobile Grid Responsive */
         @media (max-width: 599px) {
-            .mobile-grid { grid-template-columns: 1fr; gap: 24px; }
+            .mobile-grid { grid-template-columns: 1fr; gap: 20px; }
             .mobile-mockup { width: 240px; height: 480px; margin: 0 auto; }
-            .video-captions { grid-template-columns: 1fr; gap: 24px; margin-top: 16px; }
+            .video-captions { grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
             .caption { font-size: 14px; }
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
-            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .mobile-mockup { width: 220px; height: 440px; }
-            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 24px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
-            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 36px; }
+            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
             .mobile-mockup { width: 200px; height: 400px; }
-            .video-captions { grid-template-columns: repeat(3, 1fr); gap: 36px; }
+            .video-captions { grid-template-columns: repeat(3, 1fr); gap: 28px; }
         }
         
         @media (min-width: 1201px) and (max-width: 1400px) {
