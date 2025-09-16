@@ -3,21 +3,930 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flickbytes - Talk in 10-second videos. Build living threads.</title>
-    <meta name="description" content="Create dynamic conversations through short video threads. Connect, engage, and build communities with Flickbytes' innovative video threading platform.">
+    <title>Flickbytes - Drive Powerful Video Threading</title>
+    <meta name="description" content="Build, manage and measure your video threading community with Flickbytes' platform and expert support team.">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
     
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            padding: 16px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #FFFC00;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #FFFC00;
+            color: #000;
+            border: 2px solid #FFFC00;
+        }
+
+        .btn-primary:hover {
+            background: #e6e300;
+            border-color: #e6e300;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #666;
+            border: 2px solid #e1e5e9;
+        }
+
+        .btn-secondary:hover {
+            border-color: #FFFC00;
+            color: #000;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #fffef0 0%, #fff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .video-preview {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(135deg, #FFFC00 0%, #e6e300 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            background: #FFFC00;
+            transform: scale(1.1);
+            color: #000;
+        }
+
+        /* Trusted Brands */
+        .trusted-brands {
+            padding: 60px 0;
+            background: #fffef8;
+        }
+
+        .trusted-brands h3 {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 40px;
+            align-items: center;
+            opacity: 0.7;
+        }
+
+        .brand-logo {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #666;
+        }
+
+        /* Services Grid */
+        .services {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #FFFC00 0%, #f4f100 100%);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Market Section */
+        .market-section {
+            padding: 100px 0;
+            background: #fffef8;
+        }
+
+        .market-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .market-section h2 {
+            font-size: 48px;
+            font-weight: 900;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .market-section p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 120px;
+        }
+
+        .feature-item:nth-child(even) .feature-content {
+            order: 2;
+        }
+
+        .feature-item:nth-child(even) .feature-image {
+            order: 1;
+        }
+
+        .feature-content h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #FFFC00;
+            margin-bottom: 16px;
+        }
+
+        .feature-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .feature-content p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .feature-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-content li {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .feature-content li:before {
+            content: '✓';
+            color: #FFFC00;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .feature-image {
+            height: 400px;
+            background: linear-gradient(135deg, #FFFC00 0%, #cccc00 100%);
+            border-radius: 12px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: #fffef8;
+        }
+
+        .testimonial {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .testimonial blockquote {
+            font-size: 24px;
+            color: #1a1a1a;
+            margin-bottom: 32px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-company {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .company-logo {
+            height: 40px;
+            margin: 24px auto 0;
+            background: #FFFC00;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        /* Creator Section */
+        .creator-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #FFFC00 0%, #e6e300 100%);
+            color: #000;
+        }
+
+        .creator-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .creator-text h2 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 24px;
+        }
+
+        .creator-text p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .app-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .app-button:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .creator-image {
+            height: 300px;
+            background: linear-gradient(135deg, #FFFC00 0%, #e6e300 100%);
+            border-radius: 12px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 60px 0;
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .newsletter-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .newsletter p {
+            color: #ccc;
+            margin-bottom: 32px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 16px;
+            max-width: 400px;
+            margin: 0 auto 32px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #444;
+            background: #2a2a2a;
+            color: #fff;
+            border-radius: 6px;
+        }
+
+        .region-select {
+            padding: 8px 16px;
+            background: #2a2a2a;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 6px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            padding: 60px 0 40px;
+            color: #fff;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-section h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #FFFC00;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 16px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #FFFC00;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-item {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .feature-item:nth-child(even) .feature-content,
+            .feature-item:nth-child(even) .feature-image {
+                order: 0;
+            }
+            
+            .creator-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Flickbytes</a>
+                <div class="nav-buttons">
+                    <a href="#contact" class="btn btn-secondary">
+                        <i data-feather="mail"></i>
+                        GET IN TOUCH
+                    </a>
+                    <a href="#login" class="btn btn-secondary">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Drive Powerful Video Threading</h1>
+            <p>Build, manage and measure your video thread community with Flickbytes' platform and expert support team</p>
+            
+            <div class="hero-buttons">
+                <a href="#brands" class="btn btn-primary">I'm a brand</a>
+                <a href="#creators" class="btn btn-primary">I'm a Creator</a>
+            </div>
+
+            <div class="video-preview">
+                <div class="video-thumbnail">
+                    <div class="play-button">
+                        <i data-feather="play" style="color: #000; margin-left: 4px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Brands -->
+    <section id="brands" class="trusted-brands">
+        <div class="container">
+            <h3>Trusted by the world's leading video platforms & creators</h3>
+            <div class="brands-grid">
+                <div class="brand-logo">TikTok</div>
+                <div class="brand-logo">YouTube</div>
+                <div class="brand-logo">Instagram</div>
+                <div class="brand-logo">Snapchat</div>
+                <div class="brand-logo">Twitch</div>
+                <div class="brand-logo">Discord</div>
+                <div class="brand-logo">Pinterest</div>
+                <div class="brand-logo">Reddit</div>
+                <div class="brand-logo">Twitter</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Video Threading</h3>
+                    <p>Start running high-performance video conversations across all platforms with our tech, team & talent.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Premium Video Content</h3>
+                    <p>Collaborate with Flickbytes' opt-in creator community for on-brand, high-quality video content for your brand's channels.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Community-Generated Content</h3>
+                    <p>Custom-built for leading brands and creators, Flickbytes Unlocked is the world's only scalable community video solution.</p>
+                    <a href="#learn-more" class="btn btn-primary" style="margin-top: 20px;">LEARN MORE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Section -->
+    <section class="market-section">
+        <div class="container">
+            <div class="market-content">
+                <h2>Market with your community</h2>
+                <p>No longer an optional tactic, video threading drives performance and delivers results. Flickbytes' combination of tech + team empowers creators to run elite strategies powered by their very own community, built with us.</p>
+                <a href="#discover" class="btn btn-primary">DISCOVER THE PLATFORM</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Build</h3>
+                    <h2>We are a creator community. Not a database.</h2>
+                    <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
+                </div>
+                <div class="feature-image"></div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Manage</h3>
+                    <h2>Our platform & team streamline the tasks you hate.</h2>
+                    <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
+                </div>
+                <div class="feature-image"></div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Measure</h3>
+                    <h2>We help you make data-led decisions.</h2>
+                    <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
+                </div>
+                <div class="feature-image"></div>
+            </div>
+
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Plus</h3>
+                    <h2>🙋🏼‍♂️🙋🏽‍♀️ A dedicated Customer Success team to provide:</h2>
+                    <ul>
+                        <li>Onboarding, training and objective setting</li>
+                        <li>Advice and insights on building your community</li>
+                        <li>Campaign and creator management</li>
+                        <li>Assistance in setting, tracking and measuring the performance of your campaigns and strategy</li>
+                        <li>Tailored account planning and business reviews</li>
+                    </ul>
+                </div>
+                <div class="feature-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="testimonial">
+                <blockquote>"Flickbytes is genius! Best video threading product I've seen all year!"</blockquote>
+                <div class="testimonial-author">Sarah Chen | Global Community Director</div>
+                <div class="testimonial-company">TechFlow Media</div>
+                <div class="company-logo">TechFlow</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to start?</h2>
+            <p>Discover how Flickbytes' tech, team and talented creators can save you time AND deliver results</p>
+            <a href="#contact" class="btn btn-primary">GET IN TOUCH</a>
+        </div>
+    </section>
+
+    <!-- Creator Section -->
+    <section id="creators" class="creator-section">
+        <div class="container">
+            <div class="creator-content">
+                <div class="creator-text">
+                    <h2>ARE YOU A CREATOR?</h2>
+                    <h2>Create content. Have fun. Get paid.</h2>
+                    <p>Download the app and start earning today.</p>
+                    <div class="app-buttons">
+                        <a href="#" class="app-button">
+                            <i data-feather="smartphone"></i>
+                            Download on the App Store
+                        </a>
+                        <a href="#" class="app-button">
+                            <i data-feather="play"></i>
+                            Download for Google Play
+                        </a>
+                    </div>
+                </div>
+                <div class="creator-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Stay up to date</h3>
+                <p>Sign up to receive industry-specific case studies, the latest industry news and campaign strategies delivered straight to your inbox</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email">
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+                <select class="region-select">
+                    <option>Region</option>
+                    <option>APAC</option>
+                    <option>UK & I</option>
+                    <option>US</option>
+                    <option>EU</option>
+                    <option>South America</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="cta-section">
+        <div class="container">
+            <h2>Get in Touch</h2>
+            <p>Ready to start building your video threading community? Let's connect and discuss how Flickbytes can help you achieve your goals.</p>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form style="display: grid; gap: 16px; margin-bottom: 32px;">
+                    <input type="text" placeholder="Your Name" style="padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                    <input type="email" placeholder="Your Email" style="padding: 12px; border: 1px solid #ddd; border-radius: 6px;">
+                    <textarea placeholder="Your Message" rows="4" style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; resize: vertical;"></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h3>Creator & Brand Login</h3>
+                <p>Access your Flickbytes dashboard to manage your video threads, analytics, and community engagement.</p>
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <form style="display: grid; gap: 16px; margin-bottom: 32px;">
+                        <input type="email" placeholder="Email Address" style="padding: 12px; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 6px;">
+                        <input type="password" placeholder="Password" style="padding: 12px; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 6px;">
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                    </form>
+                    <p style="color: #ccc; font-size: 14px;">Don't have an account? <a href="#" style="color: #FFFC00;">Sign up here</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>FLICKBYTES</h4>
+                    <p style="color: #ccc; margin-bottom: 24px;">The world's leading video threading platform connecting creators and communities through authentic conversations.</p>
+                    <div style="margin-bottom: 16px;">
+                        <strong style="color: #FFFC00;">Contact Us:</strong><br>
+                        <span style="color: #ccc;">hello@flickbytes.com</span><br>
+                        <span style="color: #ccc;">+1 (555) 123-4567</span>
+                    </div>
+                    <div>
+                        <strong style="color: #FFFC00;">Follow Us:</strong><br>
+                        <a href="#" style="color: #ccc; margin-right: 12px;">Twitter</a>
+                        <a href="#" style="color: #ccc; margin-right: 12px;">LinkedIn</a>
+                        <a href="#" style="color: #ccc;">Instagram</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>PLATFORM</h4>
+                    <ul>
+                        <li><a href="#">Video Threading</a></li>
+                        <li><a href="#">Creator Dashboard</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Community Tools</a></li>
+                        <li><a href="#">Content Library</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>SOLUTIONS</h4>
+                    <ul>
+                        <li><a href="#">For Brands</a></li>
+                        <li><a href="#">For Creators</a></li>
+                        <li><a href="#">For Agencies</a></li>
+                        <li><a href="#">Enterprise</a></li>
+                        <li><a href="#">Small Business</a></li>
+                        <li><a href="#">Non-Profits</a></li>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>RESOURCES</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Video Tutorials</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Community Forum</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                        <li><a href="#">Template Library</a></li>
+                        <li><a href="#">Industry Reports</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>COMPANY</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Investors</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Flickbytes, Inc. All rights reserved. | Privacy Policy | Terms of Service | Cookie Preferences</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
         // Initialize Feather icons
-        feather.replace();
-        
-        // Smooth scroll for navigation links
         document.addEventListener('DOMContentLoaded', () => {
+            feather.replace();
+            
+            // Smooth scroll for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -30,933 +939,6 @@
                     }
                 });
             });
-        });
-    </script>
-    
-    <style>
-        :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-muted: #718096;
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-accent: linear-gradient(135deg, #14b8a6 0%, #3b82f6 100%);
-            --teal: #14b8a6;
-            --blue: #3b82f6;
-            --purple: #667eea;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--primary-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 700;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.01em;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .cta-button.secondary {
-            background: transparent;
-            border: 2px solid var(--teal);
-            color: var(--teal);
-        }
-
-        .cta-button.secondary:hover {
-            background: var(--teal);
-            color: white;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 120px 0 80px;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .hero-text p {
-            font-size: 1.375rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .video-frame {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            position: relative;
-            aspect-ratio: 9/16;
-            max-width: 300px;
-            margin: 0 auto;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-        }
-
-        .video-placeholder {
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-secondary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .play-button {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .play-button:hover {
-            background: white;
-            transform: scale(1.1);
-            box-shadow: var(--shadow-hover);
-        }
-
-        /* What We Do Section */
-        .what-we-do {
-            padding: 80px 0;
-            background: var(--secondary-bg);
-        }
-
-        .section-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .section-content h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .section-content p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .benefit-cards {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .benefit-card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .benefit-card h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--teal);
-        }
-
-        .benefit-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* Features Grid */
-        .features {
-            padding: 80px 0;
-            background: var(--primary-bg);
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: var(--glass-bg);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            position: relative;
-            box-shadow: var(--shadow);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border-radius: 20px;
-            z-index: -1;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-primary);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Admin Section */
-        .admin-section {
-            padding: 80px 0;
-            background: var(--secondary-bg);
-        }
-
-        .admin-content {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .admin-content h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .admin-content p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
-            font-weight: 400;
-        }
-
-        .dashboard-preview {
-            background: var(--gradient-secondary);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            max-width: 800px;
-            margin: 0 auto;
-            aspect-ratio: 16/10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .dashboard-preview:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .dashboard-preview::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 16px;
-        }
-
-        .dashboard-preview-text {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            z-index: 1;
-            position: relative;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 80px 0;
-            text-align: center;
-            background: var(--primary-bg);
-        }
-
-        .cta-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            border: 1px solid var(--border-color);
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-        }
-
-        .cta-card h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .cta-card p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.25rem;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Footer */
-        .footer {
-            padding: 3rem 0 2rem;
-            background: var(--secondary-bg);
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-secondary);
-        }
-
-        .footer-bottom {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                text-align: center;
-            }
-
-            .hero-text h1 {
-                font-size: 3rem;
-                letter-spacing: -0.02em;
-            }
-
-            .section-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .features h2 {
-                font-size: 2.5rem;
-                letter-spacing: -0.02em;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .admin-content h2 {
-                font-size: 2.5rem;
-                letter-spacing: -0.02em;
-            }
-
-            .cta-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .cta-card h2 {
-                font-size: 2rem;
-                letter-spacing: -0.02em;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .cta-button {
-                width: 100%;
-                max-width: 250px;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .hero {
-                padding: 100px 0 60px;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-                letter-spacing: -0.02em;
-            }
-
-            .hero-text p {
-                font-size: 1.125rem;
-                font-weight: 400;
-            }
-
-            .section-content h2,
-            .features h2,
-            .admin-content h2 {
-                font-size: 2rem;
-                letter-spacing: -0.02em;
-            }
-
-            .feature-card,
-            .benefit-card {
-                padding: 1.5rem;
-            }
-
-            .cta-card h2 {
-                font-size: 1.75rem;
-                letter-spacing: -0.02em;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-
-        /* Accessibility */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Focus styles */
-        a:focus,
-        button:focus {
-            outline: 2px solid var(--teal);
-            outline-offset: 2px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo" aria-label="Flickbytes">Flickbytes</div>
-                <ul class="nav-links">
-                    <li><a href="#how-it-works">How it works</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#admin">Admin</a></li>
-                    <li><a href="#cta" class="cta-button">Get Early Access</a></li>
-                </ul>
-                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
-                    <i data-feather="menu"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="hero" role="banner">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Talk in 10-second videos. Build living threads.</h1>
-                    <p>Transform conversations into dynamic video threads. Connect with your community through authentic, engaging short-form content that builds meaningful discussions over time.</p>
-                    <div class="hero-buttons">
-                        <a href="#demo" class="cta-button">
-                            <i data-feather="play-circle"></i>
-                            Try the Demo
-                        </a>
-                        <a href="#capabilities" class="cta-button secondary">
-                            <i data-feather="eye"></i>
-                            See Capabilities
-                        </a>
-                    </div>
-                </div>
-                <div class="video-frame">
-                    <div class="video-placeholder">
-                        <div class="play-button" aria-label="Play video">
-                            <i data-feather="play" style="color: #667eea; margin-left: 4px;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- What We Do Section -->
-    <section class="what-we-do" id="how-it-works" role="main">
-        <div class="container">
-            <div class="section-grid">
-                <div class="section-content">
-                    <h2>Reimagine how conversations flow</h2>
-                    <p>Flickbytes revolutionizes social interaction by letting users create threaded conversations through short video replies. Each thread becomes a living story, growing organically as community members contribute their perspectives through authentic video responses.</p>
-                    <p>Whether you're sharing quick thoughts, responding to trending topics, or building deeper connections, our platform makes every conversation more engaging and personal than text alone ever could.</p>
-                </div>
-                <div class="benefit-cards">
-                    <div class="benefit-card">
-                        <h3>Lightning-Fast Uploads</h3>
-                        <p>Share your thoughts instantly with our optimized video processing pipeline. Record, edit, and publish in seconds.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>Smart Captions</h3>
-                        <p>Automatic subtitle generation makes your content accessible and discoverable across all audiences.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>Organization Campaigns</h3>
-                        <p>Brands and organizations can create sponsored threads and engage authentically with their communities.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features" role="main">
-        <div class="container">
-            <h2>Built for modern conversations</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="video" style="color: white;"></i>
-                    </div>
-                    <h3>Short Video Threads</h3>
-                    <p>Create engaging conversations through 10-second video responses that build meaningful discussions over time.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="type" style="color: white;"></i>
-                    </div>
-                    <h3>Smart Subtitles</h3>
-                    <p>Automatic captioning ensures your message reaches everyone, improving accessibility and engagement.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="bar-chart-2" style="color: white;"></i>
-                    </div>
-                    <h3>Interactive Polls</h3>
-                    <p>Gather community feedback and spark discussions with integrated polling features within video threads.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="users" style="color: white;"></i>
-                    </div>
-                    <h3>Vibrant Communities</h3>
-                    <p>Build and nurture communities around shared interests with powerful discovery and connection tools.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="shield" style="color: white;"></i>
-                    </div>
-                    <h3>Advanced Safety</h3>
-                    <p>Comprehensive moderation tools and AI-powered content filtering keep your community safe and welcoming.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i data-feather="target" style="color: white;"></i>
-                    </div>
-                    <h3>Sponsored Content</h3>
-                    <p>Seamless brand integration opportunities that feel authentic and add value to conversations.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admin Section -->
-    <section class="admin-section" id="admin" role="main">
-        <div class="container">
-            <div class="admin-content">
-                <h2>Powerful admin controls, powered by FireCMS</h2>
-                <p>Take complete control of your platform with our comprehensive admin dashboard. Manage users, moderate content, analyze engagement metrics, and configure community settings all from one intuitive interface.</p>
-            </div>
-            <div class="dashboard-preview">
-                <div class="dashboard-preview-text">
-                    Admin Dashboard Preview
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta-section" id="cta" role="main">
-        <div class="container">
-            <div class="cta-card">
-                <h2>Ready to try Flickbytes?</h2>
-                <p>Join the future of social conversation. Get early access to our revolutionary video threading platform and be part of the community that's redefining digital interaction.</p>
-                <div class="cta-buttons">
-                    <a href="#signup" class="cta-button">
-                        <i data-feather="zap"></i>
-                        Get Early Access
-                    </a>
-                    <a href="#demo" class="cta-button secondary">
-                        <i data-feather="play-circle"></i>
-                        Watch Demo Video
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">Flickbytes</div>
-                <ul class="footer-links">
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                    <li><a href="#terms">Terms of Service</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#support">Support</a></li>
-                </ul>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Flickbytes. All rights reserved. Building the future of video conversations.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Initialize Feather Icons
-        feather.replace();
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Navbar scroll effect
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('.navbar');
-        
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 100) {
-                navbar.style.background = 'rgba(26, 26, 26, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(26, 26, 26, 0.95)';
-            }
-        });
-
-        // Add animation to elements when they come into view
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in-up');
-                }
-            });
-        }, observerOptions);
-
-        // Observe feature cards and benefit cards
-        document.querySelectorAll('.feature-card, .benefit-card').forEach(card => {
-            observer.observe(card);
-        });
-
-        // Mobile menu functionality (basic implementation)
-        const mobileToggle = document.querySelector('.mobile-menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-            });
-        }
-
-        // Add hover effects for better interactivity
-        document.querySelectorAll('.feature-card, .benefit-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Play button animation
-        document.querySelector('.play-button')?.addEventListener('click', function() {
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1.1)';
-            }, 150);
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 300);
         });
     </script>
 </body>
