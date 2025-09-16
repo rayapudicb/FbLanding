@@ -40,18 +40,14 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding-inline: clamp(16px, 6vw, 80px);
         }
 
-        /* Golden Ratio Spacing System */
-        .spacing-xs { margin: 8px 0; }
-        .spacing-sm { margin: 13px 0; }
-        .spacing-md { margin: 21px 0; }
-        .spacing-lg { margin: 34px 0; }
-        .spacing-xl { margin: 55px 0; }
-        .spacing-xxl { margin: 89px 0; }
+        /* Fluid Spacing System */
+        .section-spacing { padding: clamp(64px, 12vw, 128px) 0; }
+        .grid-gap { gap: clamp(16px, 3vw, 40px); }
 
         /* Material Design Elevation */
         .elevation-1 { box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.12); }
@@ -293,9 +289,9 @@
         .video-captions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 30px;
-            max-width: 1400px;
+            gap: clamp(16px, 3vw, 40px);
+            margin-top: clamp(20px, 4vw, 40px);
+            max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -318,11 +314,11 @@
         .mobile-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 60px;
+            gap: clamp(16px, 3vw, 40px);
+            margin-top: clamp(40px, 8vw, 80px);
             justify-items: center;
             position: relative;
-            max-width: 1400px;
+            max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
             overflow: hidden;
@@ -756,7 +752,7 @@
 
         /* Features Section */
         .features {
-            padding: 100px 0;
+            padding: clamp(64px, 12vw, 128px) 0;
         }
 
         .feature-item {
@@ -883,7 +879,7 @@
 
         /* CTA Section */
         .cta-section {
-            padding: 100px 0;
+            padding: clamp(64px, 12vw, 128px) 0;
             text-align: center;
         }
 
@@ -1070,7 +1066,6 @@
 
         /* Material Design Responsive Breakpoints */
         @media (max-width: 599px) {
-            .container { padding: 0 16px; }
             .hero h1 { font-size: 36px; line-height: 1.22; }
             .hero p { font-size: 16px; }
             .services-grid { grid-template-columns: 1fr; }
@@ -1110,7 +1105,6 @@
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
-            .container { padding: 0 24px; }
             .hero h1 { font-size: 48px; }
             .services-grid { grid-template-columns: 1fr; }
             .brands-grid { grid-template-columns: repeat(4, 1fr); }
