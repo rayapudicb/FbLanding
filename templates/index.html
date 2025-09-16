@@ -262,7 +262,7 @@
             max-width: 1400px;
             margin: 40px auto 60px;
             text-align: center;
-            padding: 0 20px;
+            padding: 0 80px;
         }
 
         .showcase-title {
@@ -288,9 +288,10 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
             margin-top: 30px;
-            max-width: 1400px;
+            max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 60px;
         }
 
         .caption {
@@ -315,9 +316,10 @@
             margin-top: 60px;
             justify-items: center;
             position: relative;
-            max-width: 1400px;
+            max-width: 1280px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 60px;
         }
 
         .mobile-mockup {
@@ -1202,25 +1204,28 @@
         
         /* Mobile Grid Responsive */
         @media (max-width: 599px) {
-            .mobile-grid { grid-template-columns: 1fr; gap: 20px; }
+            .mobile-grid { grid-template-columns: 1fr; gap: 20px; padding: 0 20px; }
             .mobile-mockup { width: 280px; height: 560px; margin: 0 auto; }
             .thread-connection { display: none; }
             .showcase-title { font-size: 36px; }
-            .video-captions { grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
+            .video-captions { grid-template-columns: 1fr; gap: 20px; margin-top: 20px; padding: 0 20px; }
             .caption { font-size: 14px; }
+            .video-threading-showcase { padding: 0 20px; }
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
-            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; padding: 0 40px; }
             .mobile-mockup { width: 280px; height: 560px; }
             .thread-connection { width: 30px; }
-            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .video-captions { grid-template-columns: repeat(2, 1fr); gap: 25px; padding: 0 40px; }
+            .video-threading-showcase { padding: 0 40px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
-            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 0 50px; }
             .mobile-mockup { width: 260px; height: 520px; }
-            .video-captions { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+            .video-captions { grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 0 50px; }
+            .video-threading-showcase { padding: 0 60px; }
         }
         
         @media (min-width: 1201px) and (max-width: 1400px) {
