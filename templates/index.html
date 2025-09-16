@@ -262,7 +262,7 @@
             max-width: 1400px;
             margin: 40px auto 60px;
             text-align: center;
-            padding: 0;
+            padding: 0 20px;
         }
 
         .showcase-title {
@@ -308,8 +308,6 @@
             margin-top: 80px;
         }
 
-        
-
         .mobile-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -318,8 +316,8 @@
             justify-items: center;
             position: relative;
             max-width: 1400px;
-            margin: 60px auto 0;
-            padding: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .mobile-mockup {
@@ -340,36 +338,21 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.2);
         }
 
-        /* Wire connections positioned in grid */
-        .wire-connection {
+        .thread-connection {
             position: absolute;
             top: 50%;
-            width: 120px;
-            height: 80px;
-            z-index: 1;
-            transform: translateY(-50%);
-            pointer-events: none;
-            /* DEBUG: Make visible */
-            border: 2px solid red;
-            background: rgba(255, 0, 0, 0.1);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD300, #FFA500);
+            z-index: 0;
         }
-        
-        .wire-connection svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
+
+        .thread-connection.right {
+            right: -60px;
         }
-        
-        .wire-connection.wire-1 {
-            left: calc(25% - 57.5px);
-        }
-        
-        .wire-connection.wire-2 {
-            left: calc(50% - 50px);
-        }
-        
-        .wire-connection.wire-3 {
-            left: calc(75% - 42.5px);
+
+        .thread-connection.left {
+            left: -60px;
         }
 
         .mobile-screen {
@@ -1221,8 +1204,7 @@
         @media (max-width: 599px) {
             .mobile-grid { grid-template-columns: 1fr; gap: 20px; }
             .mobile-mockup { width: 280px; height: 560px; margin: 0 auto; }
-            .wire-connection { display: none; }
-            .mobile-grid::before, .mobile-grid::after { display: none; }
+            .thread-connection { display: none; }
             .showcase-title { font-size: 36px; }
             .video-captions { grid-template-columns: 1fr; gap: 20px; margin-top: 20px; }
             .caption { font-size: 14px; }
@@ -1231,18 +1213,13 @@
         @media (min-width: 600px) and (max-width: 904px) {
             .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
             .mobile-mockup { width: 280px; height: 560px; }
-            .wire-connection { width: 80px; height: 50px; }
-            .wire-connection.wire-2, .wire-connection.wire-3 { display: none; }
+            .thread-connection { width: 30px; }
             .video-captions { grid-template-columns: repeat(2, 1fr); gap: 25px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
             .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
             .mobile-mockup { width: 260px; height: 520px; }
-            .wire-connection { width: 80px; height: 50px; }
-            .wire-connection.wire-3 { display: none; }
-            .wire-connection.wire-1 { left: calc(33.33% - 40px); }
-            .wire-connection.wire-2 { left: calc(66.66% - 40px); }
             .video-captions { grid-template-columns: repeat(3, 1fr); gap: 25px; }
         }
         
@@ -1313,6 +1290,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="thread-connection right"></div>
                     </div>
 
                     <!-- Video 2: Reply -->
@@ -1338,6 +1316,8 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="thread-connection left"></div>
+                        <div class="thread-connection right"></div>
                     </div>
 
                     <!-- Video 3: Follow-up -->
@@ -1363,6 +1343,8 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="thread-connection left"></div>
+                        <div class="thread-connection right"></div>
                     </div>
 
                     <!-- Video 4: Re-comment -->
@@ -1388,24 +1370,8 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="thread-connection left"></div>
                     </div>
-                </div>
-                
-                <!-- Wire connections -->
-                <div class="wire-connection wire-1">
-                    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 40 Q40 20, 60 40 T110 40" stroke="#FF0000" stroke-width="6" fill="none" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="wire-connection wire-2">
-                    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 40 Q40 60, 60 40 T110 40" stroke="#00FF00" stroke-width="6" fill="none" stroke-linecap="round"/>
-                    </svg>
-                </div>
-                <div class="wire-connection wire-3">
-                    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 40 Q40 20, 60 40 T110 40" stroke="#0000FF" stroke-width="6" fill="none" stroke-linecap="round"/>
-                    </svg>
                 </div>
                 
                 <!-- Video Captions -->
