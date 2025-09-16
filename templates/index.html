@@ -17,6 +17,13 @@
     <script src="https://unpkg.com/simple-icons@latest/icons/tiktok.js"></script>
     
     <style>
+        :root {
+            --r-lg: 24px;
+            --r-xl: 32px;
+            --r-pill: 9999px;
+            --r-mobile: 56px;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -181,7 +188,7 @@
 
         .btn {
             padding: 13px 21px;
-            border-radius: 12px;
+            border-radius: var(--r-pill);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -198,13 +205,13 @@
             background: #FFD300;
             color: #000;
             border: none;
-            box-shadow: 0 2px 4px rgba(255, 211, 0, 0.3), 0 8px 16px rgba(255, 211, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(255, 211, 0, 0.2);
         }
 
         .btn-primary:hover {
             background: #e6bf00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255, 211, 0, 0.4), 0 12px 24px rgba(255, 211, 0, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 211, 0, 0.25);
         }
 
         .btn-secondary {
@@ -326,17 +333,17 @@
             width: 320px;
             height: 640px;
             background: transparent;
-            border-radius: 56px;
+            border-radius: var(--r-mobile);
             padding: 0;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.08);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             z-index: 2;
             transition: all 0.3s ease;
             overflow: hidden;
         }
 
         .mobile-mockup:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
         }
 
         .thread-connection {
