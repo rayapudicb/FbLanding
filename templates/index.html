@@ -396,10 +396,11 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            gap: clamp(16px, 2vw, 24px);
-            max-width: 1000px;
+            gap: clamp(20px, 3vw, 32px);
+            max-width: 1100px;
             margin: 0 auto;
             flex-wrap: wrap;
+            padding: 0 20px;
         }
 
         .device-frame {
@@ -445,16 +446,43 @@
         }
 
         @media (max-width: 768px) {
+            .video-panel-two {
+                padding: 60px 0;
+            }
+            
             .video-frames-container {
-                gap: 12px;
+                gap: 16px;
+                padding: 0 16px;
             }
             
             .device-frame {
-                width: clamp(140px, 22vw, 180px);
+                width: clamp(140px, 25vw, 180px);
+                margin-bottom: 8px;
             }
             
             .panel-header {
                 margin-bottom: 40px;
+                padding: 0 16px;
+            }
+            
+            .panel-header h2 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+            
+            .panel-header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-frames-container {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            
+            .device-frame {
+                width: clamp(90px, 23vw, 120px);
             }
         }
 
