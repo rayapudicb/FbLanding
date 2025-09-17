@@ -1323,8 +1323,8 @@
             console.log('User activated - audio can now play on hover');
         }, { once: true });
         
-        // Prevent double API initialization
-        function onYouTubeIframeAPIReady() {
+        // Initialize YouTube players with proper DOM readiness
+        function initYouTubePlayers() {
             if (apiInitialized) {
                 console.log('YouTube API already initialized, skipping');
                 return;
@@ -1332,13 +1332,43 @@
             apiInitialized = true;
             console.log('YouTube IFrame API Ready - initializing players');
             
-            // Initialize all YouTube players
-            document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(function(iframe, index) {
+            // Find all video targets with broad selectors
+            const targets = [
+                ...document.querySelectorAll('iframe[src*="youtube.com/embed"]'),
+                ...document.querySelectorAll('iframe[src*="youtube-nocookie.com/embed"]')
+            ];
+            
+            console.log(`Found ${targets.length} video targets`);
+            
+            if (targets.length === 0) {
+                console.log('No video targets found, retrying in 500ms...');
+                setTimeout(initYouTubePlayers, 500);
+                return;
+            }
+            
+            targets.forEach(function(iframe, index) {
+                if (iframe.dataset.playerInitialized) {
+                    console.log('Player already initialized, skipping:', iframe.id);
+                    return;
+                }
+                
                 const playerId = 'flickbytes_player_' + index;
                 iframe.id = playerId;
+                iframe.dataset.playerInitialized = '1';
                 
                 // Set data attribute for lookup
-                iframe.closest('.video-container, .mobile-mockup')?.setAttribute('data-player-id', playerId);
+                const container = iframe.closest('.video-container, .mobile-mockup');
+                if (container) {
+                    container.setAttribute('data-player-id', playerId);
+                } else {
+                    console.log('No container found for iframe:', playerId);
+                }
+                
+                // Ensure enablejsapi=1 is present
+                if (!iframe.src.includes('enablejsapi=1')) {
+                    const separator = iframe.src.includes('?') ? '&' : '?';
+                    iframe.src = iframe.src + separator + 'enablejsapi=1';
+                }
                 
                 try {
                     // Extract video ID from src
@@ -1350,11 +1380,12 @@
                         return;
                     }
                     
-                    players[playerId] = new YT.Player(playerId, {
-                        videoId: videoId,
+                    console.log('Creating player for:', playerId, 'with video ID:', videoId);
+                    
+                    players[playerId] = new YT.Player(iframe, {
                         playerVars: {
                             'origin': window.location.origin,
-                            'autoplay': 1,
+                            'autoplay': 0,
                             'mute': 1,
                             'controls': 0,
                             'rel': 0,
@@ -1386,6 +1417,18 @@
                     console.log('Could not initialize YouTube player for', playerId, ':', e.message || e);
                 }
             });
+        }
+        
+        // Prevent double API initialization with DOM readiness check
+        function onYouTubeIframeAPIReady() {
+            console.log('YouTube IFrame API Ready callback');
+            if (document.readyState === 'loading') {
+                console.log('DOM still loading, waiting for DOMContentLoaded');
+                document.addEventListener('DOMContentLoaded', initYouTubePlayers);
+            } else {
+                console.log('DOM ready, initializing players immediately');
+                initYouTubePlayers();
+            }
         }
         
         function playVideo(container) {
