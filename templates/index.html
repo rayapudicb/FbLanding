@@ -850,8 +850,8 @@
         }
 
         .feature-image {
-            aspect-ratio: 2.17 / 1; /* iPhone 16 Pro aspect ratio */
-            width: min(100%, 600px); /* Control size via width instead of max-height */
+            aspect-ratio: 1 / 2.17; /* iPhone 16 Pro portrait aspect ratio */
+            width: min(100%, 300px); /* Narrower width for portrait orientation */
             background: linear-gradient(135deg, #FFD300 0%, #cc9900 100%);
             border-radius: 12px;
             position: relative;
@@ -859,11 +859,11 @@
         }
         
         /* Fallback for browsers that don't support aspect-ratio using intrinsic ratio */
-        @supports not (aspect-ratio: 2.17 / 1) {
+        @supports not (aspect-ratio: 1 / 2.17) {
             .feature-image {
                 height: 0;
-                padding-top: 46.0829%; /* 100% / 2.17 = 46.0829% for 2.17:1 ratio */
-                width: min(100%, 600px);
+                padding-top: 217%; /* 100% * 2.17 = 217% for 1:2.17 portrait ratio */
+                width: min(100%, 300px);
             }
         }
         
