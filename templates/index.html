@@ -1306,6 +1306,11 @@
         .feature-item { margin-bottom: 32px !important; }
         .cta-section h2 { margin-bottom: 24px !important; }
         .cta-section p { margin-bottom: 32px !important; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
     
     <!-- YouTube API Unified Loader -->
@@ -1320,7 +1325,42 @@
             document.addEventListener('click', function() {
                 hasUserActivated = true;
                 console.log('[YT] User activated - audio can now play on hover');
+                // Hide any audio hint tooltips
+                document.querySelectorAll('.audio-hint').forEach(el => el.style.display = 'none');
             }, { once: true });
+            
+            // Show helpful hint on first hover attempt
+            var hasShownHint = false;
+            function showAudioHint(container) {
+                if (hasUserActivated || hasShownHint) return;
+                hasShownHint = true;
+                
+                var hint = document.createElement('div');
+                hint.className = 'audio-hint';
+                hint.innerHTML = '🔊 Click anywhere to enable hover audio';
+                hint.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: rgba(0,0,0,0.8);
+                    color: white;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 10000;
+                    animation: fadeIn 0.3s ease-in;
+                `;
+                document.body.appendChild(hint);
+                
+                // Auto-hide after 4 seconds
+                setTimeout(() => {
+                    if (hint && hint.parentNode) {
+                        hint.style.opacity = '0';
+                        hint.style.transition = 'opacity 0.3s ease-out';
+                        setTimeout(() => hint.remove(), 300);
+                    }
+                }, 4000);
+            }
             
             function init() {
                 if (started) return;
@@ -1478,6 +1518,7 @@
                         console.log('[YT] Unmuted player:', playerId);
                     } else {
                         console.log('[YT] User not activated yet - keeping muted:', playerId);
+                        showAudioHint(container);
                     }
                 } catch (e) {
                     console.log('[YT] Could not play video for', playerId, ':', e.message || e);
