@@ -762,75 +762,66 @@
             font-weight: 400;
         }
 
-        /* Features Section - Horizontal Auto-Scroll */
+        /* Features Section */
         .features {
             padding: clamp(64px, 12vw, 128px) 0;
-            overflow: hidden;
-            background: #f8f9fa;
-        }
-
-        .features .container {
-            max-width: none;
-            padding: 0;
-        }
-
-        .video-carousel {
-            display: flex;
-            width: calc(300% + 160px); /* 3 full sets + gap for seamless loop */
-            animation: scrollCarousel 30s linear infinite;
         }
 
         .feature-item {
-            display: flex;
-            flex-direction: column;
-            min-width: 400px;
-            margin-right: 40px;
-            background: #fff;
-            border-radius: var(--r-lg);
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid #eee;
-            flex-shrink: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 120px;
+        }
+
+        .feature-item:nth-child(even) .feature-content {
+            order: 2;
+        }
+
+        .feature-item:nth-child(even) .feature-image {
+            order: 1;
         }
 
         .feature-content h3 {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 0.1em;
             color: #FFD300;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .feature-content h2 {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 36px;
+            font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 16px;
-            line-height: 1.2;
+            margin-bottom: 34px;
+            line-height: 1.22;
             font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.25px;
         }
 
         .feature-content p {
-            font-size: 16px;
+            font-size: 18px;
             color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.618;
+            margin-bottom: 21px;
             font-family: 'Roboto', sans-serif;
+            font-weight: 400;
         }
 
         .feature-content ul {
             list-style: none;
             padding-left: 0;
-            margin: 0;
         }
 
         .feature-content li {
-            font-size: 14px;
+            font-size: 16px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 24px;
         }
 
         .feature-content li:before {
@@ -842,24 +833,9 @@
         }
 
         .feature-image {
-            height: 250px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: var(--r-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        @keyframes scrollCarousel {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-33.333%); }
-        }
-
-        .video-carousel:hover {
-            animation-play-state: paused;
+            height: 400px;
+            background: linear-gradient(135deg, #FFD300 0%, #cc9900 100%);
+            border-radius: 12px;
         }
 
         /* Testimonials */
@@ -1521,253 +1497,84 @@
     <!-- Features -->
     <section class="features">
         <div class="container">
-            <div class="video-carousel">
-                <!-- First set -->
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Build</h3>
-                        <h2>We are a creator community. Not a database.</h2>
-                        <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Build</h3>
+                    <h2>We are a creator community. Not a database.</h2>
+                    <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
+                </div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
                     </div>
                 </div>
+            </div>
 
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Manage</h3>
-                        <h2>Our platform & team streamline the tasks you hate.</h2>
-                        <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Manage</h3>
+                    <h2>Our platform & team streamline the tasks you hate.</h2>
+                    <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
+                </div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
                     </div>
                 </div>
+            </div>
 
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Measure</h3>
-                        <h2>We help you make data-led decisions.</h2>
-                        <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Measure</h3>
+                    <h2>We help you make data-led decisions.</h2>
+                    <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
+                </div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
                     </div>
                 </div>
+            </div>
 
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Plus</h3>
-                        <h2>🙋🏼‍♂️🙋🏽‍♀️ A dedicated Customer Success team to provide:</h2>
-                        <ul>
-                            <li>Onboarding, training and objective setting</li>
-                            <li>Advice and insights on building your community</li>
-                            <li>Campaign and creator management</li>
-                            <li>Assistance in setting, tracking and measuring the performance of your campaigns and strategy</li>
-                            <li>Tailored account planning and business reviews</li>
-                        </ul>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
+            <div class="feature-item">
+                <div class="feature-content">
+                    <h3>Plus</h3>
+                    <h2>🙋🏼‍♂️🙋🏽‍♀️ A dedicated Customer Success team to provide:</h2>
+                    <ul>
+                        <li>Onboarding, training and objective setting</li>
+                        <li>Advice and insights on building your community</li>
+                        <li>Campaign and creator management</li>
+                        <li>Assistance in setting, tracking and measuring the performance of your campaigns and strategy</li>
+                        <li>Tailored account planning and business reviews</li>
+                    </ul>
                 </div>
-
-                <!-- Second set for seamless loop -->
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Build</h3>
-                        <h2>We are a creator community. Not a database.</h2>
-                        <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Manage</h3>
-                        <h2>Our platform & team streamline the tasks you hate.</h2>
-                        <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Measure</h3>
-                        <h2>We help you make data-led decisions.</h2>
-                        <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Plus</h3>
-                        <h2>🙋🏼‍♂️🙋🏽‍♀️ A dedicated Customer Success team to provide:</h2>
-                        <ul>
-                            <li>Onboarding, training and objective setting</li>
-                            <li>Advice and insights on building your community</li>
-                            <li>Campaign and creator management</li>
-                            <li>Assistance in setting, tracking and measuring the performance of your campaigns and strategy</li>
-                            <li>Tailored account planning and business reviews</li>
-                        </ul>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Third set for seamless loop -->
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Build</h3>
-                        <h2>We are a creator community. Not a database.</h2>
-                        <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Manage</h3>
-                        <h2>Our platform & team streamline the tasks you hate.</h2>
-                        <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Measure</h3>
-                        <h2>We help you make data-led decisions.</h2>
-                        <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-content">
-                        <h3>Plus</h3>
-                        <h2>🙋🏼‍♂️🙋🏽‍♀️ A dedicated Customer Success team to provide:</h2>
-                        <ul>
-                            <li>Onboarding, training and objective setting</li>
-                            <li>Advice and insights on building your community</li>
-                            <li>Campaign and creator management</li>
-                            <li>Assistance in setting, tracking and measuring the performance of your campaigns and strategy</li>
-                            <li>Tailored account planning and business reviews</li>
-                        </ul>
-                    </div>
-                    <div class="feature-image">
-                        <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <iframe 
-                                src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                style="width: 100%; height: 100%; border-radius: var(--r-lg);">
-                            </iframe>
-                        </div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
                     </div>
                 </div>
             </div>
