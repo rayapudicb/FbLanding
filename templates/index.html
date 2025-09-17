@@ -285,7 +285,7 @@
             line-height: 1.618;
         }
 
-        /* Video Captions */
+        /* Video Captions - Fixed Position */
         .video-captions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -294,6 +294,8 @@
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 10;
         }
         
         .showcase-description {
