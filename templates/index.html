@@ -1313,29 +1313,47 @@
     <script>
         // Store video players for YouTube IFrame API
         var players = {};
-        var userActivated = false;
+        var playerReadyFlags = {};
+        var hasUserActivated = false;
+        var apiInitialized = false;
         
         // Track user activation for autoplay policy compliance
         document.addEventListener('click', function() {
-            userActivated = true;
+            hasUserActivated = true;
+            console.log('User activated - audio can now play on hover');
         }, { once: true });
         
+        // Prevent double API initialization
         function onYouTubeIframeAPIReady() {
-            console.log('YouTube IFrame API Ready');
+            if (apiInitialized) {
+                console.log('YouTube API already initialized, skipping');
+                return;
+            }
+            apiInitialized = true;
+            console.log('YouTube IFrame API Ready - initializing players');
+            
             // Initialize all YouTube players
-            document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(function(iframe) {
-                if (!iframe.id) {
-                    iframe.id = 'player_' + Math.random().toString(36).substr(2, 9);
-                }
+            document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(function(iframe, index) {
+                const playerId = 'flickbytes_player_' + index;
+                iframe.id = playerId;
+                
+                // Set data attribute for lookup
+                iframe.closest('.video-container, .mobile-mockup')?.setAttribute('data-player-id', playerId);
                 
                 try {
                     // Extract video ID from src
                     const srcMatch = iframe.src.match(/embed\/([^?&]+)/);
                     const videoId = srcMatch ? srcMatch[1] : '';
                     
-                    players[iframe.id] = new YT.Player(iframe.id, {
+                    if (!videoId) {
+                        console.log('No video ID found for iframe:', iframe.src);
+                        return;
+                    }
+                    
+                    players[playerId] = new YT.Player(playerId, {
                         videoId: videoId,
                         playerVars: {
+                            'origin': window.location.origin,
                             'autoplay': 1,
                             'mute': 1,
                             'controls': 0,
@@ -1348,7 +1366,8 @@
                         },
                         events: {
                             'onReady': function(event) {
-                                console.log('Player ready:', iframe.id);
+                                console.log('Player ready:', playerId);
+                                playerReadyFlags[playerId] = true;
                                 event.target.playVideo();
                                 event.target.mute();
                             },
@@ -1357,41 +1376,79 @@
                                 if (event.data === YT.PlayerState.ENDED) {
                                     event.target.playVideo();
                                 }
+                            },
+                            'onError': function(event) {
+                                console.log('Player error for', playerId, ':', event.data);
                             }
                         }
                     });
                 } catch (e) {
-                    console.log('Could not initialize YouTube player:', e);
+                    console.log('Could not initialize YouTube player for', playerId, ':', e.message || e);
                 }
             });
         }
         
         function playVideo(container) {
-            const iframe = container.querySelector('iframe');
-            if (iframe && iframe.id && players[iframe.id]) {
-                try {
-                    if (userActivated) {
-                        // User has clicked, so we can unmute
-                        players[iframe.id].unMute();
-                    }
-                    // Always ensure video is playing
-                    players[iframe.id].playVideo();
-                } catch (e) {
-                    console.log('Could not play video:', e);
+            const playerContainer = container.closest('.video-container, .mobile-mockup');
+            const playerId = playerContainer?.getAttribute('data-player-id');
+            
+            if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                console.log('Player not ready or not found:', playerId);
+                return;
+            }
+            
+            const player = players[playerId];
+            if (typeof player.playVideo !== 'function') {
+                console.log('Invalid player object for:', playerId);
+                return;
+            }
+            
+            try {
+                // Always ensure video is playing
+                player.playVideo();
+                
+                if (hasUserActivated) {
+                    // User has clicked, so we can unmute
+                    player.unMute();
+                    console.log('Unmuted player:', playerId);
+                } else {
+                    console.log('User not activated yet - keeping muted:', playerId);
                 }
+            } catch (e) {
+                console.log('Could not play video for', playerId, ':', e.message || e);
             }
         }
         
         function pauseVideo(container) {
-            const iframe = container.querySelector('iframe');
-            if (iframe && iframe.id && players[iframe.id]) {
-                try {
-                    // Mute the video but keep it playing
-                    players[iframe.id].mute();
-                } catch (e) {
-                    console.log('Could not mute video:', e);
-                }
+            const playerContainer = container.closest('.video-container, .mobile-mockup');
+            const playerId = playerContainer?.getAttribute('data-player-id');
+            
+            if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                console.log('Player not ready or not found for pause:', playerId);
+                return;
             }
+            
+            const player = players[playerId];
+            if (typeof player.mute !== 'function') {
+                console.log('Invalid player object for mute:', playerId);
+                return;
+            }
+            
+            try {
+                // Mute the video but keep it playing
+                player.mute();
+                console.log('Muted player:', playerId);
+            } catch (e) {
+                console.log('Could not mute video for', playerId, ':', e.message || e);
+            }
+        }
+        
+        // Only initialize if API is not already loaded
+        if (!window.YT || !window.YT.Player) {
+            console.log('Loading YouTube IFrame API');
+        } else {
+            console.log('YouTube API already loaded');
+            onYouTubeIframeAPIReady();
         }
     </script>
 </head>
