@@ -317,15 +317,30 @@
         }
 
         .mobile-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            display: flex;
+            overflow: hidden;
             gap: clamp(16px, 2.5vw, 32px);
             margin-top: clamp(20px, 4vw, 40px);
-            place-items: center;
             position: relative;
-            max-width: 1200px;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
+        }
+        
+        .video-scroll-container {
+            display: flex;
+            animation: scroll-videos 60s linear infinite;
+            gap: clamp(16px, 2.5vw, 32px);
+            flex-shrink: 0;
+        }
+        
+        @keyframes scroll-videos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .video-scroll-container:hover {
+            animation-play-state: paused;
         }
 
         .mobile-mockup {
@@ -1214,23 +1229,23 @@
             }
         }
         
-        /* Mobile Grid Responsive */
+        /* Mobile Grid Responsive - Horizontal Scroll */
         @media (max-width: 599px) {
-            .mobile-grid { grid-template-columns: 1fr; gap: 20px; }
-            .mobile-mockup { width: 240px; height: 480px; margin: 0 auto; }
+            .mobile-grid { gap: 20px; }
+            .mobile-mockup { width: 240px; height: 480px; flex-shrink: 0; }
             .video-captions { grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
             .caption { font-size: 14px; }
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
-            .mobile-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-            .mobile-mockup { width: 220px; height: 440px; }
+            .mobile-grid { gap: 24px; }
+            .mobile-mockup { width: 220px; height: 440px; flex-shrink: 0; }
             .video-captions { grid-template-columns: repeat(2, 1fr); gap: 24px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
-            .mobile-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
-            .mobile-mockup { width: 200px; height: 400px; }
+            .mobile-grid { gap: 28px; }
+            .mobile-mockup { width: 200px; height: 400px; flex-shrink: 0; }
             .video-captions { grid-template-columns: repeat(3, 1fr); gap: 28px; }
         }
         
@@ -1313,98 +1328,195 @@
         <div class="container">
             <div class="video-threading-showcase">
                 <div class="mobile-grid">
-                    <!-- Video 1: Thread Starter -->
-                    <div class="mobile-mockup thread-starter">
-                        <div class="phone-notch"></div>
-                        <div class="mobile-screen">
-                            <div class="video-player-mockup">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/_kzP31KJKwg?autoplay=1&mute=1&loop=1&controls=1&rel=0&modestbranding=1&playsinline=1&playlist=_kzP31KJKwg"
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
-                                </iframe>
-                                <div class="video-overlay">
-                                    <div class="thread-indicator starter">
-                                        <span>Thread 1/3</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video 2: Reply -->
-                    <div class="mobile-mockup thread-reply">
-                        <div class="phone-notch"></div>
-                        <div class="mobile-screen">
-                            <div class="video-player-mockup">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/T3Si41E-K0Y?autoplay=1&mute=1&loop=1&controls=1&rel=0&modestbranding=1&playsinline=1&playlist=T3Si41E-K0Y"
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
-                                </iframe>
-                                <div class="video-overlay">
-                                    <div class="thread-indicator reply">
-                                        <span>Thread 2/3</span>
-                                    </div>
-                                    <div class="reply-indicator">
-                                        <i data-feather="corner-down-right"></i>
-                                        <span>Replying to first video</span>
+                    <div class="video-scroll-container">
+                        <!-- Video 1 - User's YouTube Short -->
+                        <div class="mobile-mockup thread-starter">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator starter">
+                                            <span>Thread 1/3</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-
-                    <!-- Video 3: Follow-up -->
-                    <div class="mobile-mockup thread-followup">
-                        <div class="phone-notch"></div>
-                        <div class="mobile-screen">
-                            <div class="video-player-mockup">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/yienYWAwMJY?autoplay=1&mute=1&loop=1&controls=1&rel=0&modestbranding=1&playsinline=1&playlist=yienYWAwMJY"
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
-                                </iframe>
-                                <div class="video-overlay">
-                                    <div class="thread-indicator followup">
-                                        <span>Thread 3/3</span>
-                                    </div>
-                                    <div class="reply-indicator">
-                                        <i data-feather="corner-down-right"></i>
-                                        <span>Continuing thread...</span>
+                        <!-- Video 2 - User's YouTube Short -->
+                        <div class="mobile-mockup thread-reply">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator reply">
+                                            <span>Thread 2/3</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Continuing thread...</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
-
-                    <!-- Video 4: Re-comment -->
-                    <div class="mobile-mockup thread-recomment">
-                        <div class="phone-notch"></div>
-                        <div class="mobile-screen">
-                            <div class="video-player-mockup">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/jTyq3XdGCQU?autoplay=1&mute=1&loop=1&controls=1&rel=0&modestbranding=1&playsinline=1&playlist=jTyq3XdGCQU"
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen
-                                    style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
-                                </iframe>
-                                <div class="video-overlay">
-                                    <div class="thread-indicator recomment">
-                                        <span>Thread 4/4</span>
+                        <!-- Video 3 - User's YouTube Short -->
+                        <div class="mobile-mockup thread-followup">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator followup">
+                                            <span>Thread 3/3</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Re-commenting on thread</span>
+                                        </div>
                                     </div>
-                                    <div class="reply-indicator">
-                                        <i data-feather="corner-down-right"></i>
-                                        <span>Re-commenting on thread...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 4 - User's YouTube Short -->
+                        <div class="mobile-mockup thread-recomment">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator recomment">
+                                            <span>Thread 4/4</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Be commenting on thread</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Videos for Continuous Scroll Effect -->
+                        <!-- Video 5 -->
+                        <div class="mobile-mockup thread-starter">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator starter">
+                                            <span>Thread 1/3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 6 -->
+                        <div class="mobile-mockup thread-reply">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator reply">
+                                            <span>Thread 2/3</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Continuing thread...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 7 -->
+                        <div class="mobile-mockup thread-followup">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator followup">
+                                            <span>Thread 3/3</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Re-commenting on thread</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 8 -->
+                        <div class="mobile-mockup thread-recomment">
+                            <div class="phone-notch"></div>
+                            <div class="mobile-screen">
+                                <div class="video-player-mockup">
+                                    <iframe 
+                                        src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen
+                                        style="width: 100%; height: 100%; border-radius: 56px; border: 0;">
+                                    </iframe>
+                                    <div class="video-overlay">
+                                        <div class="thread-indicator recomment">
+                                            <span>Thread 4/4</span>
+                                        </div>
+                                        <div class="reply-indicator">
+                                            <i data-feather="corner-down-right"></i>
+                                            <span>Be commenting on thread</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
