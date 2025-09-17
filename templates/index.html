@@ -1308,191 +1308,206 @@
         .cta-section p { margin-bottom: 32px !important; }
     </style>
     
-    <!-- YouTube API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!-- YouTube API with Robust Initialization -->
     <script>
-        // Store video players for YouTube IFrame API
-        var players = {};
-        var playerReadyFlags = {};
-        var hasUserActivated = false;
-        var apiInitialized = false;
-        
-        // Track user activation for autoplay policy compliance
-        document.addEventListener('click', function() {
-            hasUserActivated = true;
-            console.log('User activated - audio can now play on hover');
-        }, { once: true });
-        
-        // Initialize YouTube players with proper DOM readiness
-        function initYouTubePlayers() {
-            if (apiInitialized) {
-                console.log('YouTube API already initialized, skipping');
-                return;
-            }
-            apiInitialized = true;
-            console.log('YouTube IFrame API Ready - initializing players');
+        (function(){
+            // Store video players for YouTube IFrame API
+            var players = {};
+            var playerReadyFlags = {};
+            var hasUserActivated = false;
+            var apiInitialized = false;
             
-            // Find all video targets with broad selectors
-            const targets = [
-                ...document.querySelectorAll('iframe[src*="youtube.com/embed"]'),
-                ...document.querySelectorAll('iframe[src*="youtube-nocookie.com/embed"]')
-            ];
+            // Track user activation for autoplay policy compliance
+            document.addEventListener('click', function() {
+                hasUserActivated = true;
+                console.log('[YT] User activated - audio can now play on hover');
+            }, { once: true });
             
-            console.log(`Found ${targets.length} video targets`);
-            
-            if (targets.length === 0) {
-                console.log('No video targets found, retrying in 500ms...');
-                setTimeout(initYouTubePlayers, 500);
-                return;
-            }
-            
-            targets.forEach(function(iframe, index) {
-                if (iframe.dataset.playerInitialized) {
-                    console.log('Player already initialized, skipping:', iframe.id);
-                    return;
-                }
-                
-                const playerId = 'flickbytes_player_' + index;
-                iframe.id = playerId;
-                iframe.dataset.playerInitialized = '1';
-                
-                // Set data attribute for lookup
-                const container = iframe.closest('.video-container, .mobile-mockup');
-                if (container) {
-                    container.setAttribute('data-player-id', playerId);
-                } else {
-                    console.log('No container found for iframe:', playerId);
-                }
-                
-                // Ensure enablejsapi=1 is present
-                if (!iframe.src.includes('enablejsapi=1')) {
-                    const separator = iframe.src.includes('?') ? '&' : '?';
-                    iframe.src = iframe.src + separator + 'enablejsapi=1';
-                }
-                
+            function initYouTubePlayers() {
                 try {
-                    // Extract video ID from src
-                    const srcMatch = iframe.src.match(/embed\/([^?&]+)/);
-                    const videoId = srcMatch ? srcMatch[1] : '';
+                    if (apiInitialized) {
+                        console.log('[YT] YouTube API already initialized, skipping');
+                        return;
+                    }
+                    apiInitialized = true;
+                    console.log('[YT] initYouTubePlayers start');
                     
-                    if (!videoId) {
-                        console.log('No video ID found for iframe:', iframe.src);
+                    // Find all video targets with broad selectors
+                    const targets = [
+                        ...document.querySelectorAll('iframe[src*="youtube.com/embed"]'),
+                        ...document.querySelectorAll('iframe[src*="youtube-nocookie.com/embed"]')
+                    ];
+                    
+                    console.log('[YT] Found', targets.length, 'video targets');
+                    
+                    if (targets.length === 0) {
+                        console.log('[YT] No video targets found, retrying in 500ms...');
+                        apiInitialized = false; // Allow retry
+                        setTimeout(initYouTubePlayers, 500);
                         return;
                     }
                     
-                    console.log('Creating player for:', playerId, 'with video ID:', videoId);
-                    
-                    players[playerId] = new YT.Player(iframe, {
-                        playerVars: {
-                            'origin': window.location.origin,
-                            'autoplay': 0,
-                            'mute': 1,
-                            'controls': 0,
-                            'rel': 0,
-                            'modestbranding': 1,
-                            'playsinline': 1,
-                            'loop': 1,
-                            'playlist': videoId,
-                            'enablejsapi': 1
-                        },
-                        events: {
-                            'onReady': function(event) {
-                                console.log('Player ready:', playerId);
-                                playerReadyFlags[playerId] = true;
-                                event.target.playVideo();
-                                event.target.mute();
-                            },
-                            'onStateChange': function(event) {
-                                // Ensure video keeps looping and playing
-                                if (event.data === YT.PlayerState.ENDED) {
-                                    event.target.playVideo();
-                                }
-                            },
-                            'onError': function(event) {
-                                console.log('Player error for', playerId, ':', event.data);
+                    targets.forEach(function(iframe, index) {
+                        if (iframe.dataset.playerInitialized) {
+                            console.log('[YT] Player already initialized, skipping:', iframe.id);
+                            return;
+                        }
+                        
+                        const playerId = 'flickbytes_player_' + index;
+                        iframe.id = playerId;
+                        iframe.dataset.playerInitialized = '1';
+                        
+                        // Set data attribute for lookup
+                        const container = iframe.closest('.video-container, .mobile-mockup');
+                        if (container) {
+                            container.setAttribute('data-player-id', playerId);
+                        } else {
+                            console.log('[YT] No container found for iframe:', playerId);
+                        }
+                        
+                        // Ensure enablejsapi=1 is present
+                        if (!iframe.src.includes('enablejsapi=1')) {
+                            const separator = iframe.src.includes('?') ? '&' : '?';
+                            iframe.src = iframe.src + separator + 'enablejsapi=1';
+                        }
+                        
+                        try {
+                            // Extract video ID from src
+                            const srcMatch = iframe.src.match(/embed\/([^?&]+)/);
+                            const videoId = srcMatch ? srcMatch[1] : '';
+                            
+                            if (!videoId) {
+                                console.log('[YT] No video ID found for iframe:', iframe.src);
+                                return;
                             }
+                            
+                            console.log('[YT] Creating player for:', playerId, 'with video ID:', videoId);
+                            
+                            players[playerId] = new YT.Player(iframe, {
+                                playerVars: {
+                                    'origin': window.location.origin,
+                                    'autoplay': 0,
+                                    'mute': 1,
+                                    'controls': 0,
+                                    'rel': 0,
+                                    'modestbranding': 1,
+                                    'playsinline': 1,
+                                    'loop': 1,
+                                    'playlist': videoId,
+                                    'enablejsapi': 1
+                                },
+                                events: {
+                                    'onReady': function(event) {
+                                        console.log('[YT] Player ready:', playerId);
+                                        playerReadyFlags[playerId] = true;
+                                        event.target.playVideo();
+                                        event.target.mute();
+                                    },
+                                    'onStateChange': function(event) {
+                                        // Ensure video keeps looping and playing
+                                        if (event.data === YT.PlayerState.ENDED) {
+                                            event.target.playVideo();
+                                        }
+                                    },
+                                    'onError': function(event) {
+                                        console.log('[YT] Player error for', playerId, ':', event.data);
+                                    }
+                                }
+                            });
+                        } catch (e) {
+                            console.log('[YT] Could not initialize YouTube player for', playerId, ':', e.message || e);
                         }
                     });
                 } catch (e) {
-                    console.log('Could not initialize YouTube player for', playerId, ':', e.message || e);
+                    console.error('[YT] init error', e);
                 }
-            });
-        }
-        
-        // Prevent double API initialization with DOM readiness check
-        function onYouTubeIframeAPIReady() {
-            console.log('YouTube IFrame API Ready callback');
-            if (document.readyState === 'loading') {
-                console.log('DOM still loading, waiting for DOMContentLoaded');
-                document.addEventListener('DOMContentLoaded', initYouTubePlayers);
-            } else {
-                console.log('DOM ready, initializing players immediately');
-                initYouTubePlayers();
-            }
-        }
-        
-        function playVideo(container) {
-            const playerContainer = container.closest('.video-container, .mobile-mockup');
-            const playerId = playerContainer?.getAttribute('data-player-id');
-            
-            if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
-                console.log('Player not ready or not found:', playerId);
-                return;
             }
             
-            const player = players[playerId];
-            if (typeof player.playVideo !== 'function') {
-                console.log('Invalid player object for:', playerId);
-                return;
-            }
-            
-            try {
-                // Always ensure video is playing
-                player.playVideo();
-                
-                if (hasUserActivated) {
-                    // User has clicked, so we can unmute
-                    player.unMute();
-                    console.log('Unmuted player:', playerId);
+            function startInit() {
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initYouTubePlayers);
                 } else {
-                    console.log('User not activated yet - keeping muted:', playerId);
+                    initYouTubePlayers();
                 }
-            } catch (e) {
-                console.log('Could not play video for', playerId, ':', e.message || e);
-            }
-        }
-        
-        function pauseVideo(container) {
-            const playerContainer = container.closest('.video-container, .mobile-mockup');
-            const playerId = playerContainer?.getAttribute('data-player-id');
-            
-            if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
-                console.log('Player not ready or not found for pause:', playerId);
-                return;
             }
             
-            const player = players[playerId];
-            if (typeof player.mute !== 'function') {
-                console.log('Invalid player object for mute:', playerId);
-                return;
+            // Handle late-load (API already present)
+            if (window.YT && window.YT.Player) {
+                console.log('[YT] API already loaded, starting init');
+                startInit();
             }
             
-            try {
-                // Mute the video but keep it playing
-                player.mute();
-                console.log('Muted player:', playerId);
-            } catch (e) {
-                console.log('Could not mute video for', playerId, ':', e.message || e);
+            // Define the global callback BEFORE/INDEPENDENT of API script timing
+            window.onYouTubeIframeAPIReady = function() {
+                console.log('[YT] onYouTubeIframeAPIReady callback');
+                startInit();
+            };
+            
+            // Ensure API is loaded if not already
+            if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+                console.log('[YT] Loading YouTube IFrame API script');
+                var tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                document.head.appendChild(tag);
             }
-        }
-        
-        // Only initialize if API is not already loaded
-        if (!window.YT || !window.YT.Player) {
-            console.log('Loading YouTube IFrame API');
-        } else {
-            console.log('YouTube API already loaded');
-            onYouTubeIframeAPIReady();
-        }
+            
+            // Global functions for video control
+            window.playVideo = function(container) {
+                const playerContainer = container.closest('.video-container, .mobile-mockup');
+                const playerId = playerContainer?.getAttribute('data-player-id');
+                
+                if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                    console.log('[YT] Player not ready or not found:', playerId);
+                    return;
+                }
+                
+                const player = players[playerId];
+                if (typeof player.playVideo !== 'function') {
+                    console.log('[YT] Invalid player object for:', playerId);
+                    return;
+                }
+                
+                try {
+                    // Always ensure video is playing
+                    player.playVideo();
+                    
+                    if (hasUserActivated) {
+                        // User has clicked, so we can unmute
+                        player.unMute();
+                        console.log('[YT] Unmuted player:', playerId);
+                    } else {
+                        console.log('[YT] User not activated yet - keeping muted:', playerId);
+                    }
+                } catch (e) {
+                    console.log('[YT] Could not play video for', playerId, ':', e.message || e);
+                }
+            };
+            
+            window.pauseVideo = function(container) {
+                const playerContainer = container.closest('.video-container, .mobile-mockup');
+                const playerId = playerContainer?.getAttribute('data-player-id');
+                
+                if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                    console.log('[YT] Player not ready or not found for pause:', playerId);
+                    return;
+                }
+                
+                const player = players[playerId];
+                if (typeof player.mute !== 'function') {
+                    console.log('[YT] Invalid player object for mute:', playerId);
+                    return;
+                }
+                
+                try {
+                    // Mute the video but keep it playing
+                    player.mute();
+                    console.log('[YT] Muted player:', playerId);
+                } catch (e) {
+                    console.log('[YT] Could not mute video for', playerId, ':', e.message || e);
+                }
+            };
+            
+        })();
     </script>
 </head>
 <body>
