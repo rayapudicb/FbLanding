@@ -1311,63 +1311,26 @@
     <!-- YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let players = {};
-        let playersReady = {};
-        
-        // Initialize YouTube players when API is ready
-        function onYouTubeIframeAPIReady() {
-            const iframes = document.querySelectorAll('.video-container iframe');
-            iframes.forEach((iframe, index) => {
-                const playerId = 'player' + index;
-                iframe.id = playerId;
-                
-                // Extract video ID from src
-                const src = iframe.src;
-                const videoId = src.match(/embed\/([^?]+)/)[1];
-                
-                players[playerId] = new YT.Player(playerId, {
-                    videoId: videoId,
-                    playerVars: {
-                        'autoplay': 0,
-                        'controls': 0,
-                        'rel': 0,
-                        'modestbranding': 1,
-                        'playsinline': 1,
-                        'loop': 1,
-                        'playlist': videoId
-                    },
-                    events: {
-                        'onReady': function(event) {
-                            playersReady[playerId] = true;
-                            // Start muted to comply with autoplay policies
-                            event.target.mute();
-                        }
-                    }
-                });
-            });
-        }
-        
         function playVideo(container) {
             const iframe = container.querySelector('iframe');
-            if (iframe && iframe.id && players[iframe.id] && playersReady[iframe.id]) {
-                const player = players[iframe.id];
-                player.playVideo();
-                player.unMute(); // Enable audio on hover
+            if (iframe) {
+                // Unmute the video on hover while keeping it playing
+                let src = iframe.src;
+                if (src.includes('mute=1')) {
+                    iframe.src = src.replace('mute=1', 'mute=0');
+                }
             }
         }
         
         function pauseVideo(container) {
             const iframe = container.querySelector('iframe');
-            if (iframe && iframe.id && players[iframe.id] && playersReady[iframe.id]) {
-                const player = players[iframe.id];
-                player.pauseVideo();
-                player.mute(); // Mute when not hovering
+            if (iframe) {
+                // Mute the video again but keep it playing and scrolling
+                let src = iframe.src;
+                if (src.includes('mute=0')) {
+                    iframe.src = src.replace('mute=0', 'mute=1');
+                }
             }
-        }
-        
-        // Initialize players when page loads
-        if (typeof YT !== 'undefined' && YT.loaded) {
-            onYouTubeIframeAPIReady();
         }
     </script>
 </head>
