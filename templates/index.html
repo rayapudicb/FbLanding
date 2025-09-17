@@ -363,6 +363,91 @@
             box-shadow: 0 12px 32px rgba(0,0,0,0.15);
         }
 
+        /* Second Panel Styling */
+        .video-panel-two {
+            padding: 80px 0;
+            background: var(--surface-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .panel-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .panel-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .panel-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .video-frames-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: clamp(16px, 2vw, 24px);
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .device-frame {
+            position: relative;
+            width: clamp(180px, 20vw, 220px);
+            aspect-ratio: 9/16;
+            background: #000;
+            border-radius: 28px;
+            padding: 8px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .device-frame:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .device-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .device-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .video-frames-container {
+                gap: 12px;
+            }
+            
+            .device-frame {
+                width: clamp(140px, 22vw, 180px);
+            }
+            
+            .panel-header {
+                margin-bottom: 40px;
+            }
+        }
+
 
         .mobile-screen {
             width: 100%;
@@ -1489,6 +1574,62 @@
                 
                 <div class="hero-buttons">
                     <a href="#brands" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Second Video Panel - Clean Horizontal Layout -->
+    <section class="video-panel-two">
+        <div class="container">
+            <div class="panel-header">
+                <h2>Explore Video Threading in Action</h2>
+                <p>See how creators build conversations through connected video clips</p>
+            </div>
+            
+            <div class="video-frames-container">
+                <div class="device-frame" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                    <div class="device-screen">
+                        <iframe 
+                            src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div class="device-frame" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                    <div class="device-screen">
+                        <iframe 
+                            src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div class="device-frame" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                    <div class="device-screen">
+                        <iframe 
+                            src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                
+                <div class="device-frame" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                    <div class="device-screen">
+                        <iframe 
+                            src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
