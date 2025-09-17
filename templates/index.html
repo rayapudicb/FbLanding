@@ -1311,24 +1311,85 @@
     <!-- YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // Store video players for YouTube IFrame API
+        var players = {};
+        var userActivated = false;
+        
+        // Track user activation for autoplay policy compliance
+        document.addEventListener('click', function() {
+            userActivated = true;
+        }, { once: true });
+        
+        function onYouTubeIframeAPIReady() {
+            console.log('YouTube IFrame API Ready');
+            // Initialize all YouTube players
+            document.querySelectorAll('iframe[src*="youtube.com/embed"]').forEach(function(iframe) {
+                if (!iframe.id) {
+                    iframe.id = 'player_' + Math.random().toString(36).substr(2, 9);
+                }
+                
+                try {
+                    // Extract video ID from src
+                    const srcMatch = iframe.src.match(/embed\/([^?&]+)/);
+                    const videoId = srcMatch ? srcMatch[1] : '';
+                    
+                    players[iframe.id] = new YT.Player(iframe.id, {
+                        videoId: videoId,
+                        playerVars: {
+                            'autoplay': 1,
+                            'mute': 1,
+                            'controls': 0,
+                            'rel': 0,
+                            'modestbranding': 1,
+                            'playsinline': 1,
+                            'loop': 1,
+                            'playlist': videoId,
+                            'enablejsapi': 1
+                        },
+                        events: {
+                            'onReady': function(event) {
+                                console.log('Player ready:', iframe.id);
+                                event.target.playVideo();
+                                event.target.mute();
+                            },
+                            'onStateChange': function(event) {
+                                // Ensure video keeps looping and playing
+                                if (event.data === YT.PlayerState.ENDED) {
+                                    event.target.playVideo();
+                                }
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.log('Could not initialize YouTube player:', e);
+                }
+            });
+        }
+        
         function playVideo(container) {
             const iframe = container.querySelector('iframe');
-            if (iframe) {
-                // Unmute the video on hover while keeping it playing
-                let src = iframe.src;
-                if (src.includes('mute=1')) {
-                    iframe.src = src.replace('mute=1', 'mute=0');
+            if (iframe && iframe.id && players[iframe.id]) {
+                try {
+                    if (userActivated) {
+                        // User has clicked, so we can unmute
+                        players[iframe.id].unMute();
+                    }
+                    // Always ensure video is playing
+                    players[iframe.id].playVideo();
+                } catch (e) {
+                    console.log('Could not play video:', e);
                 }
             }
         }
         
         function pauseVideo(container) {
             const iframe = container.querySelector('iframe');
-            if (iframe) {
-                // Mute the video again but keep it playing and scrolling
-                let src = iframe.src;
-                if (src.includes('mute=0')) {
-                    iframe.src = src.replace('mute=0', 'mute=1');
+            if (iframe && iframe.id && players[iframe.id]) {
+                try {
+                    // Mute the video but keep it playing
+                    players[iframe.id].mute();
+                } catch (e) {
+                    console.log('Could not mute video:', e);
                 }
             }
         }
