@@ -1283,10 +1283,10 @@
         function playVideo(container) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-                // Get the current src and add autoplay=1
+                // Unmute the video on hover while keeping it playing
                 let src = iframe.src;
-                if (src.includes('autoplay=0')) {
-                    iframe.src = src.replace('autoplay=0', 'autoplay=1');
+                if (src.includes('mute=1')) {
+                    iframe.src = src.replace('mute=1', 'mute=0');
                 }
             }
         }
@@ -1294,10 +1294,10 @@
         function pauseVideo(container) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
-                // Get the current src and add autoplay=0
+                // Mute the video again but keep it playing and scrolling
                 let src = iframe.src;
-                if (src.includes('autoplay=1')) {
-                    iframe.src = src.replace('autoplay=1', 'autoplay=0');
+                if (src.includes('mute=0')) {
+                    iframe.src = src.replace('mute=0', 'mute=1');
                 }
             }
         }
@@ -1332,7 +1332,7 @@
                 <div class="mobile-grid">
                     <div class="video-scroll-container">
                         <!-- Video 1 - User's YouTube Short -->
-                        <div class="mobile-mockup thread-starter">
+                        <div class="mobile-mockup thread-starter" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1351,7 +1351,7 @@
                         </div>
 
                         <!-- Video 2 - User's YouTube Short -->
-                        <div class="mobile-mockup thread-reply">
+                        <div class="mobile-mockup thread-reply" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1371,7 +1371,7 @@
                         </div>
 
                         <!-- Video 3 - User's YouTube Short -->
-                        <div class="mobile-mockup thread-followup">
+                        <div class="mobile-mockup thread-followup" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1391,7 +1391,7 @@
                         </div>
 
                         <!-- Video 4 - User's YouTube Short -->
-                        <div class="mobile-mockup thread-recomment">
+                        <div class="mobile-mockup thread-recomment" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1412,7 +1412,7 @@
 
                         <!-- Additional Videos for Continuous Scroll Effect -->
                         <!-- Video 5 -->
-                        <div class="mobile-mockup thread-starter">
+                        <div class="mobile-mockup thread-starter" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1431,7 +1431,7 @@
                         </div>
 
                         <!-- Video 6 -->
-                        <div class="mobile-mockup thread-reply">
+                        <div class="mobile-mockup thread-reply" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1451,7 +1451,7 @@
                         </div>
 
                         <!-- Video 7 -->
-                        <div class="mobile-mockup thread-followup">
+                        <div class="mobile-mockup thread-followup" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
@@ -1471,7 +1471,7 @@
                         </div>
 
                         <!-- Video 8 -->
-                        <div class="mobile-mockup thread-recomment">
+                        <div class="mobile-mockup thread-recomment" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
