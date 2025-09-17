@@ -1406,46 +1406,101 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Halo/Vignette effect for Build section video */
-        .feature-item:first-child .video-container {
+        /* Colored Glows for Feature Videos */
+        .feature-item .video-container {
             position: relative;
+            z-index: 0;
         }
         
-        .feature-item:first-child .video-container::before {
+        /* Build Section - Mint Green Glow */
+        .feature-item:nth-child(1) .video-container::before {
             content: '';
             position: absolute;
-            top: -25px;
-            left: -25px;
-            right: -25px;
-            bottom: -25px;
+            top: -80px;
+            left: -80px;
+            right: -80px;
+            bottom: -80px;
             background: radial-gradient(
                 circle at center,
-                transparent 35%,
-                rgba(0, 230, 230, 0.2) 55%,
-                rgba(0, 180, 200, 0.3) 75%,
-                rgba(100, 150, 255, 0.25) 100%
+                rgba(175, 255, 233, 0.9) 0%,
+                rgba(118, 255, 205, 0.7) 30%,
+                rgba(85, 255, 193, 0.5) 50%,
+                rgba(50, 255, 180, 0.3) 70%,
+                transparent 85%
             );
-            border-radius: 20px;
+            border-radius: 50%;
             pointer-events: none;
             z-index: -1;
+            filter: blur(25px);
+            animation: subtleGlow 4s ease-in-out infinite alternate;
         }
         
-        .feature-item:first-child .video-container::after {
+        /* Manage Section - Light Pink Glow */
+        .feature-item:nth-child(2) .video-container::before {
             content: '';
             position: absolute;
-            top: -15px;
-            left: -15px;
-            right: -15px;
-            bottom: -15px;
+            top: -80px;
+            left: -80px;
+            right: -80px;
+            bottom: -80px;
             background: radial-gradient(
-                ellipse at center,
-                rgba(255, 215, 0, 0.15) 0%,
-                rgba(0, 200, 200, 0.1) 50%,
-                transparent 70%
+                circle at center,
+                rgba(255, 192, 203, 0.9) 0%,
+                rgba(255, 182, 193, 0.7) 30%,
+                rgba(255, 172, 183, 0.5) 50%,
+                rgba(255, 162, 173, 0.3) 70%,
+                transparent 85%
             );
-            border-radius: 15px;
+            border-radius: 50%;
             pointer-events: none;
             z-index: -1;
+            filter: blur(25px);
+            animation: subtleGlow 4s ease-in-out infinite alternate;
+        }
+        
+        /* Measure Section - Light Blue Glow */
+        .feature-item:nth-child(3) .video-container::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: -80px;
+            right: -80px;
+            bottom: -80px;
+            background: radial-gradient(
+                circle at center,
+                rgba(173, 216, 230, 0.9) 0%,
+                rgba(135, 206, 235, 0.7) 30%,
+                rgba(100, 191, 255, 0.5) 50%,
+                rgba(70, 180, 255, 0.3) 70%,
+                transparent 85%
+            );
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(25px);
+            animation: subtleGlow 4s ease-in-out infinite alternate;
+        }
+        
+        /* Plus Section - Light Purple Glow */
+        .feature-item:nth-child(4) .video-container::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: -80px;
+            right: -80px;
+            bottom: -80px;
+            background: radial-gradient(
+                circle at center,
+                rgba(221, 160, 221, 0.9) 0%,
+                rgba(238, 130, 238, 0.7) 30%,
+                rgba(218, 112, 214, 0.5) 50%,
+                rgba(200, 100, 200, 0.3) 70%,
+                transparent 85%
+            );
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(25px);
             animation: subtleGlow 4s ease-in-out infinite alternate;
         }
         
