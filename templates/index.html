@@ -1280,8 +1280,6 @@
     <!-- YouTube API -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let currentPlayingVideo = null;
-        
         function playVideo(container) {
             const iframe = container.querySelector('iframe');
             if (iframe) {
@@ -1303,67 +1301,6 @@
                 }
             }
         }
-
-        function startVideoPlayback(container) {
-            const iframe = container.querySelector('iframe');
-            if (iframe) {
-                let src = iframe.src;
-                if (src.includes('autoplay=0')) {
-                    iframe.src = src.replace('autoplay=0', 'autoplay=1');
-                }
-            }
-        }
-
-        function stopVideoPlayback(container) {
-            const iframe = container.querySelector('iframe');
-            if (iframe) {
-                let src = iframe.src;
-                if (src.includes('autoplay=1')) {
-                    iframe.src = src.replace('autoplay=1', 'autoplay=0');
-                }
-            }
-        }
-
-        function isInMiddleOfViewport(element) {
-            const rect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const elementCenter = rect.top + rect.height / 2;
-            const viewportCenter = windowHeight / 2;
-            
-            // Check if element center is close to viewport center (within 20% tolerance)
-            const tolerance = windowHeight * 0.2;
-            return Math.abs(elementCenter - viewportCenter) < tolerance;
-        }
-
-        function handleScrollVideo() {
-            const videoContainers = document.querySelectorAll('.mobile-mockup');
-            let newActiveVideo = null;
-
-            videoContainers.forEach(container => {
-                if (isInMiddleOfViewport(container)) {
-                    if (!newActiveVideo) {
-                        newActiveVideo = container;
-                    }
-                }
-            });
-
-            // Stop current video if there's one playing
-            if (currentPlayingVideo && currentPlayingVideo !== newActiveVideo) {
-                stopVideoPlayback(currentPlayingVideo);
-            }
-
-            // Start new video if it's different from current
-            if (newActiveVideo && newActiveVideo !== currentPlayingVideo) {
-                startVideoPlayback(newActiveVideo);
-                currentPlayingVideo = newActiveVideo;
-            }
-        }
-
-        // Add scroll event listener
-        window.addEventListener('scroll', handleScrollVideo);
-        
-        // Initial check on page load
-        window.addEventListener('load', handleScrollVideo);
     </script>
 </head>
 <body>
@@ -1400,7 +1337,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1419,7 +1356,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
+                                        src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1439,7 +1376,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
+                                        src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1459,7 +1396,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
+                                        src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1480,7 +1417,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1499,7 +1436,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
+                                        src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1519,7 +1456,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
+                                        src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1539,7 +1476,7 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
+                                        src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                                         allowfullscreen
@@ -1649,7 +1586,7 @@
                 <div class="feature-image">
                     <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                         <iframe 
-                            src="https://www.youtube.com/embed/QuOXqjmZdmY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                            src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen
@@ -1668,7 +1605,7 @@
                 <div class="feature-image">
                     <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                         <iframe 
-                            src="https://www.youtube.com/embed/l5u3UwSKsfc?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc"
+                            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen
@@ -1687,7 +1624,7 @@
                 <div class="feature-image">
                     <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                         <iframe 
-                            src="https://www.youtube.com/embed/EX3EsiJIiYQ?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ"
+                            src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen
@@ -1712,7 +1649,7 @@
                 <div class="feature-image">
                     <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                         <iframe 
-                            src="https://www.youtube.com/embed/p2llh8hG1N4?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4"
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen
