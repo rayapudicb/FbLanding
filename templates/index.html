@@ -312,6 +312,7 @@
             text-align: center;
             padding: 0;
             position: relative;
+            z-index: 0;
         }
         
         /* Light Yellow Halo under video frames */
@@ -322,17 +323,17 @@
             height: clamp(420px, 50vw, 720px);
             background: radial-gradient(
                 circle at center,
-                #FFFBE6 0%,
-                rgba(255, 251, 230, 0.7) 35%,
-                transparent 70%
+                rgba(255, 251, 230, 0.85) 0%,
+                rgba(255, 251, 230, 0.55) 40%,
+                rgba(255, 251, 230, 0) 72%
             );
             top: 50%;
             left: calc(50% + 24px);
             transform: translate(-50%, -50%);
-            opacity: 0.7;
             z-index: -1;
             pointer-events: none;
             border-radius: 50%;
+            filter: blur(18px);
         }
         
         /* Second Yellow Halo behind the card */
@@ -343,17 +344,17 @@
             height: clamp(480px, 40vw, 560px);
             background: radial-gradient(
                 circle at center,
-                #FFFBE6 0%,
-                rgba(255, 251, 230, 0.6) 40%,
-                transparent 70%
+                rgba(255, 251, 230, 0.75) 0%,
+                rgba(255, 251, 230, 0.45) 40%,
+                rgba(255, 251, 230, 0) 72%
             );
             top: calc(50% + 20px);
             left: calc(50% - 40px);
             transform: translate(-50%, -50%);
-            opacity: 0.6;
             z-index: -2;
             pointer-events: none;
             border-radius: 50%;
+            filter: blur(15px);
         }
 
         .showcase-title {
@@ -383,7 +384,7 @@
             margin-left: auto;
             margin-right: auto;
             position: relative;
-            z-index: 10;
+            z-index: 1;
         }
         
         .showcase-description {
@@ -417,6 +418,7 @@
             width: 100vw;
             margin-left: calc(-50vw + 50%);
             margin-right: calc(-50vw + 50%);
+            z-index: 1;
         }
         
         .video-scroll-container {
