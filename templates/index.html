@@ -1259,6 +1259,32 @@
         .cta-section h2 { margin-bottom: 24px !important; }
         .cta-section p { margin-bottom: 32px !important; }
     </style>
+    
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        function playVideo(container) {
+            const iframe = container.querySelector('iframe');
+            if (iframe) {
+                // Get the current src and add autoplay=1
+                let src = iframe.src;
+                if (src.includes('autoplay=0')) {
+                    iframe.src = src.replace('autoplay=0', 'autoplay=1');
+                }
+            }
+        }
+        
+        function pauseVideo(container) {
+            const iframe = container.querySelector('iframe');
+            if (iframe) {
+                // Get the current src and add autoplay=0
+                let src = iframe.src;
+                if (src.includes('autoplay=1')) {
+                    iframe.src = src.replace('autoplay=1', 'autoplay=0');
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -1477,7 +1503,17 @@
                     <h2>We are a creator community. Not a database.</h2>
                     <p>Kickstart your strategy with access to 70,000+ opt-in, engaged Flickbytes creators and 1:1 support from our experienced Community Management team.</p>
                 </div>
-                <div class="feature-image"></div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/JGwWNGJdvx8?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=JGwWNGJdvx8"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
+                    </div>
+                </div>
             </div>
 
             <div class="feature-item">
@@ -1486,7 +1522,17 @@
                     <h2>Our platform & team streamline the tasks you hate.</h2>
                     <p>Execute campaigns with ease by keeping all communication, content approvals, legals and payments within one centralised platform.</p>
                 </div>
-                <div class="feature-image"></div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
+                    </div>
+                </div>
             </div>
 
             <div class="feature-item">
@@ -1495,7 +1541,17 @@
                     <h2>We help you make data-led decisions.</h2>
                     <p>Analyse and measure results in real-time with first-party data direct from TikTok, Instagram and Pinterest APIs. Optimise your activity with insights and ongoing support from our team of experts.</p>
                 </div>
-                <div class="feature-image"></div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/9bZkp7q19f0?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
+                    </div>
+                </div>
             </div>
 
             <div class="feature-item">
@@ -1510,7 +1566,17 @@
                         <li>Tailored account planning and business reviews</li>
                     </ul>
                 </div>
-                <div class="feature-image"></div>
+                <div class="feature-image">
+                    <div class="video-container" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <iframe 
+                            src="https://www.youtube.com/embed/tgbNymZ7vqY?enablejsapi=1&autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                            style="width: 100%; height: 100%; border-radius: var(--r-lg);">
+                        </iframe>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
