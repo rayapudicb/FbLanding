@@ -1191,48 +1191,58 @@
         /* Footer */
         .footer {
             background: #fff;
-            padding: 60px 0 40px;
+            padding: 40px 0 24px;
             color: #333;
+            border-top: 1px solid #f0f0f0;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 60px;
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .footer-section h4 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 24px;
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
             color: #F1C232;
         }
 
-        .footer-section ul {
-            list-style: none;
+        .footer-social {
+            display: flex;
+            gap: 16px;
         }
 
-        .footer-section li {
-            margin-bottom: 16px;
-        }
-
-        .footer-section a {
+        .footer-social a {
             color: #666;
             text-decoration: none;
-            transition: color 0.3s;
+            font-size: 14px;
+            transition: color 0.2s;
         }
 
-        .footer-section a:hover {
+        .footer-social a:hover {
             color: #F1C232;
         }
 
         .footer-bottom {
-            margin-top: 40px;
-            padding-top: 40px;
-            border-top: 1px solid #333;
             text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
             color: #999;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         /* Material Design Responsive Breakpoints */
@@ -1319,9 +1329,20 @@
                 text-align: center;
             }
             
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 34px;
+            .footer-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 24px;
+            }
+            
+            .footer-social {
+                justify-content: center;
             }
             
             .newsletter-form {
@@ -2238,82 +2259,21 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4>FLICKBYTES</h4>
-                    <p style="color: #666; margin-bottom: 24px;">The world's leading video threading platform connecting creators and communities through authentic conversations.</p>
-                    <div style="margin-bottom: 16px;">
-                        <strong style="color: #F1C232;">Contact Us:</strong><br>
-                        <span style="color: #666;">hello@flickbytes.com</span><br>
-                        <span style="color: #666;">+1 (555) 123-4567</span>
-                    </div>
-                    <div>
-                        <strong style="color: #F1C232;">Follow Us:</strong><br>
-                        <a href="#" style="color: #666; margin-right: 12px;">Twitter</a>
-                        <a href="#" style="color: #666; margin-right: 12px;">LinkedIn</a>
-                        <a href="#" style="color: #666;">Instagram</a>
-                    </div>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact</a>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>PLATFORM</h4>
-                    <ul>
-                        <li><a href="#">Video Threading</a></li>
-                        <li><a href="#">Creator Dashboard</a></li>
-                        <li><a href="#">Analytics</a></li>
-                        <li><a href="#">Community Tools</a></li>
-                        <li><a href="#">Content Library</a></li>
-                        <li><a href="#">API Documentation</a></li>
-                        <li><a href="#">Mobile Apps</a></li>
-                        <li><a href="#">Integrations</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>SOLUTIONS</h4>
-                    <ul>
-                        <li><a href="#">For Brands</a></li>
-                        <li><a href="#">For Creators</a></li>
-                        <li><a href="#">For Agencies</a></li>
-                        <li><a href="#">Enterprise</a></li>
-                        <li><a href="#">Small Business</a></li>
-                        <li><a href="#">Non-Profits</a></li>
-                        <li><a href="#">Education</a></li>
-                        <li><a href="#">Case Studies</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>RESOURCES</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Video Tutorials</a></li>
-                        <li><a href="#">Webinars</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Community Forum</a></li>
-                        <li><a href="#">Best Practices</a></li>
-                        <li><a href="#">Template Library</a></li>
-                        <li><a href="#">Industry Reports</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>COMPANY</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press Kit</a></li>
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Investors</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
+                <div class="footer-social">
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 letsflick, Inc. All rights reserved. | Privacy Policy | Terms of Service | Cookie Preferences</p>
+                <p>&copy; 2025 letsflick, Inc. All rights reserved.</p>
             </div>
         </div>
     </footer>
