@@ -440,8 +440,8 @@
 
         .mobile-mockup {
             position: relative;
-            width: clamp(160px, 16vw, 220px);
-            height: clamp(285px, 28.4vw, 391px); /* 9:16 aspect ratio maintained */
+            width: clamp(140px, 14vw, 187px); /* iPhone 7 width proportion */
+            height: clamp(249px, 24.8vw, 333px); /* iPhone 7 height proportion (375:667 ratio) */
             background: transparent;
             border-radius: var(--r-mobile);
             padding: 0;
@@ -1360,25 +1360,25 @@
         /* Mobile Grid Responsive - Optimized for mobile video viewing */
         @media (max-width: 599px) {
             .mobile-grid { gap: 16px; }
-            .mobile-mockup { width: 200px; height: 355px; flex-shrink: 0; } /* 9:16 aspect ratio */
+            .mobile-mockup { width: 140px; height: 249px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
             .video-captions { grid-template-columns: 1fr; gap: 16px; margin-top: 12px; }
             .caption { font-size: 15px; font-weight: 300 !important; }
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
             .mobile-grid { gap: 20px; }
-            .mobile-mockup { width: 180px; height: 320px; flex-shrink: 0; } /* 9:16 aspect ratio */
+            .mobile-mockup { width: 160px; height: 285px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
             .video-captions { grid-template-columns: repeat(2, 1fr); gap: 20px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
             .mobile-grid { gap: 24px; }
-            .mobile-mockup { width: 160px; height: 285px; flex-shrink: 0; } /* 9:16 aspect ratio */
+            .mobile-mockup { width: 170px; height: 302px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
             .video-captions { grid-template-columns: repeat(3, 1fr); gap: 24px; }
         }
         
         @media (min-width: 1201px) and (max-width: 1400px) {
-            .mobile-mockup { width: 200px; height: 355px; } /* 9:16 aspect ratio */
+            .mobile-mockup { width: 187px; height: 333px; } /* iPhone 7 aspect ratio */
         }
         
         /* Typography overrides - Professional fluid system */
