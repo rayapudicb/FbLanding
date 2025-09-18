@@ -20,7 +20,7 @@
             --r-lg: 24px;
             --r-xl: 32px;
             --r-pill: 9999px;
-            --r-mobile: 24px;
+            --r-mobile: 36px;
         }
         
         * {
@@ -423,8 +423,8 @@
         
         .video-scroll-container {
             display: flex;
-            animation: scroll-videos 40s linear infinite;
-            gap: clamp(16px, 2.5vw, 32px);
+            animation: scroll-videos 50s linear infinite;
+            gap: clamp(20px, 3vw, 40px);
             flex-shrink: 0;
             width: 200%;
         }
@@ -440,8 +440,8 @@
 
         .mobile-mockup {
             position: relative;
-            width: clamp(140px, 14vw, 187px); /* iPhone 7 width proportion */
-            height: clamp(249px, 24.8vw, 333px); /* iPhone 7 height proportion (375:667 ratio) */
+            width: clamp(200px, 18vw, 280px); /* Much larger and more visible */
+            height: clamp(356px, 32vw, 498px); /* Proper 9:16 aspect ratio for better video display */
             background: transparent;
             border-radius: var(--r-mobile);
             padding: 0;
@@ -1360,25 +1360,25 @@
         /* Mobile Grid Responsive - Optimized for mobile video viewing */
         @media (max-width: 599px) {
             .mobile-grid { gap: 16px; }
-            .mobile-mockup { width: 140px; height: 249px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
+            .mobile-mockup { width: 200px; height: 356px; flex-shrink: 0; } /* Much larger for visibility */
             .video-captions { grid-template-columns: 1fr; gap: 16px; margin-top: 12px; }
             .caption { font-size: 15px; font-weight: 300 !important; }
         }
         
         @media (min-width: 600px) and (max-width: 904px) {
             .mobile-grid { gap: 20px; }
-            .mobile-mockup { width: 160px; height: 285px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
+            .mobile-mockup { width: 220px; height: 391px; flex-shrink: 0; } /* Larger for better viewing */
             .video-captions { grid-template-columns: repeat(2, 1fr); gap: 20px; }
         }
         
         @media (min-width: 905px) and (max-width: 1200px) {
             .mobile-grid { gap: 24px; }
-            .mobile-mockup { width: 170px; height: 302px; flex-shrink: 0; } /* iPhone 7 aspect ratio */
+            .mobile-mockup { width: 240px; height: 427px; flex-shrink: 0; } /* Even larger for tablets */
             .video-captions { grid-template-columns: repeat(3, 1fr); gap: 24px; }
         }
         
         @media (min-width: 1201px) and (max-width: 1400px) {
-            .mobile-mockup { width: 187px; height: 333px; } /* iPhone 7 aspect ratio */
+            .mobile-mockup { width: 280px; height: 498px; } /* Maximum size for desktop */
         }
         
         /* Typography overrides - Professional fluid system */
