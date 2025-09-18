@@ -1253,6 +1253,30 @@
             font-size: 12px;
         }
 
+        /* Typing Animation */
+        .typing-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #F1C232;
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+        }
+
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
         /* Material Design Responsive Breakpoints */
         @media (max-width: 599px) {
             .hero h1 { font-size: 36px; line-height: 1.22; }
@@ -2116,10 +2140,7 @@
                 
                 <!-- Video Captions -->
                 <div class="video-captions">
-                    <div class="caption">Create • Comment • Reconnect</div>
-                    <div class="caption">All with a selfie — be original, be you.</div>
-                    <div class="caption">🎥 Post a quick clip. 💬 Reply with a thread. 🔥 Keep the vibe alive.</div>
-                    <div class="caption">Improvise your story, one clip at a time.</div>
+                    <div class="typing-text" id="typingText"></div>
                 </div>
                 
             </div>
@@ -2352,6 +2373,58 @@
                     }
                 });
             });
+            
+            // Typing effect animation
+            const phrases = [
+                "Create • Comment • Reconnect",
+                "All with a selfie — be original, be you.",
+                "Post a quick clip, Reply with a thread. Keep the vibe alive.",
+                "Improvise your story, one clip at a time."
+            ];
+            
+            const typingElement = document.getElementById('typingText');
+            let currentPhrase = 0;
+            let currentChar = 0;
+            let isDeleting = false;
+            
+            function typeText() {
+                const phrase = phrases[currentPhrase];
+                
+                if (!isDeleting) {
+                    // Typing
+                    typingElement.textContent = phrase.substring(0, currentChar + 1);
+                    currentChar++;
+                    
+                    if (currentChar === phrase.length) {
+                        // Pause at end of phrase
+                        setTimeout(() => {
+                            isDeleting = true;
+                            typeText();
+                        }, 2000);
+                        return;
+                    }
+                } else {
+                    // Deleting
+                    typingElement.textContent = phrase.substring(0, currentChar - 1);
+                    currentChar--;
+                    
+                    if (currentChar === 0) {
+                        isDeleting = false;
+                        currentPhrase = (currentPhrase + 1) % phrases.length;
+                        // Pause before next phrase
+                        setTimeout(() => {
+                            typeText();
+                        }, 500);
+                        return;
+                    }
+                }
+                
+                // Continue typing/deleting
+                setTimeout(typeText, isDeleting ? 50 : 100);
+            }
+            
+            // Start typing animation
+            typeText();
         });
     </script>
 </body>
