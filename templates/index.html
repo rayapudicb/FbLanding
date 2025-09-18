@@ -52,8 +52,8 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             font-weight: 400;
-            line-height: 1.618;
-            color: #4a4a4a;
+            line-height: 1.5;
+            color: #666;
             background: #fff;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -114,7 +114,7 @@
         }
 
         .nav-link {
-            color: #4a4a4a;
+            color: #333;
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
@@ -209,7 +209,7 @@
 
         .btn-login {
             background: transparent;
-            color: #4a4a4a;
+            color: #333;
             border: none;
             font-weight: 600;
             font-size: 14px;
@@ -271,7 +271,7 @@
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
-            color: #4a4a4a;
+            color: #333;
             border: 1px solid rgba(0, 0, 0, 0.12);
             backdrop-filter: blur(10px);
         }
@@ -1394,53 +1394,54 @@
             .mobile-mockup { width: 200px; height: 355px; } /* 9:16 aspect ratio */
         }
         
-        /* Professional Color & Typography System */
+        /* Clean Text Hierarchy System */
         .hero h1 { 
             font-size: clamp(48px, 8vw, 72px) !important; 
-            font-weight: 800 !important; 
+            font-weight: 700 !important; 
             letter-spacing: -0.02em !important; 
             line-height: 1.1 !important;
-            color: #1a1a1a !important;
+            color: #000 !important;
         }
         .hero p, .showcase-subtitle, .cta-section p { 
             font-size: clamp(18px, 2.2vw, 22px) !important; 
-            line-height: 1.6 !important;
-            color: #4a4a4a !important;
+            line-height: 1.5 !important;
+            color: #666 !important;
         }
         .showcase-title, .cta-section h2, .feature-content h2 { 
             font-size: clamp(28px, 4vw, 36px) !important; 
-            font-weight: 700 !important; 
+            font-weight: 600 !important; 
             letter-spacing: -0.01em !important; 
             line-height: 1.2 !important;
-            color: #1a1a1a !important;
+            color: #000 !important;
         }
         .feature-content h3 {
             color: #F1C232 !important;
+            font-weight: 500 !important;
         }
         .feature-content p {
-            color: #4a4a4a !important;
+            color: #666 !important;
         }
         
-        /* Consistent Professional Spacing System */
-        .hero { padding: clamp(40px, 8vw, 80px) 0 !important; }
-        .trusted-brands { padding: clamp(40px, 8vw, 80px) 0 !important; }
-        .features { padding: clamp(40px, 8vw, 80px) 0 !important; }
-        .cta-section { padding: clamp(40px, 8vw, 80px) 0 !important; }
-        .newsletter { padding: clamp(40px, 8vw, 80px) 0 !important; }
-        .footer { padding: clamp(40px, 8vw, 80px) 0 !important; }
+        /* Compact Modern Spacing System */
+        .hero { padding: clamp(20px, 4vw, 40px) 0 !important; }
+        .trusted-brands { padding: clamp(16px, 3vw, 32px) 0 !important; }
+        .features { padding: clamp(20px, 4vw, 40px) 0 !important; }
+        .cta-section { padding: clamp(20px, 4vw, 40px) 0 !important; }
+        .newsletter { padding: clamp(16px, 3vw, 32px) 0 !important; }
+        .footer { padding: clamp(16px, 3vw, 32px) 0 !important; }
         
-        /* Consistent internal spacing for all elements */
-        .hero h1 { margin-bottom: 24px !important; }
-        .hero p { margin-bottom: 32px !important; }
-        .hero-buttons { margin-bottom: 48px !important; }
-        .showcase-title { margin-bottom: 16px !important; }
-        .showcase-subtitle { margin-bottom: 32px !important; }
-        .feature-item { margin-bottom: 48px !important; }
-        .cta-section h2 { margin-bottom: 16px !important; }
-        .cta-section p { margin-bottom: 24px !important; }
-        .feature-content h3 { margin-bottom: 12px !important; }
-        .feature-content h2 { margin-bottom: 16px !important; }
-        .feature-content p { margin-bottom: 16px !important; }
+        /* Compact internal spacing for all elements */
+        .hero h1 { margin-bottom: 16px !important; }
+        .hero p { margin-bottom: 24px !important; }
+        .hero-buttons { margin-bottom: 32px !important; }
+        .showcase-title { margin-bottom: 12px !important; }
+        .showcase-subtitle { margin-bottom: 24px !important; }
+        .feature-item { margin-bottom: 32px !important; }
+        .cta-section h2 { margin-bottom: 12px !important; }
+        .cta-section p { margin-bottom: 16px !important; }
+        .feature-content h3 { margin-bottom: 8px !important; }
+        .feature-content h2 { margin-bottom: 12px !important; }
+        .feature-content p { margin-bottom: 12px !important; }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
