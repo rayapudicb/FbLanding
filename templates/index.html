@@ -9,8 +9,8 @@
     <!-- Material Icons for UI icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
-    <!-- Inter Font for modern clean style -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Modern Geometric Fonts for neon glow style -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Josefin+Sans:wght@100;200;300;400;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
@@ -227,13 +227,28 @@
         }
 
         .logo {
-            font-size: 32px;
-            color: #F1C232;
+            font-size: 28px;
+            color: transparent;
             text-decoration: none;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            font-weight: 700;
-            letter-spacing: -1px;
+            font-family: 'Raleway', 'Josefin Sans', 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 3px;
             text-transform: lowercase;
+            line-height: 1.1;
+            /* Hollow/outline effect with double stroke */
+            -webkit-text-stroke: 2px #F1C232;
+            text-stroke: 2px #F1C232;
+            /* Neon glow effect */
+            text-shadow: 
+                0 0 5px #F1C232,
+                0 0 10px #F1C232,
+                0 0 20px #F1C232,
+                0 0 30px #F1C232,
+                2px 2px 4px rgba(0,0,0,0.3);
+            /* Soft outer glow */
+            filter: drop-shadow(0 0 8px rgba(241, 194, 50, 0.6));
+            /* Stacked layout */
+            white-space: pre-line;
         }
 
         .nav-buttons {
@@ -1801,7 +1816,8 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <a href="#" class="logo">letsflick</a>
+                <a href="#" class="logo">lets
+flick</a>
                 <div class="nav-menu">
                     <div class="app-store-links">
                         <a href="https://play.google.com/store" target="_blank" class="app-store-btn">
