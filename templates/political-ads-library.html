@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+
+{% block title %}Political Ads Library - letsflick{% endblock %}
+{% block description %}Search and explore political advertisements on letsflick. Transparency in political advertising and campaign funding disclosure.{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">Political Ads Library</h1>
+    <p class="page-subtitle">Transparency in political advertising on letsflick</p>
+</div>
+
+<div class="content-section">
+    <h2>About Our Political Ads Library</h2>
+    <p>In the interest of transparency and democratic accountability, letsflick maintains a comprehensive library of all political advertisements that have run on our platform. This resource is available to researchers, journalists, voters, and anyone interested in understanding political advertising in the digital age.</p>
+    
+    <div class="highlight-box">
+        <h3>Transparency Commitment</h3>
+        <p>We believe that transparency in political advertising is essential for informed democratic participation. Our ads library provides unprecedented visibility into political messaging on social media.</p>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Search Political Advertisements</h2>
+    <p>Use our search tools to explore political advertisements by candidate, issue, date range, or funding source.</p>
+    
+    <div style="background: #f8f9fa; padding: 24px; border-radius: 8px; margin: 24px 0;">
+        <h3 style="color: #333; margin-bottom: 16px;">Search Political Ads</h3>
+        <div style="display: grid; gap: 16px;">
+            <input type="text" placeholder="Search by candidate, party, or issue" style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <select style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                    <option>All Regions</option>
+                    <option>National</option>
+                    <option>State</option>
+                    <option>Local</option>
+                </select>
+                <select style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                    <option>All Time Periods</option>
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Last 3 Months</option>
+                    <option>Custom Range</option>
+                </select>
+            </div>
+            <button style="padding: 12px 24px; background: #F1C232; color: #000; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Search Advertisements</button>
+        </div>
+        <p style="color: #666; font-size: 14px; margin-top: 12px;">
+            <em>Note: This is a demonstration interface. The full political ads library will be available upon platform launch.</em>
+        </p>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>What Information We Provide</h2>
+    
+    <h3>Advertisement Details</h3>
+    <ul>
+        <li><strong>Ad Content:</strong> Full video content and transcription</li>
+        <li><strong>Funding Source:</strong> Organization or individual paying for the ad</li>
+        <li><strong>Spend Amount:</strong> Total amount spent on the advertisement</li>
+        <li><strong>Targeting Criteria:</strong> Demographics and geographic targeting used</li>
+        <li><strong>Run Dates:</strong> When the advertisement was active on the platform</li>
+        <li><strong>Impressions:</strong> Number of times the ad was shown to users</li>
+        <li><strong>Engagement:</strong> User interactions with the advertisement</li>
+    </ul>
+    
+    <h3>Advertiser Information</h3>
+    <ul>
+        <li><strong>Organization Name:</strong> Official name of the advertising entity</li>
+        <li><strong>Contact Information:</strong> Publicly available contact details</li>
+        <li><strong>Authorization Status:</strong> Verification of identity and authorization</li>
+        <li><strong>Disclaimer Information:</strong> Required legal disclaimers</li>
+        <li><strong>Previous Ads:</strong> Historical advertising from the same source</li>
+    </ul>
+    
+    <h3>Campaign Context</h3>
+    <ul>
+        <li><strong>Election Information:</strong> Related elections or ballot measures</li>
+        <li><strong>Issue Categories:</strong> Topics addressed in the advertisement</li>
+        <li><strong>Geographic Scope:</strong> Areas where the ad was shown</li>
+        <li><strong>Related Content:</strong> Similar ads or campaigns</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Political Advertising Requirements</h2>
+    
+    <h3>Authorization Process</h3>
+    <p>All political advertisers must complete our authorization process before running ads:</p>
+    <ul>
+        <li><strong>Identity Verification:</strong> Government-issued ID and legal documentation</li>
+        <li><strong>Organization Verification:</strong> Business registration and tax status confirmation</li>
+        <li><strong>Contact Information:</strong> Valid address, phone, and email verification</li>
+        <li><strong>Authorized Representative:</strong> Designated contact person for the campaign</li>
+        <li><strong>Disclaimer Compliance:</strong> Agreement to include required disclaimers</li>
+    </ul>
+    
+    <h3>Ongoing Compliance Requirements</h3>
+    <ul>
+        <li>Regular re-authorization during active campaign periods</li>
+        <li>Immediate notification of changes to organization or contact information</li>
+        <li>Compliance with spending limits and reporting requirements</li>
+        <li>Adherence to content policies and community guidelines</li>
+        <li>Cooperation with platform monitoring and audit processes</li>
+    </ul>
+    
+    <h3>Disclosure Standards</h3>
+    <ul>
+        <li><strong>Paid-for-by Disclaimers:</strong> Clear identification of funding source</li>
+        <li><strong>Authorization Statements:</strong> Required approval language</li>
+        <li><strong>Contact Information:</strong> How to reach the advertiser</li>
+        <li><strong>Sponsorship Identification:</strong> Clear marking of sponsored content</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Data Retention and Access</h2>
+    
+    <h3>Retention Policy</h3>
+    <ul>
+        <li><strong>Active Ads:</strong> Real-time availability during campaign periods</li>
+        <li><strong>Completed Ads:</strong> Maintained for 7 years after last run date</li>
+        <li><strong>Advertiser Information:</strong> Kept for duration of account relationship plus 7 years</li>
+        <li><strong>Financial Data:</strong> Spending information retained per legal requirements</li>
+        <li><strong>Performance Metrics:</strong> Aggregated data available for research purposes</li>
+    </ul>
+    
+    <h3>Public Access</h3>
+    <ul>
+        <li><strong>Free Access:</strong> No cost to search and view political advertisements</li>
+        <li><strong>No Registration Required:</strong> Open access to all library features</li>
+        <li><strong>API Access:</strong> Programmatic access for researchers and journalists</li>
+        <li><strong>Download Options:</strong> Export capabilities for analysis and reporting</li>
+        <li><strong>Real-Time Updates:</strong> New ads added within 24 hours of going live</li>
+    </ul>
+    
+    <h3>Research Support</h3>
+    <ul>
+        <li>Academic research partnerships and data sharing agreements</li>
+        <li>Bulk data access for qualified research institutions</li>
+        <li>Technical support for journalists and fact-checkers</li>
+        <li>Custom reporting and analysis tools</li>
+        <li>Regular data quality audits and improvement initiatives</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Privacy and Legal Considerations</h2>
+    
+    <h3>User Privacy Protection</h3>
+    <ul>
+        <li>No individual user data included in ad library</li>
+        <li>Aggregated demographics only, no personal information</li>
+        <li>Targeting data shown at high level to protect user privacy</li>
+        <li>Compliance with all applicable privacy laws and regulations</li>
+        <li>Regular privacy impact assessments and updates</li>
+    </ul>
+    
+    <h3>Legal Compliance</h3>
+    <ul>
+        <li><strong>Federal Election Campaign Act (FECA)</strong> compliance for federal elections</li>
+        <li><strong>State and local election laws</strong> adherence for regional campaigns</li>
+        <li><strong>FCC regulations</strong> for broadcast-equivalent political advertising</li>
+        <li><strong>IRS requirements</strong> for tax-exempt organization advertising</li>
+        <li><strong>International standards</strong> for global political advertising transparency</li>
+    </ul>
+    
+    <h3>Content Policies</h3>
+    <ul>
+        <li>All political ads subject to standard community guidelines</li>
+        <li>Prohibition of voter suppression or election interference content</li>
+        <li>Fact-checking partnerships for political claim verification</li>
+        <li>Rapid response protocols for problematic content</li>
+        <li>Clear policies on deepfakes and manipulated media</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Enforcement and Monitoring</h2>
+    
+    <h3>Automated Detection</h3>
+    <ul>
+        <li>AI-powered systems to identify potential political content</li>
+        <li>Automatic flagging of ads missing required disclosures</li>
+        <li>Real-time spending and authorization status monitoring</li>
+        <li>Pattern recognition for coordinated inauthentic behavior</li>
+        <li>Integration with external verification and fact-checking services</li>
+    </ul>
+    
+    <h3>Manual Review Process</h3>
+    <ul>
+        <li>Expert human reviewers for complex political content</li>
+        <li>Escalation procedures for sensitive or controversial ads</li>
+        <li>Regular audits of advertiser compliance and authorization status</li>
+        <li>Coordination with election officials and regulatory bodies</li>
+        <li>Response protocols for reported violations or concerns</li>
+    </ul>
+    
+    <h3>Violation Consequences</h3>
+    <ul>
+        <li><strong>Minor Violations:</strong> Warning and requirement to add missing disclosures</li>
+        <li><strong>Serious Violations:</strong> Ad removal and account review</li>
+        <li><strong>Severe Violations:</strong> Permanent ban from political advertising</li>
+        <li><strong>Legal Violations:</strong> Reporting to appropriate authorities</li>
+        <li><strong>Coordinated Campaigns:</strong> Network-wide enforcement actions</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Research and Analysis Tools</h2>
+    
+    <h3>Advanced Search Features</h3>
+    <ul>
+        <li><strong>Keyword Search:</strong> Full-text search across ad content and metadata</li>
+        <li><strong>Visual Recognition:</strong> Search by image or video similarity</li>
+        <li><strong>Spending Analysis:</strong> Filter by budget ranges and spending patterns</li>
+        <li><strong>Geographic Mapping:</strong> Visual representation of ad targeting and reach</li>
+        <li><strong>Timeline Views:</strong> Chronological analysis of campaign messaging</li>
+    </ul>
+    
+    <h3>Analytics Dashboard</h3>
+    <ul>
+        <li>Aggregate spending trends across elections and time periods</li>
+        <li>Popular issues and messaging themes analysis</li>
+        <li>Advertiser behavior and spending pattern insights</li>
+        <li>Geographic distribution of political advertising</li>
+        <li>Performance benchmarks and engagement metrics</li>
+    </ul>
+    
+    <h3>Export and Integration</h3>
+    <ul>
+        <li><strong>Data Export:</strong> CSV, JSON, and XML formats available</li>
+        <li><strong>API Access:</strong> RESTful API for programmatic data access</li>
+        <li><strong>Visualization Tools:</strong> Built-in charts and graphs</li>
+        <li><strong>Third-Party Integration:</strong> Compatible with research and analysis platforms</li>
+        <li><strong>Citation Tools:</strong> Academic citation formats and permalinks</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Partnership and Collaboration</h2>
+    
+    <h3>Academic Partnerships</h3>
+    <ul>
+        <li>Collaboration with universities and research institutions</li>
+        <li>Data sharing agreements for academic research projects</li>
+        <li>Student researcher access and training programs</li>
+        <li>Publication support and co-authored research initiatives</li>
+        <li>Conference presentations and academic symposiums</li>
+    </ul>
+    
+    <h3>Journalism Support</h3>
+    <ul>
+        <li>Press access to ad library data and analysis tools</li>
+        <li>Training sessions for journalists on political ad research</li>
+        <li>Real-time alerts for significant political advertising developments</li>
+        <li>Custom data requests and investigative journalism support</li>
+        <li>Fact-checking partnerships and verification assistance</li>
+    </ul>
+    
+    <h3>Civil Society Organizations</h3>
+    <ul>
+        <li>Voting rights organizations access and support</li>
+        <li>Government transparency advocacy group partnerships</li>
+        <li>Election monitoring and observer organization collaboration</li>
+        <li>Digital rights and privacy advocacy engagement</li>
+        <li>International democracy promotion organization involvement</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <h2>Getting Started</h2>
+    
+    <h3>For Researchers</h3>
+    <ul>
+        <li>Create a free researcher account for enhanced access</li>
+        <li>Review our research ethics guidelines and best practices</li>
+        <li>Apply for bulk data access if conducting large-scale studies</li>
+        <li>Join our researcher community forum for collaboration</li>
+        <li>Attend our monthly researcher webinars and training sessions</li>
+    </ul>
+    
+    <h3>For Journalists</h3>
+    <ul>
+        <li>Sign up for real-time alerts on political advertising trends</li>
+        <li>Access our journalist resource center for story development tips</li>
+        <li>Request custom data analysis for investigative reporting</li>
+        <li>Participate in our media training programs</li>
+        <li>Connect with our press team for additional support</li>
+    </ul>
+    
+    <h3>For Political Advertisers</h3>
+    <ul>
+        <li>Begin the authorization process at least 2 weeks before campaign launch</li>
+        <li>Review our political advertising policies and requirements</li>
+        <li>Prepare required documentation and contact information</li>
+        <li>Test your ads for compliance with disclosure requirements</li>
+        <li>Set up spending tracking and reporting systems</li>
+    </ul>
+    
+    <p style="margin-top: 32px;">
+        <a href="/contact" class="btn">Contact Political Ads Team</a>
+    </p>
+</div>
+
+<div class="content-section">
+    <h2>Contact and Support</h2>
+    
+    <h3>Political Ads Library Support</h3>
+    <ul>
+        <li><strong>General Inquiries:</strong> politicalads@letsflick.com</li>
+        <li><strong>Research Support:</strong> research@letsflick.com</li>
+        <li><strong>Press Inquiries:</strong> press@letsflick.com</li>
+        <li><strong>Advertiser Authorization:</strong> adauthorization@letsflick.com</li>
+        <li><strong>Technical Support:</strong> adsapi@letsflick.com</li>
+    </ul>
+    
+    <h3>Report Issues</h3>
+    <ul>
+        <li>Missing or incorrect ad information</li>
+        <li>Technical problems with search or data access</li>
+        <li>Potential policy violations or unauthorized political ads</li>
+        <li>Questions about advertiser authorization status</li>
+        <li>Requests for additional data or analysis features</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <p><strong>Building Trust in Democratic Processes</strong></p>
+    <p>Our Political Ads Library represents our commitment to transparency and accountability in digital political advertising. By making this information freely available, we aim to strengthen democratic participation and informed decision-making.</p>
+    
+    <p><em>The Political Ads Library will launch alongside our platform's general availability. We are committed to meeting the highest standards of transparency and compliance with all applicable election laws and regulations.</em></p>
+</div>
+{% endblock %}
