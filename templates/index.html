@@ -1196,46 +1196,9 @@
             border-top: 1px solid #f0f0f0;
         }
 
-        /* Primary footer row - essentials */
+        /* Primary footer row - no longer needed but keeping structure */
         .footer-primary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .footer-primary-links {
-            display: flex;
-            gap: 32px;
-            align-items: center;
-        }
-
-        .footer-primary-links a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .footer-primary-links a:hover {
-            color: #F1C232;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 16px;
-        }
-
-        .footer-social a {
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .footer-social a:hover {
-            color: #F1C232;
+            display: none;
         }
 
         /* Secondary footer row - categories */
@@ -2316,23 +2279,6 @@
         </div>
     </section>
 
-    <!-- Login Section -->
-    <section id="login" class="newsletter">
-        <div class="container">
-            <div class="newsletter-content">
-                <h3>Creator & Brand Login</h3>
-                <p>Access your letsflick dashboard to manage your video threads, analytics, and community engagement.</p>
-                <div style="max-width: 400px; margin: 0 auto;">
-                    <form style="display: grid; gap: 16px; margin-bottom: 32px;">
-                        <input type="email" placeholder="Email Address" style="padding: 12px; border: 1px solid #ddd; background: #fff; color: #333; border-radius: 6px;">
-                        <input type="password" placeholder="Password" style="padding: 12px; border: 1px solid #ddd; background: #fff; color: #333; border-radius: 6px;">
-                        <button type="submit" class="btn btn-primary">Sign In</button>
-                    </form>
-                    <p style="color: #666; font-size: 14px;">Don't have an account? <a href="#" style="color: #F1C232;">Sign up here</a></p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -2340,14 +2286,7 @@
             <!-- Primary Footer - Essentials -->
             <nav class="footer-primary" aria-label="Footer essentials">
                 <div class="footer-primary-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Contact</a>
-                </div>
-                
-                <div class="footer-social">
-                    <a href="#">Twitter</a>
-                    <a href="#">Instagram</a>
+                    <!-- Links moved to categories below -->
                 </div>
             </nav>
             
@@ -2362,6 +2301,8 @@
                             <a href="#">Support</a>
                             <a href="#">Community Guidelines</a>
                             <a href="#">Safety Center</a>
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
                         </div>
                     </div>
                     
@@ -2370,6 +2311,7 @@
                         <div class="footer-category-links">
                             <a href="#">Careers</a>
                             <a href="#">News</a>
+                            <a href="#">Contact</a>
                         </div>
                     </div>
                     
