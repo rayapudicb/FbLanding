@@ -68,7 +68,7 @@
         }
 
         /* Fluid Spacing System */
-        .section-spacing { padding: clamp(20px, 4vw, 40px) 0; }
+        .section-spacing { padding: clamp(40px, 6vw, 70px) 0; }
         .grid-gap { gap: clamp(16px, 3vw, 40px); }
 
         /* Material Design Elevation */
@@ -95,7 +95,7 @@
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            padding: 21px 0;
+            padding: 28px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.06);
             position: sticky;
             top: 0;
@@ -164,7 +164,7 @@
         }
 
         .app-store-btn img {
-            height: 40px;
+            height: 36px;
             width: auto;
         }
 
@@ -227,7 +227,7 @@
         }
 
         .logo {
-            font-size: 32px;
+            font-size: 28px;
             color: #F1C232;
             text-decoration: none;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -263,13 +263,15 @@
             background: #F1C232;
             color: #000;
             border: none;
-            box-shadow: 0 4px 12px rgba(255, 211, 0, 0.2);
+            box-shadow: 0 6px 18px rgba(255, 211, 0, 0.3);
+            font-weight: 600;
+            font-size: 15px;
         }
 
         .btn-primary:hover {
             background: #e6bf00;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(255, 211, 0, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 211, 0, 0.4);
         }
 
         .btn-secondary {
@@ -294,7 +296,7 @@
         }
 
         .hero h1 {
-            font-size: 72px;
+            font-size: clamp(56px, 8vw, 94px);
             font-weight: 700;
             line-height: 1.1;
             color: #000;
@@ -310,7 +312,7 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.5;
+            line-height: 1.35;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             font-weight: 400;
         }
@@ -808,7 +810,7 @@
 
         /* Services Grid */
         .services {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
         }
 
         .services-grid {
@@ -821,14 +823,14 @@
             background: #fff;
             border-radius: 16px;
             padding: 34px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 10px 20px rgba(0,0,0,0.05);
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .service-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.12), 0 16px 32px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12), 0 24px 48px rgba(0,0,0,0.08);
             border-color: rgba(255, 211, 0, 0.2);
         }
 
@@ -836,13 +838,13 @@
             width: 100%;
             height: 200px;
             background: linear-gradient(135deg, #F1C232 0%, #e6bf00 100%);
-            border-radius: 8px;
+            border-radius: 12px;
             margin-bottom: 24px;
         }
 
         .service-card h3 {
             font-size: 24px;
-            font-weight: 600;
+            font-weight: 700;
             color: #000;
             margin-bottom: 16px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -851,7 +853,7 @@
 
         .service-card p {
             color: #666;
-            font-size: 16px;
+            font-size: 0.9em;
             line-height: 1.5;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             font-weight: 400;
@@ -859,7 +861,7 @@
 
         /* Market Section */
         .market-section {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
             background: #fff;
         }
 
@@ -871,7 +873,7 @@
 
         .market-section h2 {
             font-size: 48px;
-            font-weight: 600;
+            font-weight: 700;
             color: #000;
             margin-bottom: 24px;
             line-height: 1.2;
@@ -890,7 +892,7 @@
 
         /* Features Section */
         .features {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
         }
 
         .feature-item {
@@ -921,7 +923,7 @@
 
         .feature-content h2 {
             font-size: 36px;
-            font-weight: 600;
+            font-weight: 700;
             color: #000;
             margin-bottom: 16px;
             line-height: 1.22;
@@ -930,7 +932,7 @@
         }
 
         .feature-content p {
-            font-size: 18px;
+            font-size: 0.9em;
             color: #666;
             line-height: 1.618;
             margin-bottom: 8px;
@@ -999,7 +1001,7 @@
 
         /* Testimonials */
         .testimonials {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
             background: #fff;
         }
 
@@ -1010,7 +1012,7 @@
             padding: 55px 34px;
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.12), 0 16px 32px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.06);
             border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
@@ -1050,13 +1052,13 @@
 
         /* CTA Section */
         .cta-section {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
             text-align: center;
         }
 
         .cta-section h2 {
             font-size: 36px;
-            font-weight: 600;
+            font-weight: 700;
             color: #000;
             margin-bottom: 24px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -1075,7 +1077,7 @@
 
         /* Creator Section */
         .creator-section {
-            padding: clamp(20px, 4vw, 40px) 0;
+            padding: clamp(40px, 6vw, 70px) 0;
             background: linear-gradient(135deg, #F1C232 0%, #e6bf00 100%);
             color: #000;
         }
@@ -1089,7 +1091,7 @@
 
         .creator-text h2 {
             font-size: 48px;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 24px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             line-height: 1.2;
@@ -1210,7 +1212,7 @@
         .footer-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
+            gap: 40px;
         }
 
         .footer-category h5 {
@@ -1231,7 +1233,7 @@
         .footer-category-links a {
             color: #777;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             transition: color 0.2s;
         }
 
@@ -1244,12 +1246,90 @@
             display: none;
         }
 
+        .footer-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        
+        .footer-social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social-icons a:hover {
+            background: #F1C232;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid #f0f0f0;
             color: #999;
             font-size: 12px;
+        }
+
+        /* Scroll animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 48px;
+            height: 48px;
+            background: #F1C232;
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(255, 211, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top:hover {
+            background: #e6bf00;
+            box-shadow: 0 6px 16px rgba(255, 211, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced sticky header */
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(24px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 12px 24px rgba(0,0,0,0.08);
         }
 
         /* Typing Animation */
@@ -2202,7 +2282,7 @@
         <div class="container">
             <div class="feature-item">
                 <div class="feature-content">
-                    <h3>Build</h3>
+                    <h3 style="color: #F1C232;">Build</h3>
                     <h2>We're not just another feed of content — we're a community of creators.</h2>
                     <p>Start threads, join discussions, and spark movements with authentic short videos.</p>
                 </div>
@@ -2221,7 +2301,7 @@
 
             <div class="feature-item">
                 <div class="feature-content">
-                    <h3>Manage</h3>
+                    <h3 style="color: #F1C232;">Manage</h3>
                     <h2>Keep your space in control.</h2>
                     <p>Report or flag content instantly. Org admins curate their own feeds and campaigns. letsflick' moderation + FireCMS tools keep communities safe and spam-free.</p>
                 </div>
@@ -2240,7 +2320,7 @@
 
             <div class="feature-item">
                 <div class="feature-content">
-                    <h3>Measure</h3>
+                    <h3 style="color: #F1C232;">Measure</h3>
                     <h2>Get real-time insights on your video threads.</h2>
                     <p>Replies, forwards, and likes. Poll votes and sentiment. Which threads are catching fire. Analytics that help creators and orgs grow, without the noise.</p>
                 </div>
@@ -2317,6 +2397,15 @@
                 
                 <div class="footer-categories">
                     <div class="footer-category">
+                        <h5>Company</h5>
+                        <div class="footer-category-links">
+                            <a href="/careers">Careers</a>
+                            <a href="/news">News</a>
+                            <a href="/contact">Contact</a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-category">
                         <h5>Safety & Support</h5>
                         <div class="footer-category-links">
                             <a href="/support">Support</a>
@@ -2324,15 +2413,6 @@
                             <a href="/safety-center">Safety Center</a>
                             <a href="/privacy-policy">Privacy Policy</a>
                             <a href="/terms-of-service">Terms of Service</a>
-                        </div>
-                    </div>
-                    
-                    <div class="footer-category">
-                        <h5>Company</h5>
-                        <div class="footer-category-links">
-                            <a href="/careers">Careers</a>
-                            <a href="/news">News</a>
-                            <a href="/contact">Contact</a>
                         </div>
                     </div>
                     
@@ -2345,6 +2425,32 @@
                             <a href="/political-ads-library">Political Ads Library</a>
                             <a href="/brand-guidelines">Brand Guidelines</a>
                             <a href="/promotions-rules">Promotions Rules</a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-category">
+                        <h5>Follow Us</h5>
+                        <div class="footer-social-icons">
+                            <a href="#" aria-label="TikTok">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Instagram">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="YouTube">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="X (Twitter)">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -2426,6 +2532,64 @@
             
             // Start typing animation
             typeText();
+            
+            // Enhanced scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe sections for animations
+            document.querySelectorAll('.features section, .services, .testimonials, .cta-section').forEach(el => {
+                el.classList.add('fade-up');
+                observer.observe(el);
+            });
+            
+            // Enhanced sticky header
+            const header = document.querySelector('.header');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                
+                if (scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                
+                lastScrollY = scrollY;
+            });
+            
+            // Scroll to top button
+            const scrollToTopBtn = document.createElement('button');
+            scrollToTopBtn.className = 'scroll-to-top';
+            scrollToTopBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>';
+            scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
+            document.body.appendChild(scrollToTopBtn);
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
         });
     </script>
 </body>
