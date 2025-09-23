@@ -43,6 +43,18 @@ def news():
 def contact():
     return render_template('contact.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/communities')
+def communities():
+    return render_template('communities.html')
+
+@app.route('/subscribe')
+def subscribe():
+    return render_template('subscribe.html')
+
 # Advertising Pages
 @app.route('/advertising')
 def advertising():

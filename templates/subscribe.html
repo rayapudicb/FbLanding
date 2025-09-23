@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Subscribe - letsflick{% endblock %}
+
+{% block description %}Subscribe to letsflick for premium features, advanced analytics, and exclusive creator tools{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="page-header">
+            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(135deg, #F1C232, #E8B931); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Subscribe</h1>
+            <p style="font-size: 20px; color: #666; max-width: 600px; margin: 0 auto;">Unlock premium features and take your video threads to the next level</p>
+        </div>
+
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <!-- Subscription Plans -->
+            <section style="margin-bottom: 64px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px;">
+                    
+                    <!-- Free Plan -->
+                    <div style="background: white; border: 2px solid #f0f0f0; border-radius: 16px; padding: 32px; text-align: center; position: relative;">
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #333;">Free</h3>
+                        <div style="font-size: 48px; font-weight: 700; color: #333; margin-bottom: 4px;">$0</div>
+                        <p style="color: #666; margin-bottom: 32px;">Perfect for getting started</p>
+                        
+                        <ul style="list-style: none; text-align: left; margin-bottom: 32px;">
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Create unlimited video threads
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Join communities
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Basic analytics
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Mobile app access
+                            </li>
+                        </ul>
+                        
+                        <a href="/" style="display: block; width: 100%; background: #f8f9fa; color: #666; padding: 16px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                            Get Started Free
+                        </a>
+                    </div>
+
+                    <!-- Creator Pro Plan -->
+                    <div style="background: white; border: 2px solid #F1C232; border-radius: 16px; padding: 32px; text-align: center; position: relative; transform: scale(1.05); box-shadow: 0 8px 32px rgba(0,0,0,0.12);">
+                        <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #F1C232, #E8B931); color: white; padding: 6px 20px; border-radius: 20px; font-size: 12px; font-weight: 600;">
+                            MOST POPULAR
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #333;">Creator Pro</h3>
+                        <div style="font-size: 48px; font-weight: 700; color: #333; margin-bottom: 4px;">$9<span style="font-size: 18px; color: #666; font-weight: 400;">/month</span></div>
+                        <p style="color: #666; margin-bottom: 32px;">For serious creators</p>
+                        
+                        <ul style="list-style: none; text-align: left; margin-bottom: 32px;">
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Everything in Free
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Advanced analytics & insights
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Custom branding options
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Priority support
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Early access to new features
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Monetization tools
+                            </li>
+                        </ul>
+                        
+                        <a href="/" style="display: block; width: 100%; background: linear-gradient(135deg, #F1C232, #E8B931); color: white; padding: 16px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                            Start Pro Trial
+                        </a>
+                    </div>
+
+                    <!-- Organization Plan -->
+                    <div style="background: white; border: 2px solid #f0f0f0; border-radius: 16px; padding: 32px; text-align: center; position: relative;">
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #333;">Organization</h3>
+                        <div style="font-size: 48px; font-weight: 700; color: #333; margin-bottom: 4px;">$29<span style="font-size: 18px; color: #666; font-weight: 400;">/month</span></div>
+                        <p style="color: #666; margin-bottom: 32px;">For teams & businesses</p>
+                        
+                        <ul style="list-style: none; text-align: left; margin-bottom: 32px;">
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Everything in Creator Pro
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Team collaboration tools
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Advanced moderation
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Custom integrations
+                            </li>
+                            <li style="padding: 8px 0; color: #666; display: flex; align-items: center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin-right: 12px;">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                                Dedicated account manager
+                            </li>
+                        </ul>
+                        
+                        <a href="/contact" style="display: block; width: 100%; border: 2px solid #F1C232; color: #F1C232; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section style="background: #f8f9fa; padding: 48px; border-radius: 20px;">
+                <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 32px; color: #333; text-align: center;">Frequently Asked Questions</h2>
+                <div style="max-width: 700px; margin: 0 auto;">
+                    <div style="margin-bottom: 24px; padding: 24px; background: white; border-radius: 12px;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #333;">Can I cancel anytime?</h4>
+                        <p style="color: #666; line-height: 1.6;">Yes, you can cancel your subscription at any time. Your account will remain active until the end of your billing period.</p>
+                    </div>
+                    <div style="margin-bottom: 24px; padding: 24px; background: white; border-radius: 12px;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #333;">Is there a free trial?</h4>
+                        <p style="color: #666; line-height: 1.6;">Yes! Creator Pro comes with a 14-day free trial. No credit card required to start.</p>
+                    </div>
+                    <div style="margin-bottom: 24px; padding: 24px; background: white; border-radius: 12px;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #333;">What payment methods do you accept?</h4>
+                        <p style="color: #666; line-height: 1.6;">We accept all major credit cards, PayPal, and local payment methods in supported regions.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

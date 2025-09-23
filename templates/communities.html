@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Communities - letsflick{% endblock %}
+
+{% block description %}Discover vibrant communities on letsflick where creators and audiences build meaningful connections through video threads{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="container">
+        <div class="page-header">
+            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(135deg, #F1C232, #E8B931); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Communities</h1>
+            <p style="font-size: 20px; color: #666; max-width: 600px; margin: 0 auto;">Where conversations become movements</p>
+        </div>
+
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <section style="margin-bottom: 64px;">
+                <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 32px; color: #333; text-align: center;">Build Your Community</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                    <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #F1C232, #E8B931); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #333;">Creator Communities</h3>
+                        <p style="color: #666; line-height: 1.6;">Connect with fellow creators, share tips, collaborate on projects, and grow your audience together.</p>
+                    </div>
+
+                    <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #F1C232, #E8B931); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #333;">Interest Groups</h3>
+                        <p style="color: #666; line-height: 1.6;">Join communities focused on your passions—from tech and business to art and lifestyle.</p>
+                    </div>
+
+                    <div style="background: white; padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="width: 64px; height: 64px; background: linear-gradient(135deg, #F1C232, #E8B931); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 16px; color: #333;">Organizations</h3>
+                        <p style="color: #666; line-height: 1.6;">Build brand communities, engage customers, and create authentic connections with your audience.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="background: linear-gradient(135deg, #f8f9fa, #fff); padding: 48px; border-radius: 20px; margin-bottom: 64px;">
+                <h2 style="font-size: 32px; font-weight: 600; margin-bottom: 24px; color: #333; text-align: center;">Community Guidelines</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 32px;">
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #333;">Respect</h4>
+                        <p style="color: #666; font-size: 14px;">Treat all community members with kindness and respect</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #333;">Authenticity</h4>
+                        <p style="color: #666; font-size: 14px;">Share genuine content and be true to yourself</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #333;">Safety</h4>
+                        <p style="color: #666; font-size: 14px;">Keep communities safe and welcoming for everyone</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: #333;">Growth</h4>
+                        <p style="color: #666; font-size: 14px;">Support others and help the community thrive</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="text-align: center;">
+                <h2 style="font-size: 28px; font-weight: 600; margin-bottom: 16px; color: #333;">Start Your Community Today</h2>
+                <p style="font-size: 18px; color: #666; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">Whether you're a creator, organization, or passionate individual, letsflick provides the tools to build thriving video communities.</p>
+                <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/" style="display: inline-block; background: linear-gradient(135deg, #F1C232, #E8B931); color: white; padding: 16px 32px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
+                        Join Communities
+                    </a>
+                    <a href="/community-guidelines" style="display: inline-block; border: 2px solid #F1C232; color: #F1C232; padding: 14px 32px; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
+                        View Guidelines
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}
