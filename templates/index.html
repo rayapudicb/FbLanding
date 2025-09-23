@@ -2185,6 +2185,12 @@
             // Run even if another callback already fired
             whenReady(init);
             
+            // Also force reinitialization after a delay to catch any missed containers
+            setTimeout(() => {
+                console.log('[YT] Force reinitializing YouTube API for all containers');
+                init();
+            }, 2000);
+            
             // Ensure API script is loaded
             if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
                 var s = document.createElement('script');
@@ -3001,10 +3007,8 @@
             // Initialize video stacks (prevent YouTube API conflicts)
             const videoStacks = document.querySelectorAll('.video-stack');
             
-            // Mark stack iframes to prevent YouTube API processing
-            document.querySelectorAll('.stack-iframe').forEach(iframe => {
-                iframe.setAttribute('data-stack-video', 'true');
-            });
+            // Allow stack iframes to be processed by YouTube API for proper audio control
+            // Removed data-stack-video attribute to enable YouTube API integration
             
             videoStacks.forEach(stack => {
                 const frames = Array.from(stack.querySelectorAll('.phone-frame'));
