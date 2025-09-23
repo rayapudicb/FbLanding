@@ -1454,37 +1454,10 @@
             margin: 0 !important;
         }
         
-        /* Front frame state */
+        /* Front frame state - only z-index and shadow, no position changes */
         .phone-frame.front {
             z-index: 5 !important;
             box-shadow: 0 24px 48px rgba(15,23,42,0.16);
-        }
-        
-        /* Front frame positioning - center only */
-        .phone-frame.center.front {
-            transform: scale(1.02) rotate(0deg) !important;
-            left: 50% !important;
-            top: 0px !important;
-            right: auto !important;
-            margin-left: calc(var(--card-w) / -2 * 1.02) !important;
-        }
-        
-        /* Front frame positioning - left tilted */
-        .phone-frame.left.front {
-            transform: rotate(var(--left-rot)) scale(1.02) !important;
-            left: 50% !important;
-            top: 0px !important;
-            right: auto !important;
-            margin-left: calc(var(--card-w) / -2 * 1.02) !important;
-        }
-        
-        /* Front frame positioning - right tilted */
-        .phone-frame.right.front {
-            transform: rotate(var(--right-rot)) scale(1.02) !important;
-            left: 50% !important;
-            top: 0px !important;
-            right: auto !important;
-            margin-left: calc(var(--card-w) / -2 * 1.02) !important;
         }
         
         /* Hover effects */
@@ -3064,16 +3037,17 @@
                 }
                 
                 frames.forEach(frame => {
-                    // Hover effects - bring frame to front while maintaining tilt and play audio
+                    // Hover effects - bring frame to front in its original position and play audio
                     frame.addEventListener('mouseenter', () => {
                         unlockAudio();
                         
-                        // Bring this frame to front while keeping its tilt angle
-                        frames.forEach(f => f.classList.remove('front'));
+                        // Bring this frame to front using z-index only (no position changes)
+                        frames.forEach(f => {
+                            f.style.zIndex = '1'; // Reset other frames to background
+                            f.classList.remove('front');
+                        });
+                        frame.style.zIndex = '5'; // Bring this frame to front
                         frame.classList.add('front');
-                        
-                        // Force re-layout for better positioning
-                        stack.offsetHeight;
                         
                         // Enable audio and autoplay for this frame
                         const iframe = frame.querySelector('.stack-iframe');
@@ -3084,18 +3058,30 @@
                             }
                         }
                         
-                        // Pause other frames
+                        // Mute other frames (but keep them playing)
                         frames.forEach(f => {
                             if (f !== frame) {
                                 const otherIframe = f.querySelector('.stack-iframe');
                                 if (otherIframe) {
                                     const src = otherIframe.src;
-                                    if (src.includes('autoplay=1')) {
-                                        otherIframe.src = src.replace('autoplay=1', 'autoplay=0').replace('mute=0', 'mute=1');
+                                    if (!src.includes('mute=1')) {
+                                        otherIframe.src = src.replace('mute=0', 'mute=1');
                                     }
                                 }
                             }
                         });
+                    });
+                    
+                    // Reset audio on mouse leave
+                    frame.addEventListener('mouseleave', () => {
+                        // Mute this frame when not hovered
+                        const iframe = frame.querySelector('.stack-iframe');
+                        if (iframe) {
+                            const src = iframe.src;
+                            if (!src.includes('mute=1')) {
+                                iframe.src = src.replace('mute=0', 'mute=1');
+                            }
+                        }
                     });
                     
                     
