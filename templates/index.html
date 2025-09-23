@@ -522,7 +522,7 @@
             position: relative;
             width: clamp(160px, 16vw, 220px);
             height: clamp(285px, 28.4vw, 391px); /* 9:16 aspect ratio maintained */
-            background: #000;
+            background: transparent;
             border-radius: var(--r-mobile);
             padding: 0;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
@@ -574,24 +574,22 @@
             position: relative;
             overflow: hidden;
             border-radius: inherit;
-            background: #000;
         }
         
         .video-container {
             position: relative;
             overflow: hidden;
             border-radius: inherit;
-            background: #000;
         }
         
-        /* Unified cover technique for all video iframes - removes bars and fills frames */
+        /* Aggressive cropping to completely remove thick YouTube bars */
         .video-player-mockup iframe,
         .stack-iframe {
             position: absolute !important;
             top: 50% !important;
             left: 50% !important;
-            width: 177.78% !important;
-            height: 100% !important;
+            width: 200% !important;
+            height: 120% !important;
             transform: translate(-50%, -50%) !important;
             border: 0 !important;
             border-radius: inherit !important;
