@@ -1619,16 +1619,32 @@
             box-shadow: 0 28px 56px rgba(15,23,42,0.18);
         }
         
+        /* Enhanced smooth interaction polish with easing transitions */
+        .phone-frame {
+            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        .phone-frame.center {
+            box-shadow: 0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.06),
+                        0 0 0 2px rgba(241, 194, 50, 0.1), 0 0 20px rgba(241, 194, 50, 0.15);
+        }
+
         .phone-frame.center:hover {
             transform: scale(1.03) translateY(-4px);
+            box-shadow: 0 24px 48px rgba(15,23,42,0.15), 0 12px 20px rgba(15,23,42,0.08),
+                        0 0 0 3px rgba(241, 194, 50, 0.2), 0 0 30px rgba(241, 194, 50, 0.25);
         }
         
         .phone-frame.left:hover {
             transform: rotate(var(--left-rot)) scale(1.03) translateY(-4px) !important;
+            box-shadow: 0 16px 32px rgba(15,23,42,0.12), 0 6px 12px rgba(15,23,42,0.06),
+                        0 0 0 2px rgba(241, 194, 50, 0.1), 0 0 15px rgba(241, 194, 50, 0.1);
         }
         
         .phone-frame.right:hover {
             transform: rotate(var(--right-rot)) scale(1.03) translateY(-4px) !important;
+            box-shadow: 0 16px 32px rgba(15,23,42,0.12), 0 6px 12px rgba(15,23,42,0.06),
+                        0 0 0 2px rgba(241, 194, 50, 0.1), 0 0 15px rgba(241, 194, 50, 0.1);
         }
         
         /* Stack controls */
