@@ -461,14 +461,31 @@
             z-index: 10;
         }
         
-        /* Wrapper with dissolve effect for scrolling videos */
+        /* Wrapper with natural white fade effect for scrolling videos */
         .replies-wrapper {
             flex: 1;
             position: relative;
             display: flex;
             align-items: center;
-            mask: linear-gradient(90deg, transparent 0%, black 20px, black 100%);
-            -webkit-mask: linear-gradient(90deg, transparent 0%, black 20px, black 100%);
+            overflow: hidden;
+        }
+        
+        /* Natural white fade overlay */
+        .replies-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 30%, 
+                rgba(255, 255, 255, 0.3) 60%, 
+                transparent 100%
+            );
+            z-index: 10;
+            pointer-events: none;
         }
         
         /* Scrolling container for remaining videos */
