@@ -2582,6 +2582,298 @@
             } else {
                 initLazyVideoLoading();
             }
+
+            // Advanced Video Caching & Prefetching System (TikTok/Instagram-style)
+            class VideoCacheManager {
+                constructor() {
+                    this.cacheName = 'letsflick-video-cache-v1';
+                    this.maxCacheSize = 500 * 1024 * 1024; // 500MB limit
+                    this.maxCacheEntries = 50; // Maximum number of cached videos
+                    this.prefetchQueue = [];
+                    this.cacheMetadata = this.loadCacheMetadata();
+                    this.init();
+                }
+
+                init() {
+                    // Initialize cache and start prefetching
+                    this.cleanExpiredCache();
+                    this.startPrefetching();
+                    this.setupCacheEventListeners();
+                }
+
+                loadCacheMetadata() {
+                    try {
+                        const metadata = localStorage.getItem('letsflick-cache-metadata');
+                        return metadata ? JSON.parse(metadata) : {};
+                    } catch (e) {
+                        console.log('[CACHE] Error loading metadata:', e);
+                        return {};
+                    }
+                }
+
+                saveCacheMetadata() {
+                    try {
+                        localStorage.setItem('letsflick-cache-metadata', JSON.stringify(this.cacheMetadata));
+                    } catch (e) {
+                        console.log('[CACHE] Error saving metadata:', e);
+                    }
+                }
+
+                async getCachedVideo(videoId) {
+                    try {
+                        const cache = await caches.open(this.cacheName);
+                        const response = await cache.match(videoId);
+                        
+                        if (response) {
+                            // Update last accessed time for LRU
+                            this.cacheMetadata[videoId] = {
+                                ...this.cacheMetadata[videoId],
+                                lastAccessed: Date.now()
+                            };
+                            this.saveCacheMetadata();
+                            console.log('[CACHE] Serving from cache:', videoId);
+                            return response;
+                        }
+                    } catch (e) {
+                        console.log('[CACHE] Error retrieving cached video:', e);
+                    }
+                    return null;
+                }
+
+                async cacheVideo(videoId, videoUrl) {
+                    try {
+                        // Check if already cached
+                        if (this.cacheMetadata[videoId]) {
+                            console.log('[CACHE] Video already cached:', videoId);
+                            return;
+                        }
+
+                        // Clean cache if needed before adding new video
+                        await this.ensureCacheSpace();
+
+                        const cache = await caches.open(this.cacheName);
+                        const response = await fetch(videoUrl);
+                        
+                        if (response.ok) {
+                            await cache.put(videoId, response.clone());
+                            
+                            // Store metadata
+                            this.cacheMetadata[videoId] = {
+                                url: videoUrl,
+                                cached: Date.now(),
+                                lastAccessed: Date.now(),
+                                size: parseInt(response.headers.get('content-length') || '0'),
+                                version: this.generateVideoHash(videoUrl)
+                            };
+                            
+                            this.saveCacheMetadata();
+                            console.log('[CACHE] Cached video:', videoId);
+                        }
+                    } catch (e) {
+                        console.log('[CACHE] Error caching video:', e);
+                    }
+                }
+
+                async ensureCacheSpace() {
+                    const entries = Object.entries(this.cacheMetadata);
+                    
+                    // Remove expired entries
+                    const now = Date.now();
+                    const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+                    
+                    for (const [videoId, metadata] of entries) {
+                        if (now - metadata.cached > maxAge) {
+                            await this.removeFromCache(videoId);
+                        }
+                    }
+
+                    // Check if we need to remove LRU entries
+                    const remainingEntries = Object.entries(this.cacheMetadata);
+                    
+                    if (remainingEntries.length >= this.maxCacheEntries) {
+                        // Sort by last accessed (LRU)
+                        const sortedEntries = remainingEntries.sort((a, b) => 
+                            a[1].lastAccessed - b[1].lastAccessed
+                        );
+                        
+                        // Remove oldest entries
+                        const toRemove = sortedEntries.slice(0, Math.ceil(this.maxCacheEntries * 0.2));
+                        for (const [videoId] of toRemove) {
+                            await this.removeFromCache(videoId);
+                        }
+                    }
+                }
+
+                async removeFromCache(videoId) {
+                    try {
+                        const cache = await caches.open(this.cacheName);
+                        await cache.delete(videoId);
+                        delete this.cacheMetadata[videoId];
+                        this.saveCacheMetadata();
+                        console.log('[CACHE] Removed from cache:', videoId);
+                    } catch (e) {
+                        console.log('[CACHE] Error removing from cache:', e);
+                    }
+                }
+
+                generateVideoHash(url) {
+                    // Simple hash function for cache versioning
+                    let hash = 0;
+                    for (let i = 0; i < url.length; i++) {
+                        const char = url.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash; // Convert to 32bit integer
+                    }
+                    return hash.toString();
+                }
+
+                startPrefetching() {
+                    // Prefetch videos in the background when user interacts
+                    const videoStacks = document.querySelectorAll('.video-stack');
+                    
+                    videoStacks.forEach((stack, index) => {
+                        const frames = stack.querySelectorAll('.phone-frame');
+                        
+                        stack.addEventListener('mouseenter', () => {
+                            this.queuePrefetch(stack, index);
+                        });
+                        
+                        frames.forEach(frame => {
+                            frame.addEventListener('click', () => {
+                                this.queuePrefetch(stack, index);
+                            });
+                        });
+                    });
+                }
+
+                queuePrefetch(currentStack, currentIndex) {
+                    // Prefetch next 2 video stacks
+                    const allStacks = document.querySelectorAll('.video-stack');
+                    
+                    for (let i = 1; i <= 2; i++) {
+                        const nextIndex = currentIndex + i;
+                        if (nextIndex < allStacks.length) {
+                            const nextStack = allStacks[nextIndex];
+                            this.prefetchStackVideos(nextStack);
+                        }
+                    }
+                }
+
+                async prefetchStackVideos(stack) {
+                    const iframes = stack.querySelectorAll('iframe');
+                    
+                    iframes.forEach(async (iframe) => {
+                        const videoUrl = iframe.src || iframe.dataset.src;
+                        if (videoUrl && videoUrl !== 'about:blank') {
+                            const videoId = this.extractVideoId(videoUrl);
+                            if (videoId && !this.cacheMetadata[videoId]) {
+                                // Add to prefetch queue
+                                if (!this.prefetchQueue.includes(videoId)) {
+                                    this.prefetchQueue.push(videoId);
+                                    this.processPrefetchQueue();
+                                }
+                            }
+                        }
+                    });
+                }
+
+                async processPrefetchQueue() {
+                    if (this.prefetchQueue.length === 0) return;
+                    
+                    const videoId = this.prefetchQueue.shift();
+                    const videoUrl = this.getVideoUrlById(videoId);
+                    
+                    if (videoUrl) {
+                        console.log('[PREFETCH] Starting prefetch for:', videoId);
+                        await this.cacheVideo(videoId, videoUrl);
+                    }
+                    
+                    // Continue processing queue with delay to avoid overwhelming network
+                    if (this.prefetchQueue.length > 0) {
+                        setTimeout(() => this.processPrefetchQueue(), 1000);
+                    }
+                }
+
+                extractVideoId(url) {
+                    // Extract YouTube video ID from URL
+                    const match = url.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([^?&]+)/);
+                    return match ? match[1] : null;
+                }
+
+                getVideoUrlById(videoId) {
+                    // Find video URL by ID in the page
+                    const iframes = document.querySelectorAll('iframe');
+                    for (const iframe of iframes) {
+                        const url = iframe.src || iframe.dataset.src;
+                        if (url && url.includes(videoId)) {
+                            return url;
+                        }
+                    }
+                    return null;
+                }
+
+                setupCacheEventListeners() {
+                    // Listen for iframe load events to cache videos
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const iframes = document.querySelectorAll('iframe');
+                        iframes.forEach(iframe => {
+                            iframe.addEventListener('load', () => {
+                                const videoUrl = iframe.src;
+                                if (videoUrl && videoUrl !== 'about:blank') {
+                                    const videoId = this.extractVideoId(videoUrl);
+                                    if (videoId) {
+                                        this.cacheVideo(videoId, videoUrl);
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+
+                async cleanExpiredCache() {
+                    // Clean up expired cache entries on startup
+                    const now = Date.now();
+                    const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
+                    
+                    for (const [videoId, metadata] of Object.entries(this.cacheMetadata)) {
+                        if (now - metadata.cached > maxAge) {
+                            await this.removeFromCache(videoId);
+                        }
+                    }
+                }
+
+                // Public API for cache management
+                async clearCache() {
+                    try {
+                        await caches.delete(this.cacheName);
+                        localStorage.removeItem('letsflick-cache-metadata');
+                        this.cacheMetadata = {};
+                        console.log('[CACHE] Cache cleared');
+                    } catch (e) {
+                        console.log('[CACHE] Error clearing cache:', e);
+                    }
+                }
+
+                getCacheStats() {
+                    const entries = Object.values(this.cacheMetadata);
+                    const totalSize = entries.reduce((sum, entry) => sum + (entry.size || 0), 0);
+                    const totalCount = entries.length;
+                    
+                    return {
+                        totalSize: Math.round(totalSize / 1024 / 1024), // MB
+                        totalCount,
+                        maxSize: Math.round(this.maxCacheSize / 1024 / 1024), // MB
+                        maxCount: this.maxCacheEntries
+                    };
+                }
+            }
+
+            // Initialize the video cache manager
+            window.videoCacheManager = new VideoCacheManager();
+            
+            // Expose cache management to global scope for debugging
+            window.clearVideoCache = () => window.videoCacheManager.clearCache();
+            window.getCacheStats = () => window.videoCacheManager.getCacheStats();
             
         })();
     </script>
