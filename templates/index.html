@@ -1877,6 +1877,40 @@
             }
         }
         
+        /* Mute toggle button styling */
+        .mute-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .mute-toggle:hover {
+            background: rgba(241, 194, 50, 0.9);
+            transform: scale(1.1);
+        }
+
+        .mute-toggle svg {
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .mute-toggle:hover svg {
+            color: #000;
+        }
+
         /* Mobile responsive video frames - reduced tilt for small screens */
         @media (max-width: 768px) {
             .phone-frame.left {
@@ -1890,6 +1924,11 @@
             }
             .phone-frame.right:hover {
                 transform: rotate(4deg) scale(.85) translateY(-2px) !important;
+            }
+            
+            .mute-toggle {
+                width: 36px;
+                height: 36px;
             }
         }
 
@@ -2361,6 +2400,42 @@
                     console.log('[YT] Could not mute video for', playerId, ':', e.message || e);
                 }
             };
+
+            // Global mute toggle functionality
+            let globalMuteState = true; // Videos start muted
+            window.toggleGlobalMute = function() {
+                globalMuteState = !globalMuteState;
+                console.log('[YT] Global mute toggled to:', globalMuteState);
+                
+                // Update all YouTube players
+                Object.keys(players).forEach(playerId => {
+                    const player = players[playerId];
+                    if (player && typeof player.mute === 'function' && typeof player.unMute === 'function') {
+                        if (globalMuteState) {
+                            player.mute();
+                        } else {
+                            player.unMute();
+                        }
+                    }
+                });
+
+                // Update mute toggle buttons
+                const muteToggles = document.querySelectorAll('.mute-toggle');
+                muteToggles.forEach(toggle => {
+                    const muteIcon = toggle.querySelector('.mute-icon');
+                    const unmuteIcon = toggle.querySelector('.unmute-icon');
+                    
+                    if (globalMuteState) {
+                        muteIcon.style.display = 'block';
+                        unmuteIcon.style.display = 'none';
+                        toggle.setAttribute('aria-label', 'Unmute all videos');
+                    } else {
+                        muteIcon.style.display = 'none';
+                        unmuteIcon.style.display = 'block';
+                        toggle.setAttribute('aria-label', 'Mute all videos');
+                    }
+                });
+            };
             
         })();
     </script>
@@ -2695,9 +2770,20 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-build">
                         <div class="audio-hint">Click to enable audio, then hover</div>
+                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
+                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="23" y1="9" x2="17" y2="15"></line>
+                                <line x1="17" y1="9" x2="23" y2="15"></line>
+                            </svg>
+                        </button>
                         
                         <!-- Left tilted phone frame -->
-                        <div class="phone-frame left" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="phone-frame left" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Video 1: Creator building content">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2705,7 +2791,7 @@
                         </div>
                         
                         <!-- Center phone frame -->
-                        <div class="phone-frame center front" data-id="build-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="phone-frame center front" data-id="build-1" data-pos="center" role="button" tabindex="0" aria-label="Video 2: Content creation process (active)">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/mxVrmXFeR40?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=mxVrmXFeR40" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2714,7 +2800,7 @@
                         </div>
                         
                         <!-- Right tilted phone frame -->
-                        <div class="phone-frame right" data-id="build-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="phone-frame right" data-id="build-2" data-pos="right" role="button" tabindex="0" aria-label="Video 3: Building viral content">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2733,9 +2819,20 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-manage">
                         <div class="audio-hint">Click to enable audio, then hover</div>
+                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
+                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="23" y1="9" x2="17" y2="15"></line>
+                                <line x1="17" y1="9" x2="23" y2="15"></line>
+                            </svg>
+                        </button>
                         
                         <!-- Left tilted phone frame -->
-                        <div class="phone-frame left" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="phone-frame left" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Video 4: Managing community threads">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2743,7 +2840,7 @@
                         </div>
                         
                         <!-- Center phone frame -->
-                        <div class="phone-frame center front" data-id="manage-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="phone-frame center front" data-id="manage-1" data-pos="center" role="button" tabindex="0" aria-label="Video 5: Content management dashboard (active)">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/uCHElGXEd4E?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=uCHElGXEd4E" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2752,7 +2849,7 @@
                         </div>
                         
                         <!-- Right tilted phone frame -->
-                        <div class="phone-frame right" data-id="manage-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="phone-frame right" data-id="manage-2" data-pos="right" role="button" tabindex="0" aria-label="Video 6: Community engagement tools">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2771,9 +2868,20 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-measure">
                         <div class="audio-hint">Click to enable audio, then hover</div>
+                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
+                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="23" y1="9" x2="17" y2="15"></line>
+                                <line x1="17" y1="9" x2="23" y2="15"></line>
+                            </svg>
+                        </button>
                         
                         <!-- Left tilted phone frame -->
-                        <div class="phone-frame left" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="phone-frame left" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Video 7: Analytics and insights">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2781,7 +2889,7 @@
                         </div>
                         
                         <!-- Center phone frame -->
-                        <div class="phone-frame center front" data-id="measure-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="phone-frame center front" data-id="measure-1" data-pos="center" role="button" tabindex="0" aria-label="Video 8: Performance metrics dashboard (active)">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/EVCXH4fJFiQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EVCXH4fJFiQ" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2790,7 +2898,7 @@
                         </div>
                         
                         <!-- Right tilted phone frame -->
-                        <div class="phone-frame right" data-id="measure-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="phone-frame right" data-id="measure-2" data-pos="right" role="button" tabindex="0" aria-label="Video 9: Growth tracking tools">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2815,9 +2923,20 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-plus">
                         <div class="audio-hint">Click to enable audio, then hover</div>
+                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
+                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="23" y1="9" x2="17" y2="15"></line>
+                                <line x1="17" y1="9" x2="23" y2="15"></line>
+                            </svg>
+                        </button>
                         
                         <!-- Left tilted phone frame -->
-                        <div class="phone-frame left" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="phone-frame left" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Video 10: Premium features showcase">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2825,7 +2944,7 @@
                         </div>
                         
                         <!-- Center phone frame -->
-                        <div class="phone-frame center front" data-id="plus-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="phone-frame center front" data-id="plus-1" data-pos="center" role="button" tabindex="0" aria-label="Video 11: Advanced creator tools (active)">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/Q287M-Q3hHw?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=Q287M-Q3hHw" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
@@ -2834,7 +2953,7 @@
                         </div>
                         
                         <!-- Right tilted phone frame -->
-                        <div class="phone-frame right" data-id="plus-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="phone-frame right" data-id="plus-2" data-pos="right" role="button" tabindex="0" aria-label="Video 12: Professional video threading">
                             <div class="stack-card video-container">
                                 <iframe src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
