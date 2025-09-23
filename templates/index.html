@@ -476,6 +476,12 @@
             margin-left: clamp(16px, 2.5vw, 32px);
         }
         
+        /* Make scrolling videos slightly smaller to differentiate from main thread */
+        .replies-scroll-container .mobile-mockup {
+            width: clamp(150px, 15vw, 200px) !important;
+            height: clamp(267px, 26.7vw, 356px) !important;
+        }
+        
         @keyframes scroll-replies {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
