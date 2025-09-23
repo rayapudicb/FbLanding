@@ -448,6 +448,26 @@
             flex-shrink: 0;
         }
         
+        /* Fixed first video layout */
+        .video-threading-showcase {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thread-starter-fixed {
+            position: absolute;
+            left: clamp(20px, 5vw, 80px);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            /* Add subtle highlight to show it's the main thread */
+            box-shadow: 0 0 0 3px rgba(255, 211, 0, 0.3), 0 12px 32px rgba(0,0,0,0.15);
+        }
+        
+        .video-scroll-container {
+            padding-left: clamp(220px, 22vw, 320px); /* Make room for fixed video */
+        }
+        
         @keyframes scroll-videos {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -2294,25 +2314,27 @@
         <div class="container">
             <div class="video-threading-showcase">
                 <div class="mobile-grid">
-                    <div class="video-scroll-container">
-                        <!-- Video 1 - User's YouTube Short -->
-                        <div class="mobile-mockup thread-starter" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
-                            <div class="phone-notch"></div>
-                            <div class="mobile-screen">
-                                <div class="video-player-mockup">
-                                    <iframe 
-                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen
-                                        style="width: 100%; height: 100%; border-radius: var(--r-mobile); border: 0;">
-                                    </iframe>
-                                    <div class="video-overlay">
+                    <!-- Fixed first video (thread starter) -->
+                    <div class="mobile-mockup thread-starter-fixed thread-starter" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
+                        <div class="phone-notch"></div>
+                        <div class="mobile-screen">
+                            <div class="video-player-mockup">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen
+                                    style="width: 100%; height: 100%; border-radius: var(--r-mobile); border: 0;">
+                                </iframe>
+                                <div class="video-overlay">
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- Scrolling videos container (replies) -->
+                    <div class="video-scroll-container">
 
                         <!-- Video 2 - User's YouTube Short -->
                         <div class="mobile-mockup thread-reply" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
