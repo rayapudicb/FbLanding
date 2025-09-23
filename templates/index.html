@@ -455,12 +455,20 @@
             z-index: 10;
         }
         
+        /* Wrapper to clip scrolling videos at padding boundary */
+        .replies-wrapper {
+            overflow: hidden;
+            flex: 1;
+            position: relative;
+        }
+        
         /* Scrolling container for remaining videos */
         .replies-scroll-container {
             display: flex;
             gap: clamp(16px, 2.5vw, 32px);
             animation: scroll-replies 60s linear infinite;
             flex-shrink: 0;
+            margin-left: clamp(16px, 2.5vw, 32px);
         }
         
         @keyframes scroll-replies {
@@ -2336,7 +2344,8 @@
                         </div>
                         
                         <!-- Scrolling videos container (replies) -->
-                        <div class="replies-scroll-container">
+                        <div class="replies-wrapper">
+                            <div class="replies-scroll-container">
                             <!-- Video 2 - User's YouTube Short -->
                         <div class="mobile-mockup thread-reply" onmouseenter="playVideo(this)" onmouseleave="pauseVideo(this)">
                             <div class="phone-notch"></div>
@@ -2545,7 +2554,8 @@
                                 </div>
                             </div>
                         </div>
-                        </div> <!-- Close replies-scroll-container -->
+                            </div> <!-- Close replies-scroll-container -->
+                        </div> <!-- Close replies-wrapper -->
                     </div> <!-- Close video-scroll-container -->
                 </div> <!-- Close mobile-grid -->
                 
