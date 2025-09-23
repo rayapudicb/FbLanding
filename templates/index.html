@@ -1456,24 +1456,52 @@
         
         /* Front frame state */
         .phone-frame.front {
-            transform: scale(1.02) rotate(0deg) !important;
             z-index: 5 !important;
+            box-shadow: 0 24px 48px rgba(15,23,42,0.16);
+        }
+        
+        /* Front frame positioning - center only */
+        .phone-frame.center.front {
+            transform: scale(1.02) rotate(0deg) !important;
             left: 50% !important;
             top: 0px !important;
             right: auto !important;
             margin-left: calc(var(--card-w) / -2 * 1.02) !important;
-            box-shadow: 0 24px 48px rgba(15,23,42,0.16);
+        }
+        
+        /* Front frame positioning - left tilted */
+        .phone-frame.left.front {
+            transform: rotate(var(--left-rot)) scale(1.02) !important;
+            left: 50% !important;
+            top: 0px !important;
+            right: auto !important;
+            margin-left: calc(var(--card-w) / -2 * 1.02) !important;
+        }
+        
+        /* Front frame positioning - right tilted */
+        .phone-frame.right.front {
+            transform: rotate(var(--right-rot)) scale(1.02) !important;
+            left: 50% !important;
+            top: 0px !important;
+            right: auto !important;
+            margin-left: calc(var(--card-w) / -2 * 1.02) !important;
         }
         
         /* Hover effects */
-        .phone-frame.center:hover,
-        .phone-frame.front:hover {
+        .phone-frame:hover {
             box-shadow: 0 28px 56px rgba(15,23,42,0.18);
+        }
+        
+        .phone-frame.center:hover {
             transform: scale(1.03) translateY(-4px);
         }
         
-        .phone-frame.front:hover {
-            margin-left: calc(var(--card-w) / -2 * 1.03) !important;
+        .phone-frame.left:hover {
+            transform: rotate(var(--left-rot)) scale(1.03) translateY(-4px) !important;
+        }
+        
+        .phone-frame.right:hover {
+            transform: rotate(var(--right-rot)) scale(1.03) translateY(-4px) !important;
         }
         
         /* Stack controls */
@@ -2598,11 +2626,7 @@
                             <div class="stack-card">
                                 <iframe src="https://www.youtube.com/embed/mxVrmXFeR40?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=mxVrmXFeR40" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
-                                <div class="stack-controls">
-                                    <div class="stack-pill">Click to play/pause</div>
-                                    <div style="flex:1"></div>
-                                    <div class="stack-heart">♡</div>
-                                </div>
+
                             </div>
                         </div>
                         
@@ -2640,11 +2664,7 @@
                             <div class="stack-card">
                                 <iframe src="https://www.youtube.com/embed/uCHElGXEd4E?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=uCHElGXEd4E" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
-                                <div class="stack-controls">
-                                    <div class="stack-pill">Click to play/pause</div>
-                                    <div style="flex:1"></div>
-                                    <div class="stack-heart">♡</div>
-                                </div>
+
                             </div>
                         </div>
                         
@@ -2682,11 +2702,7 @@
                             <div class="stack-card">
                                 <iframe src="https://www.youtube.com/embed/EVCXH4fJFiQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EVCXH4fJFiQ" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
-                                <div class="stack-controls">
-                                    <div class="stack-pill">Click to play/pause</div>
-                                    <div style="flex:1"></div>
-                                    <div class="stack-heart">♡</div>
-                                </div>
+
                             </div>
                         </div>
                         
@@ -2730,11 +2746,7 @@
                             <div class="stack-card">
                                 <iframe src="https://www.youtube.com/embed/Q287M-Q3hHw?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=Q287M-Q3hHw" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
-                                <div class="stack-controls">
-                                    <div class="stack-pill">Click to play/pause</div>
-                                    <div style="flex:1"></div>
-                                    <div class="stack-heart">♡</div>
-                                </div>
+
                             </div>
                         </div>
                         
@@ -3052,12 +3064,40 @@
                 }
                 
                 frames.forEach(frame => {
-                    // Hover effects
+                    // Hover effects - bring frame to front while maintaining tilt and play audio
                     frame.addEventListener('mouseenter', () => {
-                        if (frame.classList.contains('front')) {
-                            playSfx();
+                        unlockAudio();
+                        
+                        // Bring this frame to front while keeping its tilt angle
+                        frames.forEach(f => f.classList.remove('front'));
+                        frame.classList.add('front');
+                        
+                        // Force re-layout for better positioning
+                        stack.offsetHeight;
+                        
+                        // Enable audio and autoplay for this frame
+                        const iframe = frame.querySelector('.stack-iframe');
+                        if (iframe) {
+                            const src = iframe.src;
+                            if (!src.includes('autoplay=1')) {
+                                iframe.src = src.replace('autoplay=0', 'autoplay=1').replace('mute=1', 'mute=0');
+                            }
                         }
+                        
+                        // Pause other frames
+                        frames.forEach(f => {
+                            if (f !== frame) {
+                                const otherIframe = f.querySelector('.stack-iframe');
+                                if (otherIframe) {
+                                    const src = otherIframe.src;
+                                    if (src.includes('autoplay=1')) {
+                                        otherIframe.src = src.replace('autoplay=1', 'autoplay=0').replace('mute=0', 'mute=1');
+                                    }
+                                }
+                            }
+                        });
                     });
+                    
                     
                     // Click interactions
                     frame.addEventListener('click', (e) => {
@@ -3091,85 +3131,6 @@
                 });
             });
             
-            // Rotation controls for tilt presets
-            const root = document.documentElement;
-            
-            function setRotation(left, right) {
-                root.style.setProperty('--left-rot', left + 'deg');
-                root.style.setProperty('--right-rot', right + 'deg');
-            }
-            
-            // Create tilt control UI (moved to integrate with existing video stacks)
-            const tiltControls = document.createElement('div');
-            tiltControls.className = 'tilt-controls';
-            tiltControls.innerHTML = `
-                <div style="margin-bottom: 8px; font-size: 12px; color: #6b7280;">Video Tilt Presets:</div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="tilt-btn" data-left="-6" data-right="6">Subtle</button>
-                    <button class="tilt-btn" data-left="-12" data-right="12">Medium</button>
-                    <button class="tilt-btn" data-left="-18" data-right="18">Dramatic</button>
-                </div>
-            `;
-            
-            tiltControls.style.cssText = `
-                position: fixed;
-                bottom: 80px;
-                right: 24px;
-                background: rgba(255, 255, 255, 0.95);
-                border-radius: 12px;
-                box-shadow: 0 8px 24px rgba(11, 20, 40, 0.06);
-                padding: 12px;
-                font-family: Inter, system-ui, Arial;
-                z-index: 1000;
-                backdrop-filter: blur(8px);
-            `;
-            
-            const tiltBtnStyle = `
-                border: 1px solid rgba(16, 24, 40, 0.06);
-                background: #fff;
-                padding: 6px 10px;
-                border-radius: 8px;
-                cursor: pointer;
-                font-weight: 600;
-                font-size: 11px;
-                transition: all 0.2s;
-            `;
-            
-            document.body.appendChild(tiltControls);
-            
-            // Style tilt buttons
-            const tiltButtons = tiltControls.querySelectorAll('.tilt-btn');
-            tiltButtons.forEach(btn => {
-                btn.style.cssText = tiltBtnStyle;
-                
-                btn.addEventListener('click', () => {
-                    const left = parseFloat(btn.dataset.left);
-                    const right = parseFloat(btn.dataset.right);
-                    setRotation(left, right);
-                    
-                    // Update active state
-                    tiltButtons.forEach(b => b.style.background = '#fff');
-                    btn.style.background = '#F1C232';
-                });
-                
-                btn.addEventListener('mouseenter', () => {
-                    if (btn.style.background !== 'rgb(241, 194, 50)') {
-                        btn.style.background = '#f8f9fa';
-                    }
-                });
-                
-                btn.addEventListener('mouseleave', () => {
-                    if (btn.style.background !== 'rgb(241, 194, 50)') {
-                        btn.style.background = '#fff';
-                    }
-                });
-            });
-            
-            // Set default tilt (Medium)
-            setRotation(-8, 8);
-            if (tiltButtons[1]) {
-                tiltButtons[1].style.background = '#F1C232';
-            }
             
             // Audio unlock listeners
             ['pointerdown', 'keydown', 'touchstart'].forEach(ev => {
