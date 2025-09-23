@@ -3049,23 +3049,27 @@
                         frame.style.zIndex = '5'; // Bring this frame to front
                         frame.classList.add('front');
                         
-                        // Enable audio and autoplay for this frame
+                        // Enable audio for this frame (ensure autoplay=1 and mute=0)
                         const iframe = frame.querySelector('.stack-iframe');
                         if (iframe) {
-                            const src = iframe.src;
-                            if (!src.includes('autoplay=1')) {
-                                iframe.src = src.replace('autoplay=0', 'autoplay=1').replace('mute=1', 'mute=0');
+                            let src = iframe.src;
+                            // Force autoplay and unmute
+                            src = src.replace('autoplay=0', 'autoplay=1');
+                            src = src.replace('mute=1', 'mute=0');
+                            if (src !== iframe.src) {
+                                iframe.src = src;
                             }
                         }
                         
-                        // Mute other frames (but keep them playing)
+                        // Mute other frames
                         frames.forEach(f => {
                             if (f !== frame) {
                                 const otherIframe = f.querySelector('.stack-iframe');
                                 if (otherIframe) {
-                                    const src = otherIframe.src;
-                                    if (!src.includes('mute=1')) {
-                                        otherIframe.src = src.replace('mute=0', 'mute=1');
+                                    let src = otherIframe.src;
+                                    src = src.replace('mute=0', 'mute=1');
+                                    if (src !== otherIframe.src) {
+                                        otherIframe.src = src;
                                     }
                                 }
                             }
@@ -3077,9 +3081,10 @@
                         // Mute this frame when not hovered
                         const iframe = frame.querySelector('.stack-iframe');
                         if (iframe) {
-                            const src = iframe.src;
-                            if (!src.includes('mute=1')) {
-                                iframe.src = src.replace('mute=0', 'mute=1');
+                            let src = iframe.src;
+                            src = src.replace('mute=0', 'mute=1');
+                            if (src !== iframe.src) {
+                                iframe.src = src;
                             }
                         }
                     });
