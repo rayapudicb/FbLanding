@@ -1877,6 +1877,22 @@
             }
         }
         
+        /* Mobile responsive video frames - reduced tilt for small screens */
+        @media (max-width: 768px) {
+            .phone-frame.left {
+                transform: rotate(-4deg) scale(.82);
+            }
+            .phone-frame.right {
+                transform: rotate(4deg) scale(.82);
+            }
+            .phone-frame.left:hover {
+                transform: rotate(-4deg) scale(.85) translateY(-2px) !important;
+            }
+            .phone-frame.right:hover {
+                transform: rotate(4deg) scale(.85) translateY(-2px) !important;
+            }
+        }
+
         /* Enhanced touch targets for mobile */
         @media (hover: none) {
             .btn {
