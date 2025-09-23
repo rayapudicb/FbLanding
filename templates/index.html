@@ -1752,6 +1752,101 @@
         .stack-card[data-pos="center"] {
             box-shadow: 0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.06);
         }
+
+        /* Video poster images to prevent black flash */
+        .video-container {
+            position: relative;
+            background: #f8f9fa;
+        }
+
+        .video-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+        }
+
+        .video-poster.loaded {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .stack-iframe {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Loading placeholder for videos */
+        .video-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(241, 194, 50, 0.3);
+            border-top: 3px solid #F1C232;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Video play button overlay */
+        .video-play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .video-play-overlay:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-play-overlay svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+            margin-left: 3px; /* Center the play triangle visually */
+        }
+
+        .video-play-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
         
         /* Ensure proper stacking with absolute positioning */
         .video-stack {
@@ -2874,6 +2969,72 @@
             // Expose cache management to global scope for debugging
             window.clearVideoCache = () => window.videoCacheManager.clearCache();
             window.getCacheStats = () => window.videoCacheManager.getCacheStats();
+
+            // Poster Image Management System
+            function initPosterImageSystem() {
+                const videoContainers = document.querySelectorAll('.video-container');
+                
+                videoContainers.forEach(container => {
+                    const iframe = container.querySelector('iframe');
+                    const poster = container.querySelector('.video-poster');
+                    const loading = container.querySelector('.video-loading');
+                    const playOverlay = container.querySelector('.video-play-overlay');
+                    
+                    if (!iframe || !poster) return;
+                    
+                    // Extract video ID and set poster URL if not already set
+                    const videoUrl = iframe.src || iframe.dataset.src;
+                    if (videoUrl && videoUrl !== 'about:blank') {
+                        const videoId = extractVideoId(videoUrl);
+                        if (videoId && !poster.src.includes(videoId)) {
+                            poster.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                            
+                            // Fallback to smaller thumbnail if maxres fails
+                            poster.onerror = () => {
+                                poster.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                            };
+                        }
+                    }
+                    
+                    // Handle iframe loading
+                    iframe.addEventListener('load', () => {
+                        if (iframe.src !== 'about:blank') {
+                            setTimeout(() => {
+                                poster.classList.add('loaded');
+                                loading.classList.add('hidden');
+                                playOverlay.classList.add('hidden');
+                            }, 1000); // Give video time to start
+                        }
+                    });
+                    
+                    // Handle play overlay click
+                    if (playOverlay) {
+                        playOverlay.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            if (iframe.dataset.src && iframe.src === 'about:blank') {
+                                // Load lazy video
+                                iframe.src = iframe.dataset.src;
+                            }
+                            // Hide poster and overlay immediately when clicked
+                            poster.classList.add('loaded');
+                            loading.classList.add('hidden');
+                            playOverlay.classList.add('hidden');
+                        });
+                    }
+                });
+            }
+
+            function extractVideoId(url) {
+                const match = url.match(/(?:youtube\.com\/embed\/|youtu\.be\/)([^?&]+)/);
+                return match ? match[1] : null;
+            }
+
+            // Initialize poster system when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPosterImageSystem);
+            } else {
+                initPosterImageSystem();
+            }
             
         })();
     </script>
@@ -3223,6 +3384,15 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Video 1: Creator building content">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/l5u3UwSKsfc/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3231,6 +3401,15 @@
                         <!-- Center phone frame -->
                         <div class="phone-frame center front" data-id="build-1" data-pos="center" role="button" tabindex="0" aria-label="Video 2: Content creation process (active)">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/mxVrmXFeR40/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe src="https://www.youtube.com/embed/mxVrmXFeR40?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=mxVrmXFeR40" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
 
@@ -3240,6 +3419,15 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="build-2" data-pos="right" role="button" tabindex="0" aria-label="Video 3: Building viral content">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/EX3EsiJIiYQ/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3272,6 +3460,15 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Video 4: Managing community threads">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/p2llh8hG1N4/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3280,6 +3477,15 @@
                         <!-- Center phone frame -->
                         <div class="phone-frame center front" data-id="manage-1" data-pos="center" role="button" tabindex="0" aria-label="Video 5: Content management dashboard (active)">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/uCHElGXEd4E/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe src="https://www.youtube.com/embed/uCHElGXEd4E?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=uCHElGXEd4E" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
 
@@ -3289,6 +3495,15 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="manage-2" data-pos="right" role="button" tabindex="0" aria-label="Video 6: Community engagement tools">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3321,6 +3536,15 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Video 7: Analytics and insights">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/M7lc1UVf-VE/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3329,6 +3553,15 @@
                         <!-- Center phone frame -->
                         <div class="phone-frame center front" data-id="measure-1" data-pos="center" role="button" tabindex="0" aria-label="Video 8: Performance metrics dashboard (active)">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/EVCXH4fJFiQ/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe src="https://www.youtube.com/embed/EVCXH4fJFiQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EVCXH4fJFiQ" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
 
@@ -3338,6 +3571,15 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="measure-2" data-pos="right" role="button" tabindex="0" aria-label="Video 9: Growth tracking tools">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3376,6 +3618,15 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Video 10: Premium features showcase">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/tgbNymZ7vqY/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
@@ -3384,6 +3635,15 @@
                         <!-- Center phone frame -->
                         <div class="phone-frame center front" data-id="plus-1" data-pos="center" role="button" tabindex="0" aria-label="Video 11: Advanced creator tools (active)">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/Q287M-Q3hHw/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe src="https://www.youtube.com/embed/Q287M-Q3hHw?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=Q287M-Q3hHw" 
                                     frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
 
@@ -3393,6 +3653,15 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="plus-2" data-pos="right" role="button" tabindex="0" aria-label="Video 12: Professional video threading">
                             <div class="stack-card video-container">
+                                <img class="video-poster" src="https://img.youtube.com/vi/QuOXqjmZdmY/maxresdefault.jpg" alt="Video thumbnail" loading="lazy">
+                                <div class="video-loading">
+                                    <div class="loading-spinner"></div>
+                                </div>
+                                <div class="video-play-overlay">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </div>
                                 <iframe data-src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY" 
                                     src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
