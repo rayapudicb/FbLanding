@@ -2510,6 +2510,47 @@
                 console.log('[YT] Force reinitializing YouTube API for all containers');
                 init();
             }, 2000);
+
+            // Function to reinitialize YouTube API for newly loaded lazy videos
+            window.reinitializeYouTubeForNewVideos = function() {
+                console.log('[YT] Reinitializing YouTube API for newly loaded videos');
+                
+                // Find all containers that need YouTube initialization
+                const containersNeedingInit = document.querySelectorAll('[data-yt-initialized="pending"]');
+                
+                containersNeedingInit.forEach(container => {
+                    const iframe = container.querySelector('iframe');
+                    if (!iframe || iframe.src === 'about:blank') return;
+                    
+                    const videoId = extractVideoId(iframe.src);
+                    if (!videoId) return;
+                    
+                    const playerId = 'letsflick_player_' + (Object.keys(window.letsflickPlayers || {}).length);
+                    
+                    // Set up the iframe for YouTube API
+                    iframe.id = playerId;
+                    iframe.src = iframe.src + (iframe.src.includes('?') ? '&' : '?') + 'enablejsapi=1';
+                    
+                    console.log('[YT] Setting up newly loaded video:', playerId, 'with video ID:', videoId);
+                    
+                    // Create the YouTube player
+                    try {
+                        window.letsflickPlayers = window.letsflickPlayers || {};
+                        window.letsflickPlayers[playerId] = new YT.Player(playerId, {
+                            events: {
+                                onReady: function(event) {
+                                    console.log('[YT] New lazy-loaded player ready:', playerId);
+                                    container.setAttribute('data-yt-initialized', 'ready');
+                                    container.setAttribute('data-player-id', playerId);
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.log('[YT] Error creating new YouTube player:', e);
+                        container.setAttribute('data-yt-initialized', 'error');
+                    }
+                });
+            };
             
             // Ensure API script is loaded
             if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
@@ -2528,12 +2569,14 @@
                 
                 console.log('[YT] playVideo called for container, found playerId:', playerId);
                 
-                if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                // Check both the main players object and the lazy-loaded players object
+                const player = players[playerId] || (window.letsflickPlayers && window.letsflickPlayers[playerId]);
+                const isReady = playerReadyFlags[playerId] || (playerContainer && playerContainer.getAttribute('data-yt-initialized') === 'ready');
+                
+                if (!playerId || !player || !isReady) {
                     console.log('[YT] Player not ready or not found:', playerId);
                     return;
                 }
-                
-                const player = players[playerId];
                 if (typeof player.playVideo !== 'function') {
                     console.log('[YT] Invalid player object for:', playerId);
                     return;
@@ -2562,12 +2605,14 @@
                 
                 console.log('[YT] pauseVideo called for container, found playerId:', playerId);
                 
-                if (!playerId || !players[playerId] || !playerReadyFlags[playerId]) {
+                // Check both the main players object and the lazy-loaded players object
+                const player = players[playerId] || (window.letsflickPlayers && window.letsflickPlayers[playerId]);
+                const isReady = playerReadyFlags[playerId] || (playerContainer && playerContainer.getAttribute('data-yt-initialized') === 'ready');
+                
+                if (!playerId || !player || !isReady) {
                     console.log('[YT] Player not ready or not found for pause:', playerId);
                     return;
                 }
-                
-                const player = players[playerId];
                 if (typeof player.mute !== 'function') {
                     console.log('[YT] Invalid player object for mute:', playerId);
                     return;
@@ -2668,8 +2713,26 @@
                     iframe.src = iframe.dataset.src;
                     iframe.classList.remove('lazy-video');
                     console.log('[LAZY] Loaded video:', iframe.dataset.src);
+                    
+                    // Re-initialize YouTube API for this newly loaded video
+                    setTimeout(() => {
+                        const container = iframe.closest('.video-container');
+                        if (container) {
+                            const videoUrl = iframe.src;
+                            const videoId = extractVideoId(videoUrl);
+                            if (videoId && !container.hasAttribute('data-yt-initialized')) {
+                                container.setAttribute('data-yt-initialized', 'pending');
+                                
+                                // Trigger YouTube API re-initialization for new videos
+                                if (window.reinitializeYouTubeForNewVideos) {
+                                    window.reinitializeYouTubeForNewVideos();
+                                }
+                            }
+                        }
+                    }, 1000); // Give the iframe time to load
                 }
             }
+
 
             // Initialize lazy loading when DOM is ready
             if (document.readyState === 'loading') {
@@ -2743,29 +2806,21 @@
                             return;
                         }
 
-                        // Clean cache if needed before adding new video
-                        await this.ensureCacheSpace();
-
-                        const cache = await caches.open(this.cacheName);
-                        const response = await fetch(videoUrl);
+                        // For YouTube embeds, we can't cache the actual video due to CORS
+                        // Instead, we'll just track that this video has been "seen" for prefetch logic
+                        this.cacheMetadata[videoId] = {
+                            url: videoUrl,
+                            cached: Date.now(),
+                            lastAccessed: Date.now(),
+                            size: 0, // Can't get actual size
+                            version: this.generateVideoHash(videoUrl),
+                            type: 'youtube_embed' // Mark as YouTube embed
+                        };
                         
-                        if (response.ok) {
-                            await cache.put(videoId, response.clone());
-                            
-                            // Store metadata
-                            this.cacheMetadata[videoId] = {
-                                url: videoUrl,
-                                cached: Date.now(),
-                                lastAccessed: Date.now(),
-                                size: parseInt(response.headers.get('content-length') || '0'),
-                                version: this.generateVideoHash(videoUrl)
-                            };
-                            
-                            this.saveCacheMetadata();
-                            console.log('[CACHE] Cached video:', videoId);
-                        }
+                        this.saveCacheMetadata();
+                        console.log('[CACHE] Tracked video for prefetch:', videoId);
                     } catch (e) {
-                        console.log('[CACHE] Error caching video:', e);
+                        console.log('[CACHE] Error tracking video:', e);
                     }
                 }
 
@@ -2908,7 +2963,7 @@
                 }
 
                 setupCacheEventListeners() {
-                    // Listen for iframe load events to cache videos
+                    // Listen for iframe load events to track videos
                     document.addEventListener('DOMContentLoaded', () => {
                         const iframes = document.querySelectorAll('iframe');
                         iframes.forEach(iframe => {
