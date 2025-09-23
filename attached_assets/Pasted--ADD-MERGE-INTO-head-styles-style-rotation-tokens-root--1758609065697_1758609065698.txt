@@ -1,0 +1,101 @@
+<!-- ----- ADD / MERGE INTO <head> (styles) ----- -->
+<style>
+  /* rotation tokens */
+  :root{
+    --left-rot: -8deg;   /* default left rotation */
+    --right-rot: 8deg;   /* default right rotation */
+  }
+
+  /* use the tokens when positioning left/right cards */
+  .card[data-pos="left"]{
+    left: calc(50% - 380px);
+    transform: translateX(-60px) rotate(var(--left-rot)) scale(.88);
+  }
+  .card[data-pos="right"]{
+    left: calc(50% + 380px);
+    transform: translateX(60px) rotate(var(--right-rot)) scale(.88);
+  }
+
+  /* smoother transitions when angle changes */
+  .card {
+    transition: transform 420ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms, z-index 0ms;
+  }
+
+  /* small control UI */
+  .rotate-controls {
+    position:absolute;
+    right:18px;
+    bottom:18px;
+    background:rgba(255,255,255,0.95);
+    border-radius:12px;
+    box-shadow:0 8px 24px rgba(11,20,40,0.06);
+    padding:10px 12px;
+    font-family:Inter,system-ui,Arial;
+    font-size:13px;
+    color:#111827;
+    z-index: 60;
+  }
+  .rotate-controls label{ display:block; font-size:12px; color:#6b7280; margin-bottom:6px; }
+  .rotate-controls input[type="range"]{ width:180px; }
+  .preset-row { display:flex; gap:8px; margin-top:8px; }
+  .preset-btn {
+    border:1px solid rgba(16,24,40,0.06);
+    background:#fff; padding:6px 8px; border-radius:8px; cursor:pointer; font-weight:600;
+  }
+</style>
+
+<!-- ----- ADD / MERGE INTO <body> INSIDE .stage (controls UI) ----- -->
+<div class="rotate-controls" aria-hidden="false">
+  <div>
+    <label>Left frame angle: <span id="leftVal">-8</span>°</label>
+    <input id="leftRange" type="range" min="-30" max="0" step="0.5" value="-8">
+  </div>
+  <div style="margin-top:8px">
+    <label>Right frame angle: <span id="rightVal">8</span>°</label>
+    <input id="rightRange" type="range" min="0" max="30" step="0.5" value="8">
+  </div>
+
+  <div class="preset-row">
+    <button class="preset-btn" data-left="-6" data-right="6">Subtle</button>
+    <button class="preset-btn" data-left="-12" data-right="12">Medium</button>
+    <button class="preset-btn" data-left="-18" data-right="18">Dramatic</button>
+  </div>
+</div>
+
+<!-- ----- ADD / MERGE INTO <script> (after DOM loaded) ----- -->
+<script>
+  // wire up controls to CSS variables
+  const root = document.documentElement;
+  const leftRange = document.getElementById('leftRange');
+  const rightRange = document.getElementById('rightRange');
+  const leftVal = document.getElementById('leftVal');
+  const rightVal = document.getElementById('rightVal');
+  const presets = document.querySelectorAll('.preset-btn');
+
+  function setLeft(deg){
+    root.style.setProperty('--left-rot', deg + 'deg');
+    leftVal.textContent = deg;
+    leftRange.value = deg;
+  }
+  function setRight(deg){
+    root.style.setProperty('--right-rot', deg + 'deg');
+    rightVal.textContent = deg;
+    rightRange.value = deg;
+  }
+
+  leftRange.addEventListener('input', (e)=> setLeft(e.target.value));
+  rightRange.addEventListener('input', (e)=> setRight(e.target.value));
+
+  presets.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const l = parseFloat(btn.dataset.left);
+      const r = parseFloat(btn.dataset.right);
+      setLeft(l);
+      setRight(r);
+    });
+  });
+
+  // initialize (in case defaults differ)
+  setLeft(parseFloat(leftRange.value));
+  setRight(parseFloat(rightRange.value));
+</script>

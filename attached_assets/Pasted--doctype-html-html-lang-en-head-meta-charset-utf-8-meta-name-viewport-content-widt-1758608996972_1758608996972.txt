@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>3-Frame Video Stack Preview</title>
+<style>
+  :root{
+    --card-w: 320px;
+    --card-h: 560px;
+    --radius: 28px;
+    --bg: #ffffff;
+    --accent: #f8f1d6;
+    --shadow: 0 20px 40px rgba(15,23,42,0.12);
+  }
+  html,body{height:100%;margin:0;background:linear-gradient(180deg,#fff 0%, #fbfbfc 100%);font-family:Inter,system-ui,Arial}
+  .stage{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* stacking area */
+  .stack {
+    width: 860px;
+    height: 620px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .card {
+    position:absolute;
+    width:var(--card-w);
+    height:var(--card-h);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:var(--bg);
+    border:1px solid rgba(16,24,40,0.04);
+    transform-origin:center;
+    transition: transform 420ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms, z-index 0ms;
+    cursor:pointer;
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-start;
+  }
+
+  .card video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  /* layout of 3 frames (center top) */
+  .card[data-pos="left"]{
+    left: calc(50% - 380px);
+    transform: translateX(-60px) rotate(-7deg) scale(.88);
+    z-index:1;
+    border-radius:22px;
+  }
+  .card[data-pos="center"]{
+    left:50%;
+    transform: translateX(-50%) translateY(-6px) scale(1) rotate(0deg);
+    z-index:3;
+  }
+  .card[data-pos="right"]{
+    left: calc(50% + 380px);
+    transform: translateX(60px) rotate(7deg) scale(.88);
+    z-index:2;
+    border-radius:22px;
+  }
+
+  /* small decorative pop icons */
+  .badge {
+    position:absolute;
+    right:12px;
+    top:12px;
+    background:linear-gradient(180deg,#fff,#fff);
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transform:translateZ(0);
+  }
+
+  /* when a background card becomes active it grows to center */
+  .card.front {
+    transform: translateX(-50%) translateY(-6px) scale(1.02) rotate(0deg) !important;
+    z-index:5 !important;
+    box-shadow: 0 30px 60px rgba(15,23,42,0.18);
+  }
+
+  /* hover states */
+  .card[data-pos="center"]:hover,
+  .card.front:hover { box-shadow: 0 38px 80px rgba(15,23,42,0.2); transform:translateX(-50%) translateY(-10px) scale(1.03); }
+
+  /* bottom control overlay */
+  .controls {
+    position:absolute;
+    left:14px; right:14px; bottom:16px;
+    display:flex; align-items:center; gap:12px;
+    pointer-events:none;
+  }
+  .pill {
+    pointer-events:auto;
+    background: rgba(255,255,255,0.9);
+    border-radius:999px;
+    padding:10px 14px;
+    font-weight:600;
+    color:#111827;
+    border:1px solid rgba(16,24,40,0.06);
+    box-shadow: 0 8px 20px rgba(10,10,10,0.06);
+  }
+  .heart {
+    pointer-events:auto;
+    width:44px;
+    height:44px;
+    border-radius:999px;
+    background: rgba(255,255,255,0.88);
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(16,24,40,0.06);
+  }
+
+  /* small helper */
+  .hint{
+    position:absolute; top:18px; left:18px; color:#6b7280; font-size:13px;
+  }
+
+  @media (max-width:980px){
+    .stack{ width: 92vw; height: 72vh; }
+    :root{ --card-w:260px; --card-h:460px; }
+    .card[data-pos="left"],.card[data-pos="right"]{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="stack" id="stack">
+
+    <div class="hint">Click once anywhere first to enable audio → then hover</div>
+
+    <!-- left background frame -->
+    <div class="card" data-id="0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+      <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" muted loop playsinline preload="auto"></video>
+    </div>
+
+    <!-- center (top) frame -->
+    <div class="card front" data-id="1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+      <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="auto"></video>
+      <div class="controls">
+        <div class="pill">Play / Pause (click)</div>
+        <div style="flex:1"></div>
+        <div class="heart">♡</div>
+      </div>
+    </div>
+
+    <!-- right background frame -->
+    <div class="card" data-id="2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+      <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" muted loop playsinline preload="auto"></video>
+      <div class="badge">⭐</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/*
+Behavior:
+- Single click anywhere to unlock audio context and SFX.
+- Hover on visible front card plays sfx (short).
+- Click any non-front card to bring to front; its video unmute+play.
+- Clicking the front toggles pause/play.
+- Integration notes: this preview uses video elements inside .card; replace video nodes with your existing second-frame markup and keep the js handlers.
+*/
+
+const stack = document.getElementById('stack');
+const cards = Array.from(stack.querySelectorAll('.card'));
+let unlocked = false;
+
+// small hover SFX (short click sound)
+const hoverSfxUrl = 'https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3'; // short sample
+let sfxBase = null;
+
+// helper: unlock audio by creating a single Audio element play/pause
+function unlockAudio(){
+  if(unlocked) return;
+  // try to quickly play/pause videos (some browsers accept media play if user gesture)
+  try {
+    // load SFX element and play/pause
+    sfxBase = new Audio(hoverSfxUrl);
+    sfxBase.volume = 0.9;
+    sfxBase.play().then(()=> {
+      sfxBase.pause();
+      sfxBase.currentTime = 0;
+      unlocked = true;
+      document.querySelector('.hint').textContent = 'Audio unlocked — hover cards to hear SFX';
+    }).catch(()=> {
+      // ignore
+      unlocked = true;
+      document.querySelector('.hint').textContent = 'Audio unlocked (fallback)';
+    });
+  } catch(e){
+    unlocked = true;
+  }
+}
+
+// attach one-time gesture listeners for unlocking
+['pointerdown','keydown','touchstart'].forEach(ev => {
+  window.addEventListener(ev, unlockAudio, {once:true});
+});
+
+// play short SFX by cloning audio element to allow overlapping plays
+function playSfx(){
+  if(!unlocked || !sfxBase) return;
+  try {
+    const a = sfxBase.cloneNode();
+    a.volume = 0.9;
+    a.play().catch(()=>{});
+  } catch(e){}
+}
+
+// utility: set a card to front
+function setFront(card){
+  // remove front from others
+  cards.forEach(c => c.classList.remove('front'));
+  // set front class to clicked
+  card.classList.add('front');
+
+  // pause other videos
+  cards.forEach(c => {
+    const v = c.querySelector('video');
+    if(!v) return;
+    if(c === card){
+      // unmute & play
+      v.muted = false;
+      v.play().catch(()=>{});
+    } else {
+      v.muted = true;
+      v.pause();
+      v.currentTime = 0;
+    }
+  });
+}
+
+// attach hover play sfx to cards (front only triggers)
+cards.forEach(c => {
+  c.addEventListener('mouseenter', (e) => {
+    // only play sfx if this card is front (or will be)
+    if(c.classList.contains('front')) playSfx();
+  });
+  // keyboard focus also plays sfx
+  c.addEventListener('focus', ()=> { if(c.classList.contains('front')) playSfx(); });
+
+  // click behavior: if not front -> bring front, else toggle play/pause
+  c.addEventListener('click', (ev) => {
+    // first ensure audio unlocked if the first click
+    unlockAudio();
+
+    if(!c.classList.contains('front')){
+      // bring to center with animated transform: reorder z-index by toggling class
+      setFront(c);
+    } else {
+      // toggle play/pause
+      const v = c.querySelector('video');
+      if(!v) return;
+      if(v.paused){ v.play().catch(()=>{}); }
+      else { v.pause(); }
+    }
+  });
+
+  // enable keyboard accessibility: Enter/Space mimic click
+  c.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      c.click();
+    }
+  });
+});
+
+// initial state: play center video muted until unlock
+document.addEventListener('DOMContentLoaded', () => {
+  const initial = cards.find(c => c.classList.contains('front')) || cards[1];
+  cards.forEach(c => {
+    const v = c.querySelector('video');
+    if(!v) return;
+    v.loop = true;
+    if(c === initial){
+      v.muted = true; // will unmute after user gesture
+      v.play().catch(()=>{});
+    } else {
+      v.muted = true;
+      v.pause();
+    }
+  });
+});
+</script>
+
+</body>
+</html>
