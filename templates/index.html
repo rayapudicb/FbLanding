@@ -2436,6 +2436,66 @@
                     }
                 });
             };
+
+            // Lazy video loading functionality
+            function initLazyVideoLoading() {
+                const lazyVideos = document.querySelectorAll('.lazy-video');
+                
+                // Load videos immediately when user interacts with the stack
+                const videoStacks = document.querySelectorAll('.video-stack');
+                videoStacks.forEach(stack => {
+                    stack.addEventListener('mouseenter', () => {
+                        const lazyVideosInStack = stack.querySelectorAll('.lazy-video');
+                        lazyVideosInStack.forEach(loadLazyVideo);
+                    });
+                    
+                    stack.addEventListener('click', () => {
+                        const lazyVideosInStack = stack.querySelectorAll('.lazy-video');
+                        lazyVideosInStack.forEach(loadLazyVideo);
+                    });
+                });
+
+                // Intersection Observer for background loading
+                if ('IntersectionObserver' in window) {
+                    const videoObserver = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const iframe = entry.target;
+                                // Add a small delay to prioritize center videos
+                                setTimeout(() => loadLazyVideo(iframe), 500);
+                                videoObserver.unobserve(iframe);
+                            }
+                        });
+                    }, {
+                        rootMargin: '50px',
+                        threshold: 0.1
+                    });
+
+                    lazyVideos.forEach(video => {
+                        videoObserver.observe(video);
+                    });
+                } else {
+                    // Fallback for older browsers
+                    setTimeout(() => {
+                        lazyVideos.forEach(loadLazyVideo);
+                    }, 2000);
+                }
+            }
+
+            function loadLazyVideo(iframe) {
+                if (iframe.dataset.src && iframe.src === 'about:blank') {
+                    iframe.src = iframe.dataset.src;
+                    iframe.classList.remove('lazy-video');
+                    console.log('[LAZY] Loaded video:', iframe.dataset.src);
+                }
+            }
+
+            // Initialize lazy loading when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initLazyVideoLoading);
+            } else {
+                initLazyVideoLoading();
+            }
             
         })();
     </script>
@@ -2785,8 +2845,8 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Video 1: Creator building content">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                         
@@ -2802,8 +2862,8 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="build-2" data-pos="right" role="button" tabindex="0" aria-label="Video 3: Building viral content">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                     </div>
@@ -2834,8 +2894,8 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Video 4: Managing community threads">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                         
@@ -2851,8 +2911,8 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="manage-2" data-pos="right" role="button" tabindex="0" aria-label="Video 6: Community engagement tools">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                     </div>
@@ -2883,8 +2943,8 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Video 7: Analytics and insights">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                         
@@ -2900,8 +2960,8 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="measure-2" data-pos="right" role="button" tabindex="0" aria-label="Video 9: Growth tracking tools">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                     </div>
@@ -2938,8 +2998,8 @@
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Video 10: Premium features showcase">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                         
@@ -2955,8 +3015,8 @@
                         <!-- Right tilted phone frame -->
                         <div class="phone-frame right" data-id="plus-2" data-pos="right" role="button" tabindex="0" aria-label="Video 12: Professional video threading">
                             <div class="stack-card video-container">
-                                <iframe src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY" 
-                                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
+                                <iframe data-src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY" 
+                                    src="about:blank" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe lazy-video"></iframe>
                             </div>
                         </div>
                     </div>
