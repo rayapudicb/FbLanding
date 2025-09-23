@@ -2058,39 +2058,6 @@
             }
         }
         
-        /* Mute toggle button styling */
-        .mute-toggle {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .mute-toggle:hover {
-            background: rgba(241, 194, 50, 0.9);
-            transform: scale(1.1);
-        }
-
-        .mute-toggle svg {
-            color: #333;
-            transition: color 0.3s ease;
-        }
-
-        .mute-toggle:hover svg {
-            color: #000;
-        }
 
         /* Mobile responsive video frames - reduced tilt for small screens */
         @media (max-width: 768px) {
@@ -2107,10 +2074,6 @@
                 transform: rotate(4deg) scale(.85) translateY(-2px) !important;
             }
             
-            .mute-toggle {
-                width: 36px;
-                height: 36px;
-            }
         }
 
         /* Enhanced touch targets for mobile */
@@ -2627,41 +2590,6 @@
                 }
             };
 
-            // Global mute toggle functionality
-            let globalMuteState = true; // Videos start muted
-            window.toggleGlobalMute = function() {
-                globalMuteState = !globalMuteState;
-                console.log('[YT] Global mute toggled to:', globalMuteState);
-                
-                // Update all YouTube players
-                Object.keys(players).forEach(playerId => {
-                    const player = players[playerId];
-                    if (player && typeof player.mute === 'function' && typeof player.unMute === 'function') {
-                        if (globalMuteState) {
-                            player.mute();
-                        } else {
-                            player.unMute();
-                        }
-                    }
-                });
-
-                // Update mute toggle buttons
-                const muteToggles = document.querySelectorAll('.mute-toggle');
-                muteToggles.forEach(toggle => {
-                    const muteIcon = toggle.querySelector('.mute-icon');
-                    const unmuteIcon = toggle.querySelector('.unmute-icon');
-                    
-                    if (globalMuteState) {
-                        muteIcon.style.display = 'block';
-                        unmuteIcon.style.display = 'none';
-                        toggle.setAttribute('aria-label', 'Unmute all videos');
-                    } else {
-                        muteIcon.style.display = 'none';
-                        unmuteIcon.style.display = 'block';
-                        toggle.setAttribute('aria-label', 'Mute all videos');
-                    }
-                });
-            };
 
             // Lazy video loading functionality
             function initLazyVideoLoading() {
@@ -3424,17 +3352,7 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-build">
                         <div class="audio-hint">Click to enable audio, then hover</div>
-                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
-                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                            </svg>
-                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                        </button>
+
                         
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Video 1: Creator building content">
@@ -3500,17 +3418,7 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-manage">
                         <div class="audio-hint">Click to enable audio, then hover</div>
-                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
-                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                            </svg>
-                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                        </button>
+
                         
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Video 4: Managing community threads">
@@ -3576,17 +3484,7 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-measure">
                         <div class="audio-hint">Click to enable audio, then hover</div>
-                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
-                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                            </svg>
-                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                        </button>
+
                         
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Video 7: Analytics and insights">
@@ -3658,17 +3556,7 @@
                 <div class="feature-image">
                     <div class="video-stack" id="stack-plus">
                         <div class="audio-hint">Click to enable audio, then hover</div>
-                        <button class="mute-toggle" onclick="toggleGlobalMute()" aria-label="Toggle mute for all videos">
-                            <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                            </svg>
-                            <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                                <line x1="23" y1="9" x2="17" y2="15"></line>
-                                <line x1="17" y1="9" x2="23" y2="15"></line>
-                            </svg>
-                        </button>
+
                         
                         <!-- Left tilted phone frame -->
                         <div class="phone-frame left" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Video 10: Premium features showcase">
