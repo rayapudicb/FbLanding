@@ -522,7 +522,7 @@
             position: relative;
             width: clamp(160px, 16vw, 220px);
             height: clamp(285px, 28.4vw, 391px); /* 9:16 aspect ratio maintained */
-            background: transparent;
+            background: #000;
             border-radius: var(--r-mobile);
             padding: 0;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
@@ -574,17 +574,28 @@
             position: relative;
             overflow: hidden;
             border-radius: inherit;
+            background: #000;
         }
         
-        /* Remove YouTube player's thick horizontal lines at top/bottom */
-        .video-player-mockup iframe {
-            width: 100%;
-            height: 110%;
-            position: absolute;
-            top: -5%;
-            left: 0;
-            border: 0;
+        .video-container {
+            position: relative;
+            overflow: hidden;
             border-radius: inherit;
+            background: #000;
+        }
+        
+        /* Unified cover technique for all video iframes - removes bars and fills frames */
+        .video-player-mockup iframe,
+        .stack-iframe {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            width: 177.78% !important;
+            height: 100% !important;
+            transform: translate(-50%, -50%) !important;
+            border: 0 !important;
+            border-radius: inherit !important;
+            pointer-events: none !important;
         }
 
         .video-background {
@@ -2372,11 +2383,10 @@
                             <div class="mobile-screen">
                                 <div class="video-player-mockup">
                                     <iframe 
-                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY"
+                                        src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&playsinline=1&playlist=QuOXqjmZdmY"
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen
-                                        style="width: 100%; height: 100%; border-radius: var(--r-mobile); border: 0;">
+                                        allowfullscreen>
                                     </iframe>
                                     <div class="video-overlay">
 
