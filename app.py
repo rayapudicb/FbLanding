@@ -55,6 +55,10 @@ def communities():
 def subscribe():
     return render_template('subscribe.html')
 
+@app.route('/festive-demo')
+def festive_demo():
+    return render_template('festive-demo.html')
+
 # Advertising Pages
 @app.route('/advertising')
 def advertising():

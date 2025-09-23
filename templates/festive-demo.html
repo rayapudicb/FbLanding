@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festive Falling Animation Demo - letsflick</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a472a, #2d5a3d, #1a472a);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Falling Animation Container */
+        .falling-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Falling Items */
+        .falling-item {
+            position: absolute;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+
+        /* Different falling items */
+        .snowflake {
+            color: white;
+            font-size: 20px;
+            animation-duration: 3s;
+        }
+
+        .tree {
+            color: #228B22;
+            font-size: 30px;
+            animation-duration: 5s;
+        }
+
+        .santa-hat {
+            color: #DC143C;
+            font-size: 25px;
+            animation-duration: 4s;
+        }
+
+        .gift {
+            color: #FF6347;
+            font-size: 22px;
+            animation-duration: 6s;
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 18px;
+            animation-duration: 4.5s;
+        }
+
+        .bell {
+            color: #FFD700;
+            font-size: 20px;
+            animation-duration: 5.5s;
+        }
+
+        /* Main Content */
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .demo-header {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .demo-description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .festival-controls {
+            margin: 40px 0;
+        }
+
+        .festival-btn {
+            background: linear-gradient(135deg, #DC143C, #B22222);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .festival-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(220, 20, 60, 0.3);
+        }
+
+        .demo-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .demo-header {
+                font-size: 36px;
+            }
+            
+            .falling-item {
+                font-size: 16px;
+            }
+            
+            .tree {
+                font-size: 20px;
+            }
+            
+            .santa-hat {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Falling Animation Container -->
+    <div class="falling-container" id="fallingContainer"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1 class="demo-header">🎄 Festive Falling Animation Demo 🎅</h1>
+        
+        <p class="demo-description">
+            Experience the magic of seasonal animations! Watch as Christmas trees, snowflakes, Santa hats, 
+            gifts, stars, and bells gently fall across your screen. This festive effect can be customized 
+            for any holiday or celebration.
+        </p>
+
+        <div class="festival-controls">
+            <button class="festival-btn" onclick="changeIntensity('light')">Light Snow ❄️</button>
+            <button class="festival-btn" onclick="changeIntensity('medium')">Medium Snow 🌨️</button>
+            <button class="festival-btn" onclick="changeIntensity('heavy')">Heavy Snow ⛄</button>
+            <button class="festival-btn" onclick="stopAnimation()">Stop Animation 🛑</button>
+        </div>
+
+        <div class="demo-info">
+            <h3 style="margin-bottom: 15px; color: #FFD700;">✨ Customizable Features:</h3>
+            <ul style="text-align: left; line-height: 2;">
+                <li>🎯 Festival-specific items (Christmas, Diwali, Halloween, etc.)</li>
+                <li>⚡ Adjustable falling speed and intensity</li>
+                <li>🎨 Custom colors and sizes for different seasons</li>
+                <li>📱 Mobile-responsive animations</li>
+                <li>🎮 Interactive controls (start/stop/adjust)</li>
+                <li>🌟 Performance optimized for smooth experience</li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <a href="/" style="color: #FFD700; text-decoration: none; font-size: 18px; border: 2px solid #FFD700; padding: 12px 24px; border-radius: 25px; transition: all 0.3s ease; display: inline-block;">
+                ← Back to letsflick
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let animationInterval;
+        let currentIntensity = 'medium';
+
+        // Festive items with their emoji representations
+        const festiveItems = [
+            { emoji: '❄️', class: 'snowflake' },
+            { emoji: '🎄', class: 'tree' },
+            { emoji: '🎅', class: 'santa-hat' },
+            { emoji: '🎁', class: 'gift' },
+            { emoji: '⭐', class: 'star' },
+            { emoji: '🔔', class: 'bell' },
+            { emoji: '☃️', class: 'snowflake' },
+            { emoji: '🎊', class: 'gift' },
+            { emoji: '🌟', class: 'star' },
+            { emoji: '🧦', class: 'santa-hat' }
+        ];
+
+        function createFallingItem() {
+            const container = document.getElementById('fallingContainer');
+            const item = document.createElement('div');
+            const randomItem = festiveItems[Math.floor(Math.random() * festiveItems.length)];
+            
+            item.className = `falling-item ${randomItem.class}`;
+            item.textContent = randomItem.emoji;
+            
+            // Random position
+            item.style.left = Math.random() * 100 + 'vw';
+            
+            // Random animation duration variation
+            const baseDuration = 4;
+            const randomDuration = baseDuration + (Math.random() * 3);
+            item.style.animationDuration = randomDuration + 's';
+            
+            // Random delay
+            item.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(item);
+            
+            // Remove item after animation
+            setTimeout(() => {
+                if (item.parentNode) {
+                    container.removeChild(item);
+                }
+            }, (randomDuration + 2) * 1000);
+        }
+
+        function startAnimation(intensity = 'medium') {
+            stopAnimation();
+            currentIntensity = intensity;
+            
+            let interval;
+            switch(intensity) {
+                case 'light':
+                    interval = 800;
+                    break;
+                case 'medium':
+                    interval = 400;
+                    break;
+                case 'heavy':
+                    interval = 150;
+                    break;
+            }
+            
+            animationInterval = setInterval(createFallingItem, interval);
+        }
+
+        function stopAnimation() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+            
+            // Clear existing items
+            const container = document.getElementById('fallingContainer');
+            container.innerHTML = '';
+        }
+
+        function changeIntensity(intensity) {
+            startAnimation(intensity);
+        }
+
+        // Auto-start with medium intensity
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                startAnimation('medium');
+            }, 1000);
+        });
+
+        // Clean up on page unload
+        window.addEventListener('beforeunload', () => {
+            stopAnimation();
+        });
+    </script>
+</body>
+</html>
