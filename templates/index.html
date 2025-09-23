@@ -1382,28 +1382,28 @@
         
         /* Stack positioning */
         .stack-card[data-pos="left"] {
-            left: calc(50% - 160px);
-            transform: translateX(-40px) rotate(var(--left-rot)) scale(.85);
+            left: calc(50% - 200px);
+            transform: translateX(-50%) rotate(var(--left-rot)) scale(.88);
             z-index: 1;
             border-radius: 20px;
         }
         
         .stack-card[data-pos="center"] {
             left: 50%;
-            transform: translateX(-50%) translateY(-4px) scale(1) rotate(0deg);
+            transform: translateX(-50%) translateY(-8px) scale(1) rotate(0deg);
             z-index: 3;
         }
         
         .stack-card[data-pos="right"] {
-            left: calc(50% + 160px);
-            transform: translateX(40px) rotate(var(--right-rot)) scale(.85);
+            left: calc(50% + 200px);
+            transform: translateX(-50%) rotate(var(--right-rot)) scale(.88);
             z-index: 2;
             border-radius: 20px;
         }
         
         /* Front card state */
         .stack-card.front {
-            transform: translateX(-50%) translateY(-4px) scale(1.02) rotate(0deg) !important;
+            transform: translateX(-50%) translateY(-8px) scale(1.02) rotate(0deg) !important;
             z-index: 5 !important;
             box-shadow: 0 24px 48px rgba(15,23,42,0.16);
         }
@@ -1412,7 +1412,7 @@
         .stack-card[data-pos="center"]:hover,
         .stack-card.front:hover {
             box-shadow: 0 28px 56px rgba(15,23,42,0.18);
-            transform: translateX(-50%) translateY(-8px) scale(1.03);
+            transform: translateX(-50%) translateY(-12px) scale(1.03);
         }
         
         /* Stack controls */
@@ -1479,11 +1479,62 @@
             
             .stack-card[data-pos="left"],
             .stack-card[data-pos="right"] {
-                display: none;
+                opacity: 0.3;
+                pointer-events: none;
             }
             
             .stack-card[data-pos="center"] {
                 transform: translateX(-50%) scale(0.9);
+            }
+        }
+        
+        /* Ensure video stacks don't interfere with YouTube API */
+        .stack-iframe {
+            pointer-events: auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-stack .stack-card {
+            pointer-events: auto;
+            overflow: visible;
+        }
+        
+        /* Prevent YouTube API from processing stack iframes */
+        .stack-iframe[src*="youtube.com"] {
+            position: relative;
+        }
+        
+        /* Ensure proper stacking context */
+        .video-stack {
+            position: relative;
+            isolation: isolate;
+        }
+        
+        /* Add visual depth with enhanced shadows */
+        .stack-card[data-pos="left"], 
+        .stack-card[data-pos="right"] {
+            box-shadow: 0 12px 24px rgba(15,23,42,0.08), 0 4px 8px rgba(15,23,42,0.04);
+        }
+        
+        .stack-card[data-pos="center"] {
+            box-shadow: 0 20px 40px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.06);
+        }
+        
+        /* Improve visibility on mobile */
+        @media (max-width: 768px) {
+            .stack-card[data-pos="left"],
+            .stack-card[data-pos="right"] {
+                opacity: 0.7;
+                pointer-events: auto;
+            }
+            
+            .stack-card[data-pos="left"] {
+                transform: translateX(-80%) rotate(var(--left-rot)) scale(.85);
+            }
+            
+            .stack-card[data-pos="right"] {
+                transform: translateX(-20%) rotate(var(--right-rot)) scale(.85);
             }
         }
 
@@ -2446,15 +2497,15 @@
                         <div class="audio-hint">Click to enable audio, then hover</div>
                         
                         <!-- Left background frame -->
-                        <div class="stack-card" data-id="0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="stack-card" data-id="build-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
                             <iframe src="https://www.youtube.com/embed/l5u3UwSKsfc?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=l5u3UwSKsfc" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                         
                         <!-- Center (active) frame -->
-                        <div class="stack-card front" data-id="1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="stack-card front" data-id="build-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
                             <iframe src="https://www.youtube.com/embed/mxVrmXFeR40?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=mxVrmXFeR40" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                             <div class="stack-controls">
                                 <div class="stack-pill">Click to play/pause</div>
                                 <div style="flex:1"></div>
@@ -2463,9 +2514,9 @@
                         </div>
                         
                         <!-- Right background frame -->
-                        <div class="stack-card" data-id="2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="stack-card" data-id="build-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
                             <iframe src="https://www.youtube.com/embed/EX3EsiJIiYQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EX3EsiJIiYQ" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                     </div>
                 </div>
@@ -2482,15 +2533,15 @@
                         <div class="audio-hint">Click to enable audio, then hover</div>
                         
                         <!-- Left background frame -->
-                        <div class="stack-card" data-id="0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="stack-card" data-id="manage-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
                             <iframe src="https://www.youtube.com/embed/p2llh8hG1N4?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=p2llh8hG1N4" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                         
                         <!-- Center (active) frame -->
-                        <div class="stack-card front" data-id="1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="stack-card front" data-id="manage-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
                             <iframe src="https://www.youtube.com/embed/uCHElGXEd4E?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=uCHElGXEd4E" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                             <div class="stack-controls">
                                 <div class="stack-pill">Click to play/pause</div>
                                 <div style="flex:1"></div>
@@ -2499,9 +2550,9 @@
                         </div>
                         
                         <!-- Right background frame -->
-                        <div class="stack-card" data-id="2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="stack-card" data-id="manage-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
                             <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=dQw4w9WgXcQ" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                     </div>
                 </div>
@@ -2518,15 +2569,15 @@
                         <div class="audio-hint">Click to enable audio, then hover</div>
                         
                         <!-- Left background frame -->
-                        <div class="stack-card" data-id="0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="stack-card" data-id="measure-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
                             <iframe src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=M7lc1UVf-VE" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                         
                         <!-- Center (active) frame -->
-                        <div class="stack-card front" data-id="1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="stack-card front" data-id="measure-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
                             <iframe src="https://www.youtube.com/embed/EVCXH4fJFiQ?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=EVCXH4fJFiQ" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                             <div class="stack-controls">
                                 <div class="stack-pill">Click to play/pause</div>
                                 <div style="flex:1"></div>
@@ -2535,9 +2586,9 @@
                         </div>
                         
                         <!-- Right background frame -->
-                        <div class="stack-card" data-id="2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="stack-card" data-id="measure-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
                             <iframe src="https://www.youtube.com/embed/9bZkp7q19f0?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=9bZkp7q19f0" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                     </div>
                 </div>
@@ -2560,15 +2611,15 @@
                         <div class="audio-hint">Click to enable audio, then hover</div>
                         
                         <!-- Left background frame -->
-                        <div class="stack-card" data-id="0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
+                        <div class="stack-card" data-id="plus-0" data-pos="left" role="button" tabindex="0" aria-label="Left video">
                             <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=tgbNymZ7vqY" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                         
                         <!-- Center (active) frame -->
-                        <div class="stack-card front" data-id="1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
+                        <div class="stack-card front" data-id="plus-1" data-pos="center" role="button" tabindex="0" aria-label="Center video (active)">
                             <iframe src="https://www.youtube.com/embed/Q287M-Q3hHw?autoplay=1&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=Q287M-Q3hHw" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                             <div class="stack-controls">
                                 <div class="stack-pill">Click to play/pause</div>
                                 <div style="flex:1"></div>
@@ -2577,9 +2628,9 @@
                         </div>
                         
                         <!-- Right background frame -->
-                        <div class="stack-card" data-id="2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
+                        <div class="stack-card" data-id="plus-2" data-pos="right" role="button" tabindex="0" aria-label="Right video">
                             <iframe src="https://www.youtube.com/embed/QuOXqjmZdmY?autoplay=0&mute=1&loop=1&controls=0&rel=0&modestbranding=1&playsinline=1&playlist=QuOXqjmZdmY" 
-                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="stack-iframe"></iframe>
                         </div>
                     </div>
                 </div>
@@ -2849,8 +2900,13 @@
                 } catch (e) {}
             }
             
-            // Initialize video stacks
+            // Initialize video stacks (prevent YouTube API conflicts)
             const videoStacks = document.querySelectorAll('.video-stack');
+            
+            // Mark stack iframes to prevent YouTube API processing
+            document.querySelectorAll('.stack-iframe').forEach(iframe => {
+                iframe.setAttribute('data-stack-video', 'true');
+            });
             
             videoStacks.forEach(stack => {
                 const cards = Array.from(stack.querySelectorAll('.stack-card'));
@@ -2859,8 +2915,11 @@
                     cards.forEach(c => c.classList.remove('front'));
                     card.classList.add('front');
                     
+                    // Force re-layout for better positioning
+                    stack.offsetHeight;
+                    
                     cards.forEach(c => {
-                        const iframe = c.querySelector('iframe');
+                        const iframe = c.querySelector('.stack-iframe');
                         if (!iframe) return;
                         
                         if (c === card) {
@@ -2890,13 +2949,14 @@
                     // Click interactions
                     card.addEventListener('click', (e) => {
                         e.preventDefault();
+                        e.stopPropagation();
                         unlockAudio();
                         
                         if (!card.classList.contains('front')) {
                             setFront(card);
                         } else {
                             // Toggle play/pause for front card
-                            const iframe = card.querySelector('iframe');
+                            const iframe = card.querySelector('.stack-iframe');
                             if (iframe) {
                                 const src = iframe.src;
                                 if (src.includes('autoplay=1')) {
