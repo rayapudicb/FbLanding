@@ -1335,8 +1335,8 @@
         
         /* 3-Frame Video Stack Component */
         :root {
-            --card-w: 280px;
-            --card-h: 480px;
+            --card-w: 260px;
+            --card-h: 460px;
             --radius: 24px;
             --bg: #ffffff;
             --shadow: 0 16px 32px rgba(15,23,42,0.12);
@@ -1345,12 +1345,14 @@
         }
         
         .video-stack {
-            width: 800px;
+            width: 100%;
+            max-width: 600px;
             height: 520px;
             position: relative;
             display: block;
             margin: 0 auto;
-            padding: 40px;
+            padding: 20px;
+            background: transparent;
         }
         
         .stack-card {
@@ -1381,8 +1383,8 @@
         
         /* Stack positioning */
         .stack-card[data-pos="left"] {
-            left: 50px;
-            top: 60px;
+            left: -20px;
+            top: 40px;
             transform: rotate(var(--left-rot)) scale(.88);
             z-index: 1;
             border-radius: 20px;
@@ -1390,14 +1392,14 @@
         
         .stack-card[data-pos="center"] {
             left: 50%;
-            top: 20px;
+            top: 0px;
             transform: translateX(-50%) scale(1) rotate(0deg);
             z-index: 3;
         }
         
         .stack-card[data-pos="right"] {
-            right: 50px;
-            top: 60px;
+            right: -20px;
+            top: 40px;
             transform: rotate(var(--right-rot)) scale(.88);
             z-index: 2;
             border-radius: 20px;
@@ -1406,7 +1408,7 @@
         /* Front card state */
         .stack-card.front {
             left: 50% !important;
-            top: 20px !important;
+            top: 0px !important;
             right: auto !important;
             transform: translateX(-50%) scale(1.02) rotate(0deg) !important;
             z-index: 5 !important;
@@ -1539,25 +1541,35 @@
         @media (max-width: 768px) {
             .video-stack {
                 width: 100%;
-                padding: 20px;
+                padding: 10px;
+                max-width: 100%;
+            }
+            
+            :root {
+                --card-w: 220px;
+                --card-h: 380px;
             }
             
             .stack-card[data-pos="left"] {
-                left: 10px;
-                top: 50px;
-                transform: rotate(var(--left-rot)) scale(.8);
-                opacity: 0.7;
+                left: -30px;
+                top: 30px;
+                transform: rotate(var(--left-rot)) scale(.75);
+                opacity: 0.8;
             }
             
             .stack-card[data-pos="right"] {
-                right: 10px;
-                top: 50px;
-                transform: rotate(var(--right-rot)) scale(.8);
-                opacity: 0.7;
+                right: -30px;
+                top: 30px;
+                transform: rotate(var(--right-rot)) scale(.75);
+                opacity: 0.8;
             }
             
             .stack-card[data-pos="center"] {
-                transform: translateX(-50%) scale(.85);
+                transform: translateX(-50%) scale(.8);
+            }
+            
+            .video-stack {
+                height: 420px;
             }
         }
 
@@ -3009,7 +3021,7 @@
                 root.style.setProperty('--right-rot', right + 'deg');
             }
             
-            // Create tilt control UI
+            // Create tilt control UI (moved to integrate with existing video stacks)
             const tiltControls = document.createElement('div');
             tiltControls.className = 'tilt-controls';
             tiltControls.innerHTML = `
@@ -3031,6 +3043,7 @@
                 padding: 12px;
                 font-family: Inter, system-ui, Arial;
                 z-index: 1000;
+                backdrop-filter: blur(8px);
             `;
             
             const tiltBtnStyle = `
