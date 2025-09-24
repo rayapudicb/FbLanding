@@ -165,8 +165,8 @@
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            padding: 28px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 8px 16px rgba(0,0,0,0.06);
+            padding: clamp(16px, 3vw, 24px) 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 8px 16px rgba(0,0,0,0.04);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -205,6 +205,11 @@
             color: #F1C232;
             background: rgba(241, 194, 50, 0.1);
             transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: #F1C232;
+            background: rgba(241, 194, 50, 0.15);
         }
 
         .dropdown-arrow {
@@ -3999,6 +4004,33 @@
             // Audio unlock listeners
             ['pointerdown', 'keydown', 'touchstart'].forEach(ev => {
                 window.addEventListener(ev, unlockAudio, { once: true });
+            });
+
+            // Active navigation highlighting
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                
+                // Check if current path matches the nav link
+                if (href && currentPath === '/') {
+                    // On homepage, highlight "For Creators" if hash matches
+                    if (href === '#stack-build' && window.location.hash === '#stack-build') {
+                        link.classList.add('active');
+                    }
+                    // If no hash, don't highlight any nav item on home page since it has its own navigation
+                }
+            });
+            
+            // Handle hash changes for single page navigation
+            window.addEventListener('hashchange', function() {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === window.location.hash) {
+                        link.classList.add('active');
+                    }
+                });
             });
         });
     </script>
